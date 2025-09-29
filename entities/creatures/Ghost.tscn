@@ -1,0 +1,104 @@
+[gd_scene load_steps=12 format=3 uid="uid://b4283bflripuo"]
+
+[ext_resource type="Script" uid="uid://cvekhgl6c16nj" path="res://scripts/Entities/GhostBody.cs" id="1_4ml3q"]
+[ext_resource type="Texture2D" uid="uid://dqw4seerv2wn5" path="res://sprites/ghost-face.png" id="2_85uya"]
+
+[sub_resource type="Curve" id="Curve_85uya"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.99999994, 1), -4.8456316, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Gradient" id="Gradient_7erno"]
+offsets = PackedFloat32Array(0.84810126, 1)
+colors = PackedColorArray(1, 1, 1, 0, 1, 1, 1, 1)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ge71r"]
+atlas = ExtResource("2_85uya")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7erno"]
+atlas = ExtResource("2_85uya")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_lcsgn"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ge71r")
+}],
+"loop": true,
+"name": &"damaged",
+"speed": 12.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7erno")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 12.0
+}]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lcsgn"]
+atlas = ExtResource("2_85uya")
+region = Rect2(96, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fa32n"]
+atlas = ExtResource("2_85uya")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_xje4w"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lcsgn")
+}],
+"loop": true,
+"name": &"damage",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fa32n")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_8ni2t"]
+radius = 5.0
+
+[node name="Ghost" type="CharacterBody2D" node_paths=PackedStringArray("skull", "skullGlow", "ghostTrail")]
+motion_mode = 1
+script = ExtResource("1_4ml3q")
+acel = 1000.0
+skull = NodePath("skull")
+skullGlow = NodePath("skull/backglow")
+ghostTrail = NodePath("Line2D")
+trailAcel = 200.0
+
+[node name="Line2D" type="Line2D" parent="."]
+show_behind_parent = true
+points = PackedVector2Array(0, 0)
+width_curve = SubResource("Curve_85uya")
+gradient = SubResource("Gradient_7erno")
+texture_mode = 1
+joint_mode = 2
+begin_cap_mode = 2
+end_cap_mode = 2
+
+[node name="skull" type="AnimatedSprite2D" parent="."]
+texture_filter = 1
+texture_repeat = 1
+position = Vector2(2, 1)
+sprite_frames = SubResource("SpriteFrames_lcsgn")
+animation = &"idle"
+
+[node name="backglow" type="AnimatedSprite2D" parent="skull"]
+modulate = Color(0, 0.5019608, 0.7529412, 1)
+sprite_frames = SubResource("SpriteFrames_xje4w")
+animation = &"idle"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
+shape = SubResource("CircleShape2D_8ni2t")

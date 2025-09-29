@@ -1,0 +1,19 @@
+[gd_scene load_steps=4 format=3 uid="uid://bqa8vwqpy2rvs"]
+
+[ext_resource type="Script" uid="uid://dp40cmq11biqj" path="res://scripts/Entities/PlayerController.cs" id="1_ns7l7"]
+[ext_resource type="PackedScene" uid="uid://w7scrx2p6vkw" path="res://entities/GameManager.tscn" id="3_l60ws"]
+[ext_resource type="PackedScene" uid="uid://dk2iakv4iqyo8" path="res://entities/creatures/Player.tscn" id="3_wo0s5"]
+
+[node name="TestLevel" type="Node2D"]
+script = ExtResource("1_ns7l7")
+
+[node name="Player" parent="." instance=ExtResource("3_wo0s5")]
+
+[node name="GameManager" parent="." node_paths=PackedStringArray("player") instance=ExtResource("3_l60ws")]
+player = NodePath("../Player")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+zoom = Vector2(3, 3)
+position_smoothing_enabled = true
+editor_draw_limits = true
+editor_draw_drag_margin = true
