@@ -1,14 +1,17 @@
 using System;
 using System.Diagnostics;
+using System.Threading.Tasks;
 using Godot;
 
-public abstract partial class ABody : CharacterBody2D
+public abstract partial class ABody : CharacterBody2D, Hitable
 {
     [Export] protected bool vulnerable = true;
     [Export] public bool hasDamageFrames = false;
     [Export] public int invincibilityTime = 1000;
     /// Stats
     [Export] protected int HP = 0;
+
+    [Export] public bool isPossessed = false;
 
     /// Components
 
@@ -61,6 +64,7 @@ public abstract partial class ABody : CharacterBody2D
     /// Methods
     public virtual void PossessStart(PlayerController cntrl)
     {
+        isPossessed = true;
         cntrl.currentBody = this;
         this.controller = cntrl;
         hasDamageFrames = true;
@@ -82,6 +86,7 @@ public abstract partial class ABody : CharacterBody2D
     }
     public virtual void PossessEnd()
     {
+        isPossessed = false;
         tweenOutlineColor.Kill();
         controller.Button1Action = () => {};
         controller.Button2Action = () => {};
@@ -90,13 +95,14 @@ public abstract partial class ABody : CharacterBody2D
         controller.LeftAxisAction = (Vector2 v) => {};
         controller.RightAxisAction = (Vector2 v) => {};
     }
-    public virtual void TakeDamage(int damage)
+
+
+    public virtual void TakeDamage(int damage, Vector2 knockback)
     {
-        if (!vulnerable)
-        {
-            //TODO! - show that this is invulnerable
-            return;
-        }
+        // FIXME: esse hitFX ainda não funciona
+        //  ----------------------------------vvvvvvvvvv------------>ainda não está setado corretamente
+        EffectPool.SpawnEffect(Hitable.fx, "hitFX", this);
+        
         HP -= damage;
         if (HP <= 0) PossessEnd();
     }

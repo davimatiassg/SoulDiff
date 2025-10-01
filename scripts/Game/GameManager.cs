@@ -23,7 +23,7 @@ public partial class GameManager : Node
 
     }
 
-    public override async void _Ready()
+    public override void _Ready()
     {
         base._Ready();
 

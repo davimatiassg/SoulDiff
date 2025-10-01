@@ -3,27 +3,30 @@ using System.Threading.Tasks;
 using Godot;
 
 public partial class GhostBody : ABody
-{
+{   
 
-    // External Variables
+    [ExportGroup("Balance Variables")]
     [Export] private float speed = 400.0f;
     [Export] private float acel = 400.0f;
-    
+
+    [Export] private float flingForce = 5f;
+    [Export] private int flingDamage = 3;
+
+    [ExportGroup("Extras & Cosmetics")]
+    [Export] private PackedScene ghostPebblePrefab;
 
     /// Cosmetic Tools
-
     [Export] public AnimatedSprite2D skull;
     [Export] public AnimatedSprite2D skullGlow;
-
-   
-
-
 
 
     [Export] public Line2D ghostTrail;
 
-    private const int TRAIL_LEN = 20;
+   
     [Export] private float trailAcel;
+
+    [ExportGroup("")]
+     private const int TRAIL_LEN = 20;
     private Vector2[] trailLastPoints = new Vector2[TRAIL_LEN];
 
 
@@ -43,7 +46,9 @@ public partial class GhostBody : ABody
 
     public override void Button1()
     {
-        //attack
+        GhostPebble pebble = (GhostPebble)EffectPool.SpawnEffect(ghostPebblePrefab, GetParent());
+        pebble.Fling(aimDirection * flingForce, flingDamage);
+        pebble.Position = Position;
     }
 
     public override void Button2()
@@ -65,9 +70,9 @@ public partial class GhostBody : ABody
         aimDirection = direction;
     }
 
-    public override void TakeDamage(int damage)
+    public override void TakeDamage(int damage, Vector2 knockback)
     {
-        base.TakeDamage(damage);
+        base.TakeDamage(damage, knockback);
         if (HP > 0)
         {
             Action a = async () =>
@@ -93,8 +98,10 @@ public partial class GhostBody : ABody
     }
 
     //TODO!
-    public void Die()
-    { }
+    public override void Die()
+    {
+        base.Die();
+    }
 
 
 

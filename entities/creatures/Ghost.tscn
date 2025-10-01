@@ -1,8 +1,9 @@
-[gd_scene load_steps=14 format=3 uid="uid://b4283bflripuo"]
+[gd_scene load_steps=15 format=3 uid="uid://b4283bflripuo"]
 
 [ext_resource type="Script" uid="uid://cvekhgl6c16nj" path="res://scripts/Entities/GhostBody.cs" id="1_4ml3q"]
 [ext_resource type="Shader" uid="uid://bcwyj2yow674w" path="res://materials/Highlight.gdshader" id="1_qx6pd"]
 [ext_resource type="Texture2D" uid="uid://dqw4seerv2wn5" path="res://sprites/ghost-face.png" id="2_85uya"]
+[ext_resource type="PackedScene" uid="uid://jr5oflib071h" path="res://entities/effects/GhostPebble.tscn" id="2_ycwto"]
 
 [sub_resource type="Curve" id="Curve_85uya"]
 _data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.99999994, 1), -4.8456316, 0.0, 0, 0]
@@ -79,6 +80,8 @@ position = Vector2(0, 1)
 motion_mode = 1
 script = ExtResource("1_4ml3q")
 acel = 1000.0
+flingForce = 64.0
+ghostPebblePrefab = ExtResource("2_ycwto")
 skull = NodePath("skull")
 skullGlow = NodePath("skull/backglow")
 ghostTrail = NodePath("Line2D")
@@ -112,5 +115,4 @@ sprite_frames = SubResource("SpriteFrames_xje4w")
 animation = &"idle"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-visible = false
 shape = SubResource("CircleShape2D_8ni2t")
