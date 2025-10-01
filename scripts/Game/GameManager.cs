@@ -1,5 +1,6 @@
 using Godot;
 using System.Diagnostics;
+using System.Threading.Tasks;
 
 
 public partial class GameManager : Node
@@ -17,20 +18,20 @@ public partial class GameManager : Node
         base._EnterTree();
         if (instance == null) { instance = this; return; }
         else if (instance != this) { QueueFree(); return; }
+
         
+
+    }
+
+    public override async void _Ready()
+    {
+        base._Ready();
 
         Debug.Assert(player != null);
         Debug.Assert(Creatures[0] != null);
 
-    }
-
-    public override void _Ready()
-    {
-        base._Ready();
-
         GhostBody ghost = (GhostBody)Creatures[0].Instantiate();
         this.GetParent().CallDeferred("add_child", ghost);
-
         ghost.PossessStart(player);
 
     }

@@ -15,7 +15,7 @@ public partial class GhostBody : ABody
     [Export] public AnimatedSprite2D skull;
     [Export] public AnimatedSprite2D skullGlow;
 
-    Tween tweenGlowColor;
+   
 
 
 
@@ -108,7 +108,7 @@ public partial class GhostBody : ABody
             trailLastPoints[i] = Vector2.Zero;
         }
 
-        tweenGlowColor = GetTree().CreateTween();
+        Tween tweenGlowColor = CreateTween();
         tweenGlowColor.TweenProperty(skullGlow, "modulate", new Color(0, 1, 1), .5);
         tweenGlowColor.TweenProperty(skullGlow, "modulate", new Color(1, 1, 1), .5);
         tweenGlowColor.TweenProperty(skullGlow, "modulate", new Color(0, 1, 1), .5);
