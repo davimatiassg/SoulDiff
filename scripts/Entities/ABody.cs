@@ -20,9 +20,9 @@ public abstract partial class ABody : CharacterBody2D, Hitable
 
     /// Controlling
     protected BodyController controller;
-    public abstract void Button1();
-    public abstract void Button2();
-    public abstract void Button3();
+    public abstract void Button1(bool pressed);
+    public abstract void Button2(bool pressed);
+    public abstract void Button3(bool pressed);
     public abstract void Move(Vector2 direction);
     public abstract void Aim(Vector2 direction);
 
@@ -88,9 +88,9 @@ public abstract partial class ABody : CharacterBody2D, Hitable
     {
         isPossessed = false;
         tweenOutlineColor.Kill();
-        controller.Button1Action = () => {};
-        controller.Button2Action = () => {};
-        controller.Button3Action = () => {};
+        controller.Button1Action = (bool pressed) => {};
+        controller.Button2Action = (bool pressed) => {};
+        controller.Button3Action = (bool pressed) => {};
 
         controller.LeftAxisAction = (Vector2 v) => {};
         controller.RightAxisAction = (Vector2 v) => {};

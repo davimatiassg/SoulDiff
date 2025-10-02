@@ -10,10 +10,24 @@ public partial class GhostPebble : Effect
     {
         base._Ready();
     }
-    public void Fling(Vector2 velocity, int damage)
+
+    Action<float> processAction;
+
+    public void StartOrbit(GhostBody target)
+    {
+        processAction = (float delta) =>
+        {
+            velocity *= 0.80f;
+            velocity += ((target.GlobalPosition - target.aimDirection*32f + target.moveDirection*32f)- GlobalPosition) * delta * 150f;
+        };
+    }
+    public void Fling(Vector2 dir, int damage)
     {
         this.damage = damage;
-        this.velocity = velocity;
+        this.velocity = dir * Mathf.Max(350f, velocity.Length());
+
+        processAction = null;
+
         SetExitTime(5000);
     }
 
@@ -34,8 +48,8 @@ public partial class GhostPebble : Effect
     public override void _Process(double delta)
     {
         base._PhysicsProcess(delta);
-        Translate((float)delta * velocity);
-        
+        Translate( (float)delta * velocity);
+        processAction?.Invoke( (float) delta);        
     }
     
 }

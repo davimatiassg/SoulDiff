@@ -1,13 +1,24 @@
-[gd_scene load_steps=4 format=3 uid="uid://jr5oflib071h"]
+[gd_scene load_steps=5 format=3 uid="uid://jr5oflib071h"]
 
 [ext_resource type="Script" uid="uid://oud4asg1etpl" path="res://scripts/Effects/GhostPebble.cs" id="1_juxpx"]
+[ext_resource type="Texture2D" uid="uid://cxiyjcq71gm2v" path="res://sprites/effects/pebble.png" id="2_gddty"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_juxpx"]
 radius = 4.1231055
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_jo3vf"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_gddty")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
 
 [node name="Pebble" type="Node2D" node_paths=PackedStringArray("animation", "collider")]
+texture_filter = 1
 script = ExtResource("1_juxpx")
 animation = NodePath("Sprite2D")
 collider = NodePath("Area2D")
@@ -18,5 +29,4 @@ collider = NodePath("Area2D")
 shape = SubResource("CircleShape2D_juxpx")
 
 [node name="Sprite2D" type="AnimatedSprite2D" parent="."]
-scale = Vector2(8, 8)
 sprite_frames = SubResource("SpriteFrames_jo3vf")

@@ -20,11 +20,11 @@ public partial class PlayerController : BodyController
     {
         base._Input(@event);
 
-        if (@event.IsAction("game_btn_1")) { Button1Action(); return; }
+        if (@event.IsAction("game_btn_1")) { Button1Action( @event.IsPressed() ); return; }
 
-        if (@event.IsAction("game_btn_2")) { Button2Action(); return; }
+        if (@event.IsAction("game_btn_2")) { Button2Action( @event.IsPressed() ); return; }
 
-        if (@event.IsAction("game_btn_3")) { Button3Action(); return; }
+        if (@event.IsAction("game_btn_3")) { Button3Action( @event.IsPressed() ); return; }
         
         if (@event is InputEventMouseMotion)
         {

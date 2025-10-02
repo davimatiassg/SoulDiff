@@ -28,8 +28,6 @@ public partial class Effect : Node2D
 	{
 		if (collider == null) return;
 	}
-
-
 	public override void _Ready()
 	{
 		base._Ready();

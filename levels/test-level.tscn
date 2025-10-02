@@ -5,6 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://dk2iakv4iqyo8" path="res://entities/creatures/Player.tscn" id="3_wo0s5"]
 
 [node name="TestLevel" type="Node2D"]
+texture_filter = 1
 script = ExtResource("1_ns7l7")
 
 [node name="Player" parent="." instance=ExtResource("3_wo0s5")]

@@ -3,14 +3,30 @@ using System.Threading.Tasks;
 using Godot;
 
 public partial class GhostBody : ABody
-{   
+{
 
     [ExportGroup("Balance Variables")]
-    [Export] private float speed = 400.0f;
-    [Export] private float acel = 400.0f;
 
-    [Export] private float flingForce = 5f;
-    [Export] private int flingDamage = 3;
+    [Export]
+    public float speed = 400.0f;
+
+    [Export]
+    public float acel = 400.0f;
+
+    [Export]
+    public int flingDamage = 3;
+
+    [Export]
+    public float flingCooldown = 1f;
+    private float flingCD;
+
+    [Export]
+    public float dashForce = 4f;
+
+    [Export]
+    public float dashCooldown = 1f;
+
+    private float dashCD;
 
     [ExportGroup("Extras & Cosmetics")]
     [Export] private PackedScene ghostPebblePrefab;
@@ -32,9 +48,11 @@ public partial class GhostBody : ABody
 
 
     // Inner Variables
-    private Vector2 moveDirection = Vector2.Zero;
+    public Vector2 moveDirection = Vector2.Zero;
 
-    private Vector2 aimDirection = Vector2.Zero;
+    private Vector2 lastMove = Vector2.Right;
+
+    public Vector2 aimDirection = Vector2.Zero;
 
     
     public override void PossessStart(PlayerController cntrl)
@@ -44,26 +62,84 @@ public partial class GhostBody : ABody
 
     }
 
-    public override void Button1()
+
+    GhostPebble curr_pebble;
+    int curr_damage;
+    Tween pebbleIncreaser;
+    Tween pebbleRotater;
+    
+
+    
+    public override void Button1(bool pressed)
     {
-        GhostPebble pebble = (GhostPebble)EffectPool.SpawnEffect(ghostPebblePrefab, GetParent());
-        pebble.Fling(aimDirection * flingForce, flingDamage);
-        pebble.Position = Position;
+
+
+        if (pressed)
+        {
+            if (flingCD > 0) return;
+            flingCD = flingCooldown;
+
+            curr_pebble = (GhostPebble)EffectPool.SpawnEffect(ghostPebblePrefab, GetParent());
+            curr_pebble.Position = Position;
+            curr_pebble.StartOrbit(this);
+
+
+            pebbleIncreaser = curr_pebble.CreateTween();
+            pebbleIncreaser.SetParallel(true);
+            pebbleIncreaser.TweenMethod(Callable.From((float f) => { curr_damage = Mathf.FloorToInt(f); }), flingDamage, 3 * flingDamage, 6);
+            pebbleIncreaser.TweenProperty(curr_pebble, "scale", Vector2.One * 3f, 2f);
+            pebbleIncreaser.TweenMethod(Callable.From((float f) => { curr_pebble.Scale = Vector2.One * f; }), 1f, 2f, 2);
+            pebbleRotater = curr_pebble.CreateTween();
+            pebbleRotater.TweenProperty(curr_pebble, "rotation_degrees", 180, 0.5f);
+            pebbleRotater.TweenProperty(curr_pebble, "rotation_degrees", 360, 0.5f);
+            pebbleRotater.TweenProperty(curr_pebble, "rotation_degrees", 0, 0.0f);
+            pebbleRotater.SetLoops();
+            return;
+        }
+
+        pebbleIncreaser.Kill();
+        pebbleIncreaser.Kill();
+        curr_pebble.Fling(aimDirection, curr_damage);
+        curr_pebble = null;
+
     }
 
-    public override void Button2()
+
+    Tween dashMaker;
+    public override void Button2(bool pressed)
     {
-        //dash
+        if (!pressed || dashCD > 0) return;
+        float spd = speed;
+        float a = acel;
+        Vector2 dir = lastMove;
+
+        dashCD = dashCooldown;
+
+        dashMaker = CreateTween();
+        dashMaker.TweenMethod(Callable.From((float f) =>
+        {
+            speed = spd * f;
+            acel = a * f;
+            moveDirection = dir;
+        }), dashForce, 1f, 0.2f);
+        
     }
 
-    public override void Button3()
+    public override void Button3(bool pressed)
     {
         //posssess
+    }
+
+    public void reduceCooldowns(float delta)
+    {
+        if (flingCD > 0) flingCD -= delta;
+        if (dashCD > 0) dashCD -= delta;
     }
 
     public override void Move(Vector2 direction)
     {
         moveDirection = direction;
+        if (direction != Vector2.Zero) lastMove = direction;
     }
     public override void Aim(Vector2 direction)
     {
@@ -163,13 +239,14 @@ public partial class GhostBody : ABody
         while (ghostTrail.Points.Length > TRAIL_LEN) ghostTrail.RemovePoint(0);  
     }
 
-    
 
-    
+
+
     public override void _Process(double delta)
     {
         base._Process(delta);
         CalculateTrail((float)delta);
+        reduceCooldowns((float)delta);
 
         // Vector2 p = GlobalPosition;
         // if (moveDirection == Vector2.Zero) p += Vector2.Down;
