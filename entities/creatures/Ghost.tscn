@@ -76,7 +76,6 @@ animations = [{
 radius = 5.0
 
 [node name="Ghost" type="CharacterBody2D" node_paths=PackedStringArray("skull", "skullGlow", "ghostTrail", "sprite", "collision")]
-position = Vector2(0, 1)
 motion_mode = 1
 script = ExtResource("1_4ml3q")
 speed = 200.0

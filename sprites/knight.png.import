@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://chuvmktoav415"
-path="res://.godot/imported/cavalerinho.png-6fcfd9da557dc44dfc871d7e2edaa396.ctex"
+uid="uid://ddnuflopnblue"
+path="res://.godot/imported/knight.png-c78c026709c2736971ffc0a39338542e.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://sprites/cavalerinho.png"
-dest_files=["res://.godot/imported/cavalerinho.png-6fcfd9da557dc44dfc871d7e2edaa396.ctex"]
+source_file="res://sprites/knight.png"
+dest_files=["res://.godot/imported/knight.png-c78c026709c2736971ffc0a39338542e.ctex"]
 
 [params]
 
