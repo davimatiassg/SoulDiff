@@ -37,7 +37,7 @@ public partial class GhostPebble : Effect
 
         if (body is Hitable hit)
         {
-            if (hit is ABody creature) { if (creature.isPossessed) return; }
+            if (hit is AnyBody creature) { if (creature.isPossessed) return; }
 
             hit.TakeDamage(damage, velocity * 0.1f);
         }

@@ -3,13 +3,20 @@ using System.Diagnostics;
 using System.Threading.Tasks;
 using Godot;
 
-public abstract partial class ABody : CharacterBody2D, Hitable
+public abstract partial class AnyBody : CharacterBody2D, Hitable
 {
     [Export] protected bool vulnerable = true;
     [Export] public bool hasDamageFrames = false;
-    [Export] public int invincibilityTime = 1000;
+    [Export] public double invincibilityTime = 1.0;
+
+    [Export] public bool isHitStunnable = true;
+
+    [Export] public double hitStunTime = 1;
+    protected bool stunned = false;
+
     /// Stats
-    [Export] protected int HP = 0;
+    [Export] public int MaxHP = 10;
+             public int HP = 0;
 
     [Export] public bool isPossessed = false;
 
@@ -64,10 +71,13 @@ public abstract partial class ABody : CharacterBody2D, Hitable
     /// Methods
     public virtual void PossessStart(PlayerController cntrl)
     {
+        HP = MaxHP;
+
         isPossessed = true;
         cntrl.currentBody = this;
         this.controller = cntrl;
         hasDamageFrames = true;
+
 
         controller.Button1Action = Button1;
         controller.Button2Action = Button2;
@@ -96,15 +106,55 @@ public abstract partial class ABody : CharacterBody2D, Hitable
         controller.RightAxisAction = (Vector2 v) => {};
     }
 
-
+    Tween hitstunControl;
+    Tween damageBoostControl;
     public virtual void TakeDamage(int damage, Vector2 knockback)
     {
+
         // FIXME: esse hitFX ainda não funciona
         //  ----------------------------------vvvvvvvvvv------------>ainda não está setado corretamente
-        EffectPool.SpawnEffect(Hitable.fx, "hitFX", this);
-        
+        //EffectPool.SpawnEffect(Hitable.fx, "hitFX", this);
+
+        if (!vulnerable) return;
+
         HP -= damage;
-        if (HP <= 0) PossessEnd();
+        if (HP <= 0 && isPossessed) { PossessEnd(); return;  }
+
+        if (isHitStunnable)
+        {
+            hitstunControl = CreateTween();
+            hitstunControl.TweenCallback(Callable.From(() => stunned = true));
+            hitstunControl.TweenInterval(hitStunTime);
+            hitstunControl.TweenCallback(Callable.From(HitstunCleanse));
+        }
+
+        
+        if(hasDamageFrames){
+            
+            damageBoostControl = CreateTween();
+            damageBoostControl.TweenCallback(Callable.From(() => vulnerable = false));
+            damageBoostControl.TweenInterval(invincibilityTime);
+            damageBoostControl.TweenCallback(Callable.From(DamageFrameCleanse));
+            
+        }
+    }
+    public virtual void HitstunApply()
+    {
+        stunned = true;
+    }
+
+    public virtual void HitstunCleanse()
+    {
+        stunned = false;
+    }
+    public virtual void DamageFrameApply()
+    {
+        vulnerable = false;
+    }
+
+    public virtual void DamageFrameCleanse()
+    {
+        vulnerable = true;
     }
 
     public virtual void Die() { }

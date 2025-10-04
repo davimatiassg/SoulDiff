@@ -2,7 +2,7 @@ using System;
 using System.Threading.Tasks;
 using Godot;
 
-public partial class GhostBody : ABody
+public partial class GhostBody : AnyBody
 {
 
     [ExportGroup("Balance Variables")]
@@ -62,6 +62,10 @@ public partial class GhostBody : ABody
 
     }
 
+    public override void PossessEnd()
+    {
+        if (HP <= 0) Die();
+    }
 
     GhostPebble curr_pebble;
     int curr_damage;
@@ -127,14 +131,35 @@ public partial class GhostBody : ABody
 
     public override void Button3(bool pressed)
     {
-        //posssess
+        var spaceState = GetWorld2D().DirectSpaceState;
+        // use global coordinates, not local to node
+        Godot.Collections.Array<Rid> exclusionArray = [GetRid()];
+
+        var query = PhysicsRayQueryParameters2D.Create(GlobalPosition, GlobalPosition + aimDirection * 128, CollisionMask, exclusionArray);
+        var result = spaceState.IntersectRay(query);
+
+        while (result.Count > 0)
+        {
+            var collider = (Node2D)result["collider"];
+            if (collider is EnemyBody enemy)
+            {
+                if (((float)enemy.HP) / enemy.MaxHP <= 0.1f)
+                {
+                    GlobalPosition = enemy.GlobalPosition;
+                    PossessEnd();
+                    GameManager.PossessionUp(enemy);
+                    break;
+                }
+
+            }
+
+            exclusionArray.Add((Rid)result["rid"]);
+            query = PhysicsRayQueryParameters2D.Create(GlobalPosition, GlobalPosition + aimDirection * 128, CollisionMask, exclusionArray);
+            result = spaceState.IntersectRay(query);
+        }
     }
 
-    public void reduceCooldowns(float delta)
-    {
-        if (flingCD > 0) flingCD -= delta;
-        if (dashCD > 0) dashCD -= delta;
-    }
+
 
     public override void Move(Vector2 direction)
     {
@@ -146,31 +171,29 @@ public partial class GhostBody : ABody
         aimDirection = direction;
     }
 
-    public override void TakeDamage(int damage, Vector2 knockback)
+
+    public override void HitstunApply()
     {
-        base.TakeDamage(damage, knockback);
-        if (HP > 0)
-        {
-            Action a = async () =>
-            {
-                if (hasDamageFrames) vulnerable = false;
-                skull.Play("damaged");
-                skullGlow.Play("damaged");
-                await Task.Delay(invincibilityTime);
-                vulnerable = false;
-                skull.Play("idle");
-                skullGlow.Play("idle");
-            };
-            a();
-        }
-
-
+        base.HitstunApply();
+        skull.Play("damaged");
+        skullGlow.Play("damaged");
     }
 
-    public override void PossessEnd()
+    public override void HitstunCleanse()
     {
-        base.PossessEnd();
-        if (HP <= 0) Die();
+        base.HitstunCleanse();
+        skull.Play("idle");
+        skullGlow.Play("idle");
+    }
+
+    public override void DamageFrameApply()
+    {
+        base.DamageFrameApply();
+    }
+
+    public override void DamageFrameCleanse()
+    {
+        base.DamageFrameCleanse();
     }
 
     //TODO!
@@ -181,7 +204,11 @@ public partial class GhostBody : ABody
 
 
 
-
+    public void reduceCooldowns(float delta)
+    {
+        if (flingCD > 0) flingCD -= delta;
+        if (dashCD > 0) dashCD -= delta;
+    }
 
     public override void _Ready()
     {
@@ -203,12 +230,12 @@ public partial class GhostBody : ABody
     {
         Vector2 currentVelocity = Velocity;
 
+        if (stunned) { MoveAndSlide();  return; }
         
-
         if (moveDirection != Vector2.Zero)
         {
             currentVelocity = currentVelocity.MoveToward(moveDirection * speed, (float)delta * acel *
-                (currentVelocity.LengthSquared()/(moveDirection + currentVelocity).LengthSquared() + 1f)
+                (currentVelocity.LengthSquared() / (moveDirection + currentVelocity).LengthSquared() + 1f)
             );
         }
         else

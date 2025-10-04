@@ -4,7 +4,7 @@ using Godot;
 
 public partial class PlayerController : BodyController
 {
-    [Export] public ABody currentBody;
+    [Export] public AnyBody currentBody;
     public override void _Process(double delta)
     {
         base._Process(delta);
@@ -12,8 +12,7 @@ public partial class PlayerController : BodyController
         Vector2 leftAxis = Input.GetVector("ui_left", "ui_right", "ui_up", "ui_down");
         LeftAxisAction(leftAxis);
 
-        Vector2 rightAxis = Input.GetVector("game_aim_left", "game_aim_right", "game_aim_up", "game_aim_down");
-        if (rightAxis != Vector2.Zero) LeftAxisAction(rightAxis);
+        RightAxisAction((GetGlobalMousePosition() - this.GlobalPosition).Normalized());
     }
 
     public override void _Input(InputEvent @event)

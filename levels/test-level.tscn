@@ -21,3 +21,6 @@ zoom = Vector2(3, 3)
 position_smoothing_enabled = true
 editor_draw_limits = true
 editor_draw_drag_margin = true
+
+[node name="Knight" parent="." instance=ExtResource("5_1atlx")]
+position = Vector2(23, 0)

@@ -78,8 +78,8 @@ radius = 5.0
 [node name="Ghost" type="CharacterBody2D" node_paths=PackedStringArray("skull", "skullGlow", "ghostTrail", "sprite", "collision")]
 motion_mode = 1
 script = ExtResource("1_4ml3q")
-speed = 200.0
-acel = 1000.0
+speed = 128.0
+acel = 640.0
 flingCooldown = 0.75
 dashForce = 5.0
 dashCooldown = 0.8500000000058208
@@ -117,4 +117,5 @@ sprite_frames = SubResource("SpriteFrames_xje4w")
 animation = &"idle"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
 shape = SubResource("CircleShape2D_8ni2t")
