@@ -2,7 +2,7 @@ using System;
 using System.Reflection.Metadata.Ecma335;
 using Godot;
 
-public partial class PlayerController : BodyController
+public partial class PlayerController : AnyController
 {
     [Export] public AnyBody currentBody;
     public override void _Process(double delta)

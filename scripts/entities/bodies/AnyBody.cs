@@ -27,7 +27,7 @@ public abstract partial class AnyBody : CharacterBody2D, Hitable
 
     /// Controlling
 
-    protected BodyController controller;
+    [Export] public AnyController controller;
 
 
     [Export] public Vector2 moveDirection = Vector2.Zero;
@@ -98,19 +98,11 @@ public abstract partial class AnyBody : CharacterBody2D, Hitable
     public virtual void PossessStart(PlayerController cntrl)
     {
         HP = MaxHP;
-
+        
         isPlayer = true;
         cntrl.currentBody = this;
         this.controller = cntrl;
         hasDamageFrames = true;
-
-
-        controller.Button1Action = Button1;
-        controller.Button2Action = Button2;
-        controller.Button3Action = Button3;
-
-        controller.LeftAxisAction = Move;
-        controller.RightAxisAction = Aim;
 
         tweenOutlineColor = CreateTween();
         tweenOutlineColor.TweenProperty(this, "OutlineColor", new Color(0, 1, 1), .5);
@@ -123,13 +115,8 @@ public abstract partial class AnyBody : CharacterBody2D, Hitable
     public virtual void PossessEnd()
     {
         isPlayer = false;
+        OutlineColor = Colors.Transparent;
         tweenOutlineColor.Kill();
-        controller.Button1Action = (bool pressed) => { };
-        controller.Button2Action = (bool pressed) => { };
-        controller.Button3Action = (bool pressed) => { };
-
-        controller.LeftAxisAction = (Vector2 v) => { };
-        controller.RightAxisAction = (Vector2 v) => { };
     }
 
     Tween hitstunControl;

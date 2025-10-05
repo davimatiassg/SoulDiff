@@ -31,6 +31,7 @@ public partial class Effect : Node2D
 	public override void _Ready()
 	{
 		base._Ready();
+		if (collider == null) return;
 		collider.BodyShapeEntered += OnCollisionEnter;
 		collider.BodyShapeExited += OnCollisionExit;
 	}

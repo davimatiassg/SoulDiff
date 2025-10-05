@@ -55,7 +55,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_8psw5")
 }, {
-"duration": 2.0,
+"duration": 1.0,
 "texture": SubResource("AtlasTexture_bnne1")
 }, {
 "duration": 1.0,
@@ -78,7 +78,7 @@ animations = [{
 }],
 "loop": false,
 "name": &"default",
-"speed": 60.0
+"speed": 30.0
 }]
 
 [node name="SwordSlash" type="Node2D" node_paths=PackedStringArray("animation", "collider")]
@@ -91,8 +91,6 @@ collider = NodePath("Area2D")
 texture_filter = 1
 sprite_frames = SubResource("SpriteFrames_wwrkt")
 autoplay = "default"
-frame = 9
-frame_progress = 1.0
 
 [node name="Area2D" type="Area2D" parent="."]
 texture_filter = 1

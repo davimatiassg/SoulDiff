@@ -1,10 +1,15 @@
 using System;
 using System.Diagnostics;
+using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using Godot;
 
 public abstract partial class EnemyBody : AnyBody
 {
+
+    public abstract AnyController DefaultController { get; }
+
+    public virtual bool StartWithDefaultController { get => true; }
 
     public override void Button3(bool pressed)
     {
@@ -12,6 +17,12 @@ public abstract partial class EnemyBody : AnyBody
         // 
         GameManager.PossessionDown(this);
         Die();
+    }
+
+    public override void _Ready()
+    {
+        base._Ready();
+        if (StartWithDefaultController) GameManager.ConnectBodies(this, DefaultController);
     }
 
     public override void TakeDamage(int damage, Vector2 knockback)

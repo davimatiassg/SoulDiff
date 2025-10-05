@@ -8,6 +8,8 @@ public partial class KnightBody : EnemyBody
     [Export] private AnimationPlayer anim;
     [Export] private PackedScene slashPrefab;
 
+    [Export] private PackedScene shockwavePrefab;
+
     [ExportGroup("Balance Variables")]
 
     [Export]
@@ -36,8 +38,7 @@ public partial class KnightBody : EnemyBody
 
     // inner variables
 
-
-
+    public override AnyController DefaultController => new MeleeAIController();
 
     private bool moving;
     public override void Move(Vector2 direction)
@@ -125,10 +126,10 @@ public partial class KnightBody : EnemyBody
 
     }
 
-
+    private bool canShield = true;
     public override void Button2(bool pressed)
     {
-        if (attacking || stunned) return;
+        if (attacking || stunned || !canShield) return;
         if (pressed) Shield();
         else Unshield();
     }
@@ -144,9 +145,6 @@ public partial class KnightBody : EnemyBody
         shieldMoveSpeed = speed;
         speed = temp;
 
-        shieldTween = CreateTween();
-        shieldTween.TweenInterval(shieldCooldown);
-        shieldTween.TweenCallback(Callable.From(Unshield));
         anim.Play("RESET");
         anim.Play("def");
         shielding = true;
@@ -159,17 +157,29 @@ public partial class KnightBody : EnemyBody
         shieldMoveSpeed = speed;
         speed = temp;
 
-        shieldTween.Kill();
+        
         anim.Play("RESET");
         shielding = false;
     }
+
 
     public override void TakeDamage(int damage, Vector2 knockback)
     {
         if (shielding)
         {
             Unshield();
-            //emit damage pulse
+            var wave = (Shockwave)EffectPool.SpawnEffect(shockwavePrefab, GetParent());
+            wave.GlobalPosition = GlobalPosition;
+            wave.playerEffect = isPlayer;
+            wave.knockback = knockback.Length();
+            wave.damage = damage;
+
+
+            canShield = false;
+            shieldTween = CreateTween();
+            shieldTween.TweenInterval(shieldCooldown);
+            shieldTween.TweenCallback(Callable.From(() => canShield = true));
+
             return;
         }
         attacking = false;

@@ -1,9 +1,10 @@
-[gd_scene load_steps=27 format=3 uid="uid://b4j7hdg38dqio"]
+[gd_scene load_steps=28 format=3 uid="uid://b4j7hdg38dqio"]
 
 [ext_resource type="Texture2D" uid="uid://ddnuflopnblue" path="res://sprites/knight.png" id="1_80j5y"]
-[ext_resource type="Script" uid="uid://ig2ltxdhbhqb" path="res://scripts/entities/KnightBody.cs" id="1_netpo"]
+[ext_resource type="Script" uid="uid://ig2ltxdhbhqb" path="res://scripts/entities/bodies/KnightBody.cs" id="1_netpo"]
 [ext_resource type="PackedScene" uid="uid://cp4ikqfe2wqft" path="res://objects/effects/SwordSlash.tscn" id="2_ipplv"]
 [ext_resource type="Shader" uid="uid://bcwyj2yow674w" path="res://materials/Highlight.gdshader" id="3_qo31y"]
+[ext_resource type="PackedScene" uid="uid://220wdbe24ojc" path="res://objects/effects/Shockwave.tscn" id="3_xg55p"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_xg55p"]
 shader = ExtResource("3_qo31y")
@@ -371,6 +372,7 @@ texture_filter = 1
 script = ExtResource("1_netpo")
 anim = NodePath("AnimationPlayer")
 slashPrefab = ExtResource("2_ipplv")
+shockwavePrefab = ExtResource("3_xg55p")
 attackDamage = 2
 attackPushForce = 640.0
 attackCooldown = 0.3000000000029104
