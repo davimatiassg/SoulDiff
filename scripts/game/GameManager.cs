@@ -66,6 +66,7 @@ public partial class GameManager : Node
             enemy.PossessEnd();
             instance.GetParent().CallDeferred("add_child", instance.ghost);
             instance.ghost.PossessStart(instance.player);
+            instance.ghost.GlobalPosition = enemy.GlobalPosition;
         }
     }  
 

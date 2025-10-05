@@ -16,28 +16,33 @@ public partial class KnightBody : EnemyBody
 
     [Export]
     public int attackDamage = 3;
-
+    [Export]
+    public float attackPushForce = 32f;
     [Export]
     public float attackCooldown = 0.4f;
     [Export]
+    public float attackMoveSpeed = 32f;
+
     private bool attacking = false;
 
     [Export]
     public float shieldCooldown = 4f;
+    [Export]
+    public float shieldMoveSpeed = 0f;
+
     [Export]
     private bool shielding = false;
 
 
     // inner variables
 
-    public Vector2 moveDirection = Vector2.Zero;
-    public Vector2 aimDirection = Vector2.Zero;
+
 
 
     private bool moving;
     public override void Move(Vector2 direction)
     {
-        moveDirection = direction;
+        base.Move(direction);
 
         bool movingToggled = (direction.LengthSquared() != 0 != moving);
         if (movingToggled) moving = !moving;
@@ -54,14 +59,13 @@ public partial class KnightBody : EnemyBody
     }
     public override void Aim(Vector2 direction)
     {
-        aimDirection = direction;
-        sprite.Scale = new Vector2(aimDirection.X < 0 ? -1f : 1f, 1f);
+        base.Aim(direction);
     }
 
 
     Tween attackTween;
     private bool canAttack = true;
-    private float attackSpeed = 8f;
+
     public override void Button1(bool pressed)
     {
         if (!canAttack || attacking || stunned) return;
@@ -73,8 +77,8 @@ public partial class KnightBody : EnemyBody
         anim.Play("RESET");
         anim.Play("attack");
         attacking = true;
-        var temp = attackSpeed;
-        attackSpeed = speed;
+        var temp = attackMoveSpeed;
+        attackMoveSpeed = speed;
         speed = temp;
 
         canAttack = false;
@@ -91,8 +95,8 @@ public partial class KnightBody : EnemyBody
             attacking = false;
             anim.Play("RESET");
 
-            var temp = attackSpeed;
-            attackSpeed = speed;
+            var temp = attackMoveSpeed;
+            attackMoveSpeed = speed;
             speed = temp;
 
         };
@@ -106,10 +110,19 @@ public partial class KnightBody : EnemyBody
     public void SwingSword()
     {
         var slash = (SwordSlash)EffectPool.SpawnEffect(slashPrefab, GetParent());
+        slash.GlobalPosition = GlobalPosition + (aimDirection * 16f);
+        slash.LookAt(GlobalPosition + 32 * aimDirection);
+        if(sprite.Scale.Y < 0) { slash.Scale = new Vector2(1, -1); }
+
         slash.playerEffect = isPlayer;
-        slash.GlobalPosition = GlobalPosition + (aimDirection * 16f * this.Scale.X);
-        slash.Scale = -this.Scale;
-        slash.LookAt(aimDirection);
+        slash.knockback = attackPushForce;
+        slash.direction = aimDirection;
+        slash.damage = attackDamage;
+
+
+        
+    
+
     }
 
 
@@ -121,14 +134,14 @@ public partial class KnightBody : EnemyBody
     }
 
 
-    private float shieldSpeed = 0f;
+    
     Tween shieldTween;
     private void Shield()
     {
         if (shielding) return;
 
-        var temp = shieldSpeed;
-        shieldSpeed = speed;
+        var temp = shieldMoveSpeed;
+        shieldMoveSpeed = speed;
         speed = temp;
 
         shieldTween = CreateTween();
@@ -142,8 +155,8 @@ public partial class KnightBody : EnemyBody
     {
         if (!shielding) return;
 
-        var temp = shieldSpeed;
-        shieldSpeed = speed;
+        var temp = shieldMoveSpeed;
+        shieldMoveSpeed = speed;
         speed = temp;
 
         shieldTween.Kill();

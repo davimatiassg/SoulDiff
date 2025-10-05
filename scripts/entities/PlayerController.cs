@@ -8,11 +8,12 @@ public partial class PlayerController : BodyController
     public override void _Process(double delta)
     {
         base._Process(delta);
-
+        if (currentBody == null) return;
+        
         Vector2 leftAxis = Input.GetVector("ui_left", "ui_right", "ui_up", "ui_down");
         LeftAxisAction(leftAxis);
 
-        RightAxisAction((GetGlobalMousePosition() - this.GlobalPosition).Normalized());
+        RightAxisAction((GetGlobalMousePosition() - currentBody.GlobalPosition).Normalized());
     }
 
     public override void _Input(InputEvent @event)
@@ -25,9 +26,5 @@ public partial class PlayerController : BodyController
 
         if (@event.IsAction("game_btn_3")) { Button3Action( @event.IsPressed() ); return; }
         
-        if (@event is InputEventMouseMotion)
-        {
-            RightAxisAction((GetGlobalMousePosition() - this.GlobalPosition).Normalized());
-        }
     }
 }

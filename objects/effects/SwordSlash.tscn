@@ -55,7 +55,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_8psw5")
 }, {
-"duration": 1.0,
+"duration": 2.0,
 "texture": SubResource("AtlasTexture_bnne1")
 }, {
 "duration": 1.0,
@@ -78,7 +78,7 @@ animations = [{
 }],
 "loop": false,
 "name": &"default",
-"speed": 30.0
+"speed": 60.0
 }]
 
 [node name="SwordSlash" type="Node2D" node_paths=PackedStringArray("animation", "collider")]

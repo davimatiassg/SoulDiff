@@ -26,29 +26,54 @@ public abstract partial class AnyBody : CharacterBody2D, Hitable
     [Export] public CollisionShape2D collision;
 
     /// Controlling
+
     protected BodyController controller;
+
+
+    [Export] public Vector2 moveDirection = Vector2.Zero;
+    protected Vector2 lastMoveDirection = Vector2.Right;
+
+    [Export] public Vector2 aimDirection = Vector2.Zero;
+    protected int lastAimDirectionX = 0;
+
     public abstract void Button1(bool pressed);
     public abstract void Button2(bool pressed);
     public abstract void Button3(bool pressed);
-    public abstract void Move(Vector2 direction);
-    public abstract void Aim(Vector2 direction);
+    public virtual void Move(Vector2 direction)
+    {
+        moveDirection = direction;
+        if (direction != Vector2.Zero) lastMoveDirection = direction;
+    }
+    public virtual void Aim(Vector2 direction)
+    {
+        aimDirection = direction;
+        bool flip = (lastAimDirectionX * (aimDirection.X) < 0);
+        lastAimDirectionX = Mathf.Sign(aimDirection.X);
+        if (flip)
+        {
+            sprite.Scale = new Vector2(1, lastAimDirectionX);
+            sprite.Rotation = ((1 - lastAimDirectionX) / 2) * Mathf.Pi;
+        }
+    }
 
 
     /// Inner Visuals
     /// 
     Tween tweenOutlineColor;
 
-    private ShaderMaterial shaderMat;
+    protected ShaderMaterial shaderMat;
 
-    
+
     [Export]
-    private Color OutlineColor
+    protected Color OutlineColor
     {
-        get {
+        get
+        {
             if (shaderMat == null) return Colors.Transparent;
             return shaderMat.GetShaderParameter("outline_color").AsColor();
         }
-        set {
+        set
+        {
             if (shaderMat == null) return;
             shaderMat.SetShaderParameter("outline_color", value);
         }
@@ -64,7 +89,8 @@ public abstract partial class AnyBody : CharacterBody2D, Hitable
     {
         base._Ready();
 
-        shaderMat = (ShaderMaterial)sprite.Material;
+        shaderMat = (ShaderMaterial)sprite.Material.Duplicate();
+        sprite.Material = shaderMat;
     }
 
 
@@ -98,12 +124,12 @@ public abstract partial class AnyBody : CharacterBody2D, Hitable
     {
         isPlayer = false;
         tweenOutlineColor.Kill();
-        controller.Button1Action = (bool pressed) => {};
-        controller.Button2Action = (bool pressed) => {};
-        controller.Button3Action = (bool pressed) => {};
+        controller.Button1Action = (bool pressed) => { };
+        controller.Button2Action = (bool pressed) => { };
+        controller.Button3Action = (bool pressed) => { };
 
-        controller.LeftAxisAction = (Vector2 v) => {};
-        controller.RightAxisAction = (Vector2 v) => {};
+        controller.LeftAxisAction = (Vector2 v) => { };
+        controller.RightAxisAction = (Vector2 v) => { };
     }
 
     Tween hitstunControl;
@@ -118,29 +144,22 @@ public abstract partial class AnyBody : CharacterBody2D, Hitable
         if (!vulnerable) return;
 
         HP -= damage;
-        if (HP <= 0 && isPlayer) { PossessEnd(); return;  }
 
+        HitstunApply();
+        KnockbackApply(knockback);
+        DamageFrameApply();
+
+    }
+    public virtual void HitstunApply()
+    {
         if (isHitStunnable)
         {
+            stunned = true;
             hitstunControl = CreateTween();
-            hitstunControl.TweenCallback(Callable.From(() => stunned = true));
             hitstunControl.TweenInterval(hitStunTime);
             hitstunControl.TweenCallback(Callable.From(HitstunCleanse));
         }
 
-        
-        if(hasDamageFrames){
-            
-            damageBoostControl = CreateTween();
-            damageBoostControl.TweenCallback(Callable.From(() => vulnerable = false));
-            damageBoostControl.TweenInterval(invincibilityTime);
-            damageBoostControl.TweenCallback(Callable.From(DamageFrameCleanse));
-            
-        }
-    }
-    public virtual void HitstunApply()
-    {
-        stunned = true;
     }
 
     public virtual void HitstunCleanse()
@@ -149,7 +168,14 @@ public abstract partial class AnyBody : CharacterBody2D, Hitable
     }
     public virtual void DamageFrameApply()
     {
-        vulnerable = false;
+
+        if (hasDamageFrames)
+        {
+            vulnerable = false;
+            damageBoostControl = CreateTween();
+            damageBoostControl.TweenInterval(invincibilityTime);
+            damageBoostControl.TweenCallback(Callable.From(DamageFrameCleanse));
+        }
     }
 
     public virtual void DamageFrameCleanse()
@@ -157,5 +183,24 @@ public abstract partial class AnyBody : CharacterBody2D, Hitable
         vulnerable = true;
     }
 
+    public virtual void KnockbackApply(Vector2 force)
+    {
+        this.Velocity += force;
+    }
+
     public virtual void Die() { }
+
+
+    public override void _PhysicsProcess(double delta)
+    {
+        base._PhysicsProcess(delta);
+
+        var curr_vel = Velocity;
+
+        curr_vel *= 0.85f;
+
+        Velocity = curr_vel;
+
+        //whatever inherits this must call MoveAndSlide(); after calling this base method.
+    }
 }

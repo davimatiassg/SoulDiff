@@ -11,6 +11,12 @@ public abstract partial class EnemyBody : AnyBody
         if (pressed) return;
         // 
         GameManager.PossessionDown(this);
-        Die();    
+        Die();
+    }
+
+    public override void TakeDamage(int damage, Vector2 knockback)
+    {
+        base.TakeDamage(damage, knockback);
+        if (HP <= 0 && isPlayer) { GameManager.PossessionDown(this); return; }
     }
 }

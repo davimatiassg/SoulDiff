@@ -10,7 +10,6 @@
                 "--path",
                 "${workspaceRoot}",
                 "--no-window",
-                "-q"
             ],
             "problemMatcher": "$msCompile"
         }

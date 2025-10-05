@@ -46,15 +46,6 @@ public partial class GhostBody : AnyBody
     private Vector2[] trailLastPoints = new Vector2[TRAIL_LEN];
 
 
-
-    // Inner Variables
-    public Vector2 moveDirection = Vector2.Zero;
-
-    private Vector2 lastMove = Vector2.Right;
-
-    public Vector2 aimDirection = Vector2.Zero;
-
-    
     public override void PossessStart(PlayerController cntrl)
     {
         base.PossessStart(cntrl);
@@ -122,7 +113,7 @@ public partial class GhostBody : AnyBody
         if (!pressed || dashCD > 0) return;
         float spd = speed;
         float a = acel;
-        Vector2 dir = lastMove;
+        Vector2 dir = lastMoveDirection;
 
         dashCD = dashCooldown;
 
@@ -139,7 +130,6 @@ public partial class GhostBody : AnyBody
     public override void Button3(bool pressed)
     {
         var spaceState = GetWorld2D().DirectSpaceState;
-        // use global coordinates, not local to node
         Godot.Collections.Array<Rid> exclusionArray = [GetRid()];
 
         var query = PhysicsRayQueryParameters2D.Create(GlobalPosition, GlobalPosition + aimDirection * 128, CollisionMask, exclusionArray);
@@ -167,16 +157,6 @@ public partial class GhostBody : AnyBody
     }
 
 
-
-    public override void Move(Vector2 direction)
-    {
-        moveDirection = direction;
-        if (direction != Vector2.Zero) lastMove = direction;
-    }
-    public override void Aim(Vector2 direction)
-    {
-        aimDirection = direction;
-    }
 
 
     public override void HitstunApply()
@@ -235,6 +215,7 @@ public partial class GhostBody : AnyBody
 
     public override void _PhysicsProcess(double delta)
     {
+        base._PhysicsProcess(delta);
         Vector2 currentVelocity = Velocity;
 
         if (stunned) { MoveAndSlide();  return; }

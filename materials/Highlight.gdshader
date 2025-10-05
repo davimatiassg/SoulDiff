@@ -1,7 +1,7 @@
 shader_type canvas_item;
 
-uniform vec4 outline_color : source_color = vec4(0.0, 0.0, 0.0, 1.0);
-uniform int thickness = 1; 
+uniform vec4 outline_color : source_color = vec4(0.0);
+uniform int thickness = 1;
 
 void fragment() {
 	 vec4 src = texture(TEXTURE, UV);
@@ -21,7 +21,7 @@ void fragment() {
             COLOR = vec4(0.0);
         }
     }
-	
+
 }
 
 //void light() {
