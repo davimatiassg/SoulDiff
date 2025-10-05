@@ -64,11 +64,11 @@ public partial class GhostBody : AnyBody
 
     public override void PossessEnd()
     {
+        base.PossessEnd();
         if (HP <= 0) Die();
     }
 
     GhostPebble curr_pebble;
-    int curr_damage;
     Tween pebbleIncreaser;
     Tween pebbleRotater;
     
@@ -87,12 +87,18 @@ public partial class GhostBody : AnyBody
             curr_pebble.Position = Position;
             curr_pebble.StartOrbit(this);
 
-
             pebbleIncreaser = curr_pebble.CreateTween();
-            pebbleIncreaser.SetParallel(true);
-            pebbleIncreaser.TweenMethod(Callable.From((float f) => { curr_damage = Mathf.FloorToInt(f); }), flingDamage, 3 * flingDamage, 6);
-            pebbleIncreaser.TweenProperty(curr_pebble, "scale", Vector2.One * 3f, 2f);
-            pebbleIncreaser.TweenMethod(Callable.From((float f) => { curr_pebble.Scale = Vector2.One * f; }), 1f, 2f, 2);
+            pebbleIncreaser.TweenMethod(
+                Callable.From((float f) =>
+                {
+                    curr_pebble.damage = Mathf.FloorToInt(f*flingDamage);
+                    curr_pebble.Scale = Vector2.One * f;
+                }),
+                1f, //grow from one (damage, size)
+                3f, //to three (scale, size)
+                4f //em 4 segundinhos
+            );
+
             pebbleRotater = curr_pebble.CreateTween();
             pebbleRotater.TweenProperty(curr_pebble, "rotation_degrees", 180, 0.5f);
             pebbleRotater.TweenProperty(curr_pebble, "rotation_degrees", 360, 0.5f);
@@ -103,7 +109,8 @@ public partial class GhostBody : AnyBody
 
         pebbleIncreaser.Kill();
         pebbleIncreaser.Kill();
-        curr_pebble.Fling(aimDirection, curr_damage);
+        if (curr_pebble == null) return;
+        curr_pebble.Fling(aimDirection);
         curr_pebble = null;
 
     }

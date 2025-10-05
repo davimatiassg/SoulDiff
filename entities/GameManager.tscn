@@ -1,8 +1,0 @@
-[gd_scene load_steps=3 format=3 uid="uid://w7scrx2p6vkw"]
-
-[ext_resource type="Script" uid="uid://cheaaffyj3ud2" path="res://scripts/Game/GameManager.cs" id="1_cu65j"]
-[ext_resource type="PackedScene" uid="uid://b4283bflripuo" path="res://entities/creatures/Ghost.tscn" id="2_4is2n"]
-
-[node name="GameManager" type="Node"]
-script = ExtResource("1_cu65j")
-Creatures = Array[PackedScene]([ExtResource("2_4is2n")])

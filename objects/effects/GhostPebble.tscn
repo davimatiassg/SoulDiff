@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=3 uid="uid://jr5oflib071h"]
 
-[ext_resource type="Script" uid="uid://oud4asg1etpl" path="res://scripts/Effects/GhostPebble.cs" id="1_juxpx"]
+[ext_resource type="Script" uid="uid://oud4asg1etpl" path="res://scripts/effects/GhostPebble.cs" id="1_juxpx"]
 [ext_resource type="Texture2D" uid="uid://cxiyjcq71gm2v" path="res://sprites/effects/pebble.png" id="2_gddty"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_juxpx"]

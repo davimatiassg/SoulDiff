@@ -8,7 +8,9 @@ public abstract partial class EnemyBody : AnyBody
 
     public override void Button3(bool pressed)
     {
-        //explode and deal damage & stuff
-        GameManager.PossessionDown();
+        if (pressed) return;
+        // 
+        GameManager.PossessionDown(this);
+        Die();    
     }
 }

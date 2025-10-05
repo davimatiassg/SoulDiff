@@ -12,13 +12,13 @@ public abstract partial class AnyBody : CharacterBody2D, Hitable
     [Export] public bool isHitStunnable = true;
 
     [Export] public double hitStunTime = 1;
-    protected bool stunned = false;
+    [Export] protected bool stunned = false;
 
     /// Stats
     [Export] public int MaxHP = 10;
-             public int HP = 0;
+    [Export] public int HP = 0;
 
-    [Export] public bool isPossessed = false;
+    [Export] public bool isPlayer = false;
 
     /// Components
 
@@ -73,7 +73,7 @@ public abstract partial class AnyBody : CharacterBody2D, Hitable
     {
         HP = MaxHP;
 
-        isPossessed = true;
+        isPlayer = true;
         cntrl.currentBody = this;
         this.controller = cntrl;
         hasDamageFrames = true;
@@ -96,7 +96,7 @@ public abstract partial class AnyBody : CharacterBody2D, Hitable
     }
     public virtual void PossessEnd()
     {
-        isPossessed = false;
+        isPlayer = false;
         tweenOutlineColor.Kill();
         controller.Button1Action = (bool pressed) => {};
         controller.Button2Action = (bool pressed) => {};
@@ -118,7 +118,7 @@ public abstract partial class AnyBody : CharacterBody2D, Hitable
         if (!vulnerable) return;
 
         HP -= damage;
-        if (HP <= 0 && isPossessed) { PossessEnd(); return;  }
+        if (HP <= 0 && isPlayer) { PossessEnd(); return;  }
 
         if (isHitStunnable)
         {

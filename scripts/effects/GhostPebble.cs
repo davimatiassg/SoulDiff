@@ -2,10 +2,12 @@ using Godot;
 using System;
 using System.Collections.Generic;
 
-public partial class GhostPebble : Effect
+public partial class GhostPebble : DamageEffect
 {
+
+    
     Vector2 velocity = Vector2.Zero;
-    int damage = 0;
+    public int damage = 0;
     public override void _Ready()
     {
         base._Ready();
@@ -18,18 +20,18 @@ public partial class GhostPebble : Effect
         processAction = (float delta) =>
         {
             velocity *= 0.80f;
-            velocity += ((target.GlobalPosition - target.aimDirection*32f + target.moveDirection*32f)- GlobalPosition) * delta * 150f;
+            velocity += ((target.GlobalPosition - target.aimDirection*16f + target.moveDirection*16f)- GlobalPosition) * delta * 150f;
         };
     }
-    public void Fling(Vector2 dir, int damage)
+    public void Fling(Vector2 dir)
     {
-        this.damage = damage;
         this.velocity = dir * Mathf.Max(350f, velocity.Length());
 
         processAction = null;
 
-        SetExitTime(5000);
+        SetExitTime(5.0);
     }
+
 
     public override void OnCollisionEnter(Rid bodyRid, Node2D body, long bodyShapeIndex, long localShapeIndex)
     {
@@ -37,7 +39,7 @@ public partial class GhostPebble : Effect
 
         if (body is Hitable hit)
         {
-            if (hit is AnyBody creature) { if (creature.isPossessed) return; }
+            if (hit is AnyBody creature) { if (creature.isPlayer) return; }
 
             hit.TakeDamage(damage, velocity * 0.1f);
         }

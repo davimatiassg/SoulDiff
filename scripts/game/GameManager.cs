@@ -14,6 +14,7 @@ public partial class GameManager : Node
     public static GameManager instance;
     [Export] public PlayerController player;
 
+    
     [Export] public GhostBody ghost;
 
     public override void _EnterTree()
@@ -38,19 +39,34 @@ public partial class GameManager : Node
 
     }
 
+    [Export] public double possessionCD = .5;
+    static Tween possessTween;
+    public static bool canPossess = true;
+
     public static void PossessionUp(EnemyBody enemy)
     {
-        GD.Print(instance == null);
-        GD.Print(instance.ghost == null);
+        Debug.Assert(instance != null);
+        Debug.Assert(instance.ghost != null);
+
+        
+        canPossess = false;
+        possessTween = instance.CreateTween();
+        possessTween.TweenInterval(instance.possessionCD);
+        possessTween.TweenCallback(Callable.From(() => { canPossess = true; }));
+
 
         instance.ghost.GetParent().RemoveChild(instance.ghost);
         enemy.PossessStart(instance.player);
     }
 
-    public static void PossessionDown()
-    {  
-        instance.GetParent().CallDeferred("add_child", instance.ghost);
-        instance.ghost.PossessStart(instance.player);
+    public static void PossessionDown(EnemyBody enemy)
+    {
+        if (canPossess)
+        {
+            enemy.PossessEnd();
+            instance.GetParent().CallDeferred("add_child", instance.ghost);
+            instance.ghost.PossessStart(instance.player);
+        }
     }  
 
 }

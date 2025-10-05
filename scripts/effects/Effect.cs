@@ -35,10 +35,13 @@ public partial class Effect : Node2D
 		collider.BodyShapeExited += OnCollisionExit;
 	}
 
-	public async void SetExitTime(int milliseconds)
+
+	Tween dismissTime;
+	public void SetExitTime(double seconds)
 	{
-		await Task.Delay(milliseconds);
-		Dispawn();
+		dismissTime = CreateTween();
+		dismissTime.TweenInterval(seconds);
+		dismissTime.TweenCallback(Callable.From(Dispawn));
 	}
 
 	public virtual void Dispawn()
