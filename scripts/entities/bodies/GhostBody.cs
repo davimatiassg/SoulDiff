@@ -46,19 +46,6 @@ public partial class GhostBody : AnyBody
     private Vector2[] trailLastPoints = new Vector2[TRAIL_LEN];
 
 
-    public override void PossessStart(PlayerController cntrl)
-    {
-        base.PossessStart(cntrl);
-        HP = 2;
-
-    }
-
-    public override void PossessEnd()
-    {
-        base.PossessEnd();
-        if (HP <= 0) Die();
-    }
-
     GhostPebble curr_pebble;
     Tween pebbleIncreaser;
     Tween pebbleRotater;
