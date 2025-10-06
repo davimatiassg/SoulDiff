@@ -98,6 +98,7 @@ public abstract partial class AnyBody : CharacterBody2D, Hitable
     public virtual void PossessStart(PlayerController cntrl)
     {
         HP = MaxHP;
+        GD.Print(HP, " é a vida q eu tenho po");
         
         isPlayer = true;
         cntrl.currentBody = this;
@@ -131,6 +132,10 @@ public abstract partial class AnyBody : CharacterBody2D, Hitable
         if (!vulnerable) return;
 
         HP -= damage;
+        GD.Print($"{Name} tomou {damage} de dano. HP atual: {HP}");
+        GD.Print("TakeDamage em: ", this);
+
+        if (HP <= 0) Die();
 
         HitstunApply();
         KnockbackApply(knockback);
@@ -175,8 +180,49 @@ public abstract partial class AnyBody : CharacterBody2D, Hitable
         this.Velocity += force;
     }
 
-    public virtual void Die() { }
+    public virtual void Die()
+    {
+        if (isPlayer)
+        {
+            GD.Print("O jogador morreu!");
 
+            // Desativa o controle e colisão
+            if (controller != null)
+                controller.SetProcess(false);
+
+            if (collision != null)
+                collision.Disabled = true;
+
+            // Efeito visual de morte (fade out)
+            var deathTween = CreateTween();
+            deathTween.TweenProperty(sprite, "Modulate", Colors.Transparent, 1.8f); // fade out em 0.8s
+            deathTween.TweenCallback(Callable.From(() =>
+            {
+                QueueFree();
+
+                // Notifica o GameManager se existir
+                var gm = GetTree().Root.GetNodeOrNull("GameManager") as Node;
+                if (gm != null)
+                {
+                    if (gm.HasMethod("OnPlayerDeath"))
+                        gm.Call("OnPlayerDeath");
+
+                }
+            }));
+        }
+        else
+        {
+            GD.Print($"{Name} morreu!");
+
+            // Desativa colisão e inicia efeito de desaparecimento
+            if (collision != null)
+                collision.Disabled = true;
+
+            var deathTween = CreateTween();
+            deathTween.TweenProperty(sprite, "Modulate", Colors.Transparent, 1.8f);
+            deathTween.TweenCallback(Callable.From(() => QueueFree()));
+        }
+    }
 
     public override void _PhysicsProcess(double delta)
     {
