@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://cp4ikqfe2wqft"]
+[gd_scene load_steps=11 format=3 uid="uid://cp4ikqfe2wqft"]
 
 [ext_resource type="Script" uid="uid://cacivyl1mrpcj" path="res://scripts/effects/SwordSlash.cs" id="1_n2pce"]
 [ext_resource type="Texture2D" uid="uid://m5i5v2dtedql" path="res://sprites/effects/swordslash.png" id="1_og31y"]
@@ -6,10 +6,6 @@
 [sub_resource type="AtlasTexture" id="AtlasTexture_hfj58"]
 atlas = ExtResource("1_og31y")
 region = Rect2(0, 0, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_3q80s"]
-atlas = ExtResource("1_og31y")
-region = Rect2(32, 0, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_8psw5"]
 atlas = ExtResource("1_og31y")
@@ -27,17 +23,9 @@ region = Rect2(128, 0, 32, 32)
 atlas = ExtResource("1_og31y")
 region = Rect2(160, 0, 32, 32)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_xda4e"]
-atlas = ExtResource("1_og31y")
-region = Rect2(192, 0, 32, 32)
-
 [sub_resource type="AtlasTexture" id="AtlasTexture_p344f"]
 atlas = ExtResource("1_og31y")
 region = Rect2(224, 0, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_og31y"]
-atlas = ExtResource("1_og31y")
-region = Rect2(256, 0, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_wwrkt"]
 atlas = ExtResource("1_og31y")
@@ -48,9 +36,6 @@ animations = [{
 "frames": [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_hfj58")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_3q80s")
 }, {
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_8psw5")
@@ -65,13 +50,7 @@ animations = [{
 "texture": SubResource("AtlasTexture_c53y6")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_xda4e")
-}, {
-"duration": 1.0,
 "texture": SubResource("AtlasTexture_p344f")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_og31y")
 }, {
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_wwrkt")
