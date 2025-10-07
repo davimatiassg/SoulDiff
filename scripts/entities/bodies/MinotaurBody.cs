@@ -142,6 +142,7 @@ public partial class MinotaurBody : EnemyBody
             var temp = attackMoveSpeed;
             attackMoveSpeed = speed;
             speed = temp;
+            moving = false;
 
         };
 
@@ -237,6 +238,7 @@ public partial class MinotaurBody : EnemyBody
     public override void HitstunCleanse()
     {
         base.HitstunCleanse();
+        moving = false;
     }
 
     public override void _PhysicsProcess(double delta)

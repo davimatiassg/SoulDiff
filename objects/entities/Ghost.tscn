@@ -1,9 +1,10 @@
-[gd_scene load_steps=15 format=3 uid="uid://b4283bflripuo"]
+[gd_scene load_steps=21 format=3 uid="uid://b4283bflripuo"]
 
 [ext_resource type="Script" uid="uid://cvekhgl6c16nj" path="res://scripts/entities/bodies/GhostBody.cs" id="1_4ml3q"]
 [ext_resource type="Shader" uid="uid://bcwyj2yow674w" path="res://materials/Highlight.gdshader" id="1_qx6pd"]
 [ext_resource type="Texture2D" uid="uid://dqw4seerv2wn5" path="res://sprites/ghost-face.png" id="2_85uya"]
 [ext_resource type="PackedScene" uid="uid://jr5oflib071h" path="res://objects/effects/GhostPebble.tscn" id="2_ycwto"]
+[ext_resource type="Texture2D" uid="uid://baf66mpa4mleb" path="res://sprites/ghost.png" id="5_m70px"]
 
 [sub_resource type="Curve" id="Curve_85uya"]
 _data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.99999994, 1), -4.8456316, 0.0, 0, 0]
@@ -18,19 +19,45 @@ shader = ExtResource("1_qx6pd")
 shader_parameter/outline_color = Color(0, 0, 0, 1)
 shader_parameter/thickness = 1
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_ge71r"]
-atlas = ExtResource("2_85uya")
+[sub_resource type="AtlasTexture" id="AtlasTexture_m70px"]
+atlas = ExtResource("5_m70px")
+region = Rect2(416, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4t1uk"]
+atlas = ExtResource("5_m70px")
+region = Rect2(448, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qxt3k"]
+atlas = ExtResource("5_m70px")
+region = Rect2(480, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5i6j2"]
+atlas = ExtResource("5_m70px")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_j4k2g"]
+atlas = ExtResource("5_m70px")
 region = Rect2(32, 0, 32, 32)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_7erno"]
-atlas = ExtResource("2_85uya")
-region = Rect2(0, 0, 32, 32)
+[sub_resource type="AtlasTexture" id="AtlasTexture_piif3"]
+atlas = ExtResource("5_m70px")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nol0j"]
+atlas = ExtResource("5_m70px")
+region = Rect2(96, 0, 32, 32)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_lcsgn"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_ge71r")
+"texture": SubResource("AtlasTexture_m70px")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4t1uk")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qxt3k")
 }],
 "loop": true,
 "name": &"damaged",
@@ -38,11 +65,20 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_7erno")
+"texture": SubResource("AtlasTexture_5i6j2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_j4k2g")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_piif3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nol0j")
 }],
 "loop": true,
 "name": &"idle",
-"speed": 12.0
+"speed": 4.0
 }]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_lcsgn"]
@@ -108,12 +144,16 @@ texture_repeat = 1
 material = SubResource("ShaderMaterial_qx6pd")
 sprite_frames = SubResource("SpriteFrames_lcsgn")
 animation = &"idle"
+autoplay = "idle"
+frame_progress = 0.6893284
 
 [node name="backglow" type="AnimatedSprite2D" parent="skull"]
+visible = false
 modulate = Color(0, 0.5019608, 0.7529412, 1)
-show_behind_parent = true
+position = Vector2(1, -1)
+scale = Vector2(1.5, 1.5)
 sprite_frames = SubResource("SpriteFrames_xje4w")
-animation = &"idle"
+animation = &"damage"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 visible = false

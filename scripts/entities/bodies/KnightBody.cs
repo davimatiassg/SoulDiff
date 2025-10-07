@@ -52,11 +52,11 @@ public partial class KnightBody : EnemyBody
 
 
         if (movingToggled)
-        { 
+        {
             anim.Play("RESET");
-            anim.Play( moving ? "walk" : "idle");
+            anim.Play(moving ? "walk" : "idle");
         }
-        
+
     }
     public override void Aim(Vector2 direction)
     {
@@ -99,6 +99,7 @@ public partial class KnightBody : EnemyBody
             var temp = attackMoveSpeed;
             attackMoveSpeed = speed;
             speed = temp;
+            moving = false;
 
         };
 
@@ -195,6 +196,7 @@ public partial class KnightBody : EnemyBody
     {
         base.HitstunCleanse();
         anim.Play("RESET");
+        moving = false;
     }
 
     public override void _PhysicsProcess(double delta)

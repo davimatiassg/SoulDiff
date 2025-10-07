@@ -150,14 +150,14 @@ public partial class GhostBody : AnyBody
     {
         base.HitstunApply();
         skull.Play("damaged");
-        skullGlow.Play("damaged");
+       // skullGlow.Play("damaged");
     }
 
     public override void HitstunCleanse()
     {
         base.HitstunCleanse();
         skull.Play("idle");
-        skullGlow.Play("idle");
+        //skullGlow.Play("idle");
     }
 
     public override void DamageFrameApply()
@@ -205,7 +205,7 @@ public partial class GhostBody : AnyBody
         base._PhysicsProcess(delta);
         Vector2 currentVelocity = Velocity;
 
-        if (stunned) { MoveAndSlide();  return; }
+        
         
         if (moveDirection != Vector2.Zero)
         {
@@ -219,6 +219,8 @@ public partial class GhostBody : AnyBody
         }
 
         Velocity = currentVelocity;
+
+        if (stunned) { MoveAndSlide();  return; }
 
         MoveAndSlide();
     }

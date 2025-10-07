@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://70ceu615i4b"]
+
+[ext_resource type="Script" uid="uid://dlxm76pnrpykf" path="res://scripts/game/CameraFollow.cs" id="1_3q352"]
+
+[node name="Camera" type="Camera2D"]
+zoom = Vector2(3, 3)
+script = ExtResource("1_3q352")
