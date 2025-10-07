@@ -87,7 +87,7 @@ public partial class MeleeAIController : AnyController
 
         // --- Controles principais ---
         LeftAxisAction.Invoke(moveDir/2);
-        RightAxisAction.Invoke(lookDir);
+        RightAxisAction.Invoke(moveDir);
 
         // --- Ataque corpo a corpo ---
         if (distance <= AttackRange && _attackTimer <= 0f)

@@ -135,11 +135,13 @@ public abstract partial class AnyBody : CharacterBody2D, Hitable
         GD.Print($"{Name} tomou {damage} de dano. HP atual: {HP}");
         GD.Print("TakeDamage em: ", this);
 
-        if (HP <= 0) Die();
+        
 
         HitstunApply();
         KnockbackApply(knockback);
         DamageFrameApply();
+
+        if (HP <= 0) Die();
 
     }
     public virtual void HitstunApply()

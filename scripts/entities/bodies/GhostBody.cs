@@ -173,7 +173,9 @@ public partial class GhostBody : AnyBody
     //TODO!
     public override void Die()
     {
+        GameManager.PlayerDie();
         base.Die();
+        
     }
 
 

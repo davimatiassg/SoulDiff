@@ -27,6 +27,12 @@ public partial class GameManager : Node
 		else if (instance != this) { QueueFree(); return; }
 	}
 
+	public override void _ExitTree()
+	{
+		if(instance == this) instance = null;
+	}
+
+
 	public override void _Ready()
 	{
 		base._Ready();
@@ -42,7 +48,10 @@ public partial class GameManager : Node
 
 
 		SetupSpawns();
-		SpawnHorde(130);
+
+
+
+		
 
 	}
 	
@@ -124,6 +133,20 @@ public partial class GameManager : Node
 			if(body is EnemyBody enemy) enemies.Add((enemy.MaxHP, pack));
 			body.QueueFree();
 		}
+
+		Tween hordeTween;
+		double hordeDelay = 5;
+		float hordeSize = 20;
+		hordeTween = instance.CreateTween();
+		hordeTween.TweenInterval(hordeDelay);
+		hordeTween.TweenCallback(Callable.From(()=>
+			{
+				SpawnHorde((int)hordeSize);
+				hordeSize += 10;
+				hordeDelay += 20;
+			}));
+
+		hordeTween.SetLoops();
 	}
 
 	public static void SpawnHorde(int points = 30)
@@ -155,13 +178,17 @@ public partial class GameManager : Node
 		Vector2 position = new Vector2(_rng.RandfRange(-640, 640), _rng.RandfRange(-360, 360));
 		
 		var spawn = (Node2D)enemy.Instantiate();
-
+		
 		instance.GetParent().CallDeferred("add_child", spawn);
 		spawn.GlobalPosition = position;
 		
 	}
-	
 
 
+	public static void PlayerDie()
+	{
+		var tree = instance.GetTree();
+		tree.CallDeferred("change_scene_to_file", tree.CurrentScene.SceneFilePath);
+	}
 
 }
