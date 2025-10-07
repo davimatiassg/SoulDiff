@@ -44,7 +44,7 @@ public class EffectPool
 	{
 		Effect fx = (Effect)(prefab.Instantiate());
 		fx.name = prefab.ResourceName;
-		parent.AddChild(fx);
+		parent.CallDeferred("add_child", fx);
 		fx.Position = Vector2.Zero;
 		return fx;
 	}

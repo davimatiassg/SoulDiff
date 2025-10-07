@@ -1,10 +1,11 @@
-[gd_scene load_steps=6 format=3 uid="uid://bqa8vwqpy2rvs"]
+[gd_scene load_steps=7 format=3 uid="uid://bqa8vwqpy2rvs"]
 
 [ext_resource type="Script" uid="uid://dp40cmq11biqj" path="res://scripts/entities/controllers/PlayerController.cs" id="1_ns7l7"]
 [ext_resource type="PackedScene" uid="uid://w7scrx2p6vkw" path="res://objects/GameManager.tscn" id="3_l60ws"]
 [ext_resource type="PackedScene" uid="uid://dk2iakv4iqyo8" path="res://objects/entities/Player.tscn" id="3_wo0s5"]
 [ext_resource type="PackedScene" uid="uid://b4283bflripuo" path="res://objects/entities/Ghost.tscn" id="4_bk5ri"]
 [ext_resource type="PackedScene" uid="uid://b4j7hdg38dqio" path="res://objects/entities/Knight.tscn" id="5_1atlx"]
+[ext_resource type="PackedScene" uid="uid://divu6gwngrkvy" path="res://objects/entities/Minotaur.tscn" id="6_1atlx"]
 
 [node name="TestLevel" type="Node2D"]
 texture_filter = 1
@@ -40,3 +41,6 @@ attackCooldown = 3.0
 [node name="Knight5" parent="." instance=ExtResource("5_1atlx")]
 position = Vector2(-88, 57)
 attackCooldown = 3.0
+
+[node name="Minotaur" parent="." instance=ExtResource("6_1atlx")]
+position = Vector2(-157, 4)

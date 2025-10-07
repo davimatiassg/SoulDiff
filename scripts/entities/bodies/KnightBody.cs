@@ -119,11 +119,6 @@ public partial class KnightBody : EnemyBody
         slash.knockback = attackPushForce;
         slash.direction = aimDirection;
         slash.damage = attackDamage;
-
-
-        
-    
-
     }
 
     private bool canShield = true;

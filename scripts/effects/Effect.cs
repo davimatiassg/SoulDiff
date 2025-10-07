@@ -37,7 +37,7 @@ public partial class Effect : Node2D
 	}
 
 
-	Tween dismissTime;
+	protected Tween dismissTime;
 	public void SetExitTime(double seconds)
 	{
 		dismissTime = CreateTween();
@@ -47,6 +47,7 @@ public partial class Effect : Node2D
 
 	public virtual void Dispawn()
 	{
+		
 		EffectPool.DispawnEffect(this, name);
 	}
 

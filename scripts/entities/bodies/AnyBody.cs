@@ -185,43 +185,10 @@ public abstract partial class AnyBody : CharacterBody2D, Hitable
         if (isPlayer)
         {
             GD.Print("O jogador morreu!");
-
-            // Desativa o controle e colisão
-            if (controller != null)
-                controller.SetProcess(false);
-
-            if (collision != null)
-                collision.Disabled = true;
-
-            // Efeito visual de morte (fade out)
-            var deathTween = CreateTween();
-            deathTween.TweenProperty(sprite, "Modulate", Colors.Transparent, 1.8f); // fade out em 0.8s
-            deathTween.TweenCallback(Callable.From(() =>
-            {
-                QueueFree();
-
-                // Notifica o GameManager se existir
-                var gm = GetTree().Root.GetNodeOrNull("GameManager") as Node;
-                if (gm != null)
-                {
-                    if (gm.HasMethod("OnPlayerDeath"))
-                        gm.Call("OnPlayerDeath");
-
-                }
-            }));
+            
         }
-        else
-        {
-            GD.Print($"{Name} morreu!");
 
-            // Desativa colisão e inicia efeito de desaparecimento
-            if (collision != null)
-                collision.Disabled = true;
-
-            var deathTween = CreateTween();
-            deathTween.TweenProperty(sprite, "Modulate", Colors.Transparent, 1.8f);
-            deathTween.TweenCallback(Callable.From(() => QueueFree()));
-        }
+        QueueFree();
     }
 
     public override void _PhysicsProcess(double delta)

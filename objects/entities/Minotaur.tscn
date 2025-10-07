@@ -1,0 +1,192 @@
+[gd_scene load_steps=25 format=3 uid="uid://divu6gwngrkvy"]
+
+[ext_resource type="Script" uid="uid://b6gjo73hdaiul" path="res://scripts/entities/bodies/MinotaurBody.cs" id="1_owogu"]
+[ext_resource type="Shader" uid="uid://d08l0x7d512wq" path="res://materials/Minotaur.gdshader" id="1_x66bs"]
+[ext_resource type="PackedScene" uid="uid://yus25gb6r0f1" path="res://objects/effects/AxeSlash.tscn" id="2_owogu"]
+[ext_resource type="Texture2D" uid="uid://dgfpudh332uk7" path="res://sprites/minotaur.png" id="5_x66bs"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_xg55p"]
+shader = ExtResource("1_x66bs")
+shader_parameter/time_scale = 1.5500000703651202
+shader_parameter/anger_color = Color(0.59014106, 0, 0.273626, 1)
+shader_parameter/aura_intensity = 0.20400000969
+shader_parameter/color_pulse_strength = 0.8370000397575
+shader_parameter/outline_color = Color(0, 0, 0, 0)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_k51lh"]
+atlas = ExtResource("5_x66bs")
+region = Rect2(1728, 0, 96, 96)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_iudr2"]
+atlas = ExtResource("5_x66bs")
+region = Rect2(1824, 0, 96, 96)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1kbb4"]
+atlas = ExtResource("5_x66bs")
+region = Rect2(2208, 0, 96, 96)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lossl"]
+atlas = ExtResource("5_x66bs")
+region = Rect2(2400, 0, 96, 96)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yt74b"]
+atlas = ExtResource("5_x66bs")
+region = Rect2(0, 0, 96, 96)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lgcfu"]
+atlas = ExtResource("5_x66bs")
+region = Rect2(96, 0, 96, 96)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ihbv1"]
+atlas = ExtResource("5_x66bs")
+region = Rect2(192, 0, 96, 96)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_t4ref"]
+atlas = ExtResource("5_x66bs")
+region = Rect2(288, 0, 96, 96)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dyhut"]
+atlas = ExtResource("5_x66bs")
+region = Rect2(384, 0, 96, 96)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jqni1"]
+atlas = ExtResource("5_x66bs")
+region = Rect2(480, 0, 96, 96)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mn8qs"]
+atlas = ExtResource("5_x66bs")
+region = Rect2(576, 0, 96, 96)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4clap"]
+atlas = ExtResource("5_x66bs")
+region = Rect2(672, 0, 96, 96)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_n81et"]
+atlas = ExtResource("5_x66bs")
+region = Rect2(768, 0, 96, 96)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_d6ncc"]
+atlas = ExtResource("5_x66bs")
+region = Rect2(864, 0, 96, 96)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_w47mc"]
+atlas = ExtResource("5_x66bs")
+region = Rect2(960, 0, 96, 96)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5s7yy"]
+atlas = ExtResource("5_x66bs")
+region = Rect2(1056, 0, 96, 96)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_a2bx7"]
+atlas = ExtResource("5_x66bs")
+region = Rect2(1152, 0, 96, 96)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_iircv"]
+animations = [{
+"frames": [{
+"duration": 5.0,
+"texture": SubResource("AtlasTexture_k51lh")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_iudr2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1kbb4")
+}],
+"loop": false,
+"name": &"atk",
+"speed": 30.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lossl")
+}],
+"loop": false,
+"name": &"hurt",
+"speed": 4.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_yt74b")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lgcfu")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ihbv1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_t4ref")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dyhut")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 8.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jqni1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mn8qs")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4clap")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_n81et")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_d6ncc")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_w47mc")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5s7yy")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_a2bx7")
+}],
+"loop": true,
+"name": &"walk",
+"speed": 8.0
+}]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_80j5y"]
+radius = 16.0
+height = 40.0
+
+[node name="Minotaur" type="CharacterBody2D" node_paths=PackedStringArray("sprite", "collision")]
+texture_filter = 1
+script = ExtResource("1_owogu")
+slashPrefab = ExtResource("2_owogu")
+speed = 64.0
+attackDamage = 2
+attackPushForce = 1080.0
+attackCooldown = 2.0
+rageAttackPushForce = 3240.0
+rageCooldown = 7.0
+rageDuration = 4.0
+rageMoveSpeed = 108.0
+invincibilityTime = 0.0
+hitStunTime = 0.15000000000873115
+MaxHP = 60
+sprite = NodePath("sprite")
+collision = NodePath("CollisionShape2D")
+
+[node name="sprite" type="AnimatedSprite2D" parent="."]
+texture_filter = 1
+material = SubResource("ShaderMaterial_xg55p")
+position = Vector2(-1, -13)
+sprite_frames = SubResource("SpriteFrames_iircv")
+animation = &"atk"
+autoplay = "idle"
+frame = 2
+frame_progress = 1.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
+shape = SubResource("CapsuleShape2D_80j5y")
