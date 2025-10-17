@@ -48,11 +48,6 @@ public partial class GameManager : Node
 
 
 		SetupSpawns();
-
-
-
-		
-
 	}
 	
 

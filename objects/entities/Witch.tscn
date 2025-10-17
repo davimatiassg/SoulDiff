@@ -1,0 +1,206 @@
+[gd_scene load_steps=18 format=3 uid="uid://c2uv7ojcq7hr"]
+
+[ext_resource type="Script" uid="uid://cfe4ajk1pvnmo" path="res://scripts/entities/bodies/WitchBody.cs" id="1_pxqsn"]
+[ext_resource type="Shader" uid="uid://bcwyj2yow674w" path="res://materials/Highlight.gdshader" id="4_7osfo"]
+[ext_resource type="Texture2D" uid="uid://dn5nmif3l2m7s" path="res://sprites/witch-broom.png" id="4_82ipo"]
+[ext_resource type="Texture2D" uid="uid://dpi276n85t7os" path="res://sprites/witch.png" id="5_wfgpb"]
+[ext_resource type="Texture2D" uid="uid://dnp4j0v4p7xp8" path="res://sprites/witch-wand.png" id="6_82ipo"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_xg55p"]
+shader = ExtResource("4_7osfo")
+shader_parameter/outline_color = Color(1, 1, 1, 0)
+shader_parameter/thickness = 1
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7osfo"]
+atlas = ExtResource("5_wfgpb")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hqnyo"]
+atlas = ExtResource("5_wfgpb")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_pxqsn"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7osfo")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hqnyo")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_80j5y"]
+radius = 7.0
+height = 26.0
+
+[sub_resource type="Animation" id="Animation_netpo"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_eo037"]
+resource_name = "attack"
+length = 0.20000167
+step = 0.016666668
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.033333335),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [5, 6]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("..")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"SwingSword"
+}]
+}
+
+[sub_resource type="Animation" id="Animation_py1qv"]
+resource_name = "def"
+length = 1.0000017
+step = 0.016666668
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.033333335),
+"transitions": PackedFloat32Array(1e-05, 1),
+"update": 1,
+"values": [6, 7]
+}
+
+[sub_resource type="Animation" id="Animation_3x41v"]
+resource_name = "hurt"
+length = 0.033335
+loop_mode = 1
+step = 0.016666668
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [4]
+}
+
+[sub_resource type="Animation" id="Animation_80j5y"]
+resource_name = "idle"
+length = 0.03333667
+loop_mode = 1
+step = 0.016666668
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_ck3em"]
+resource_name = "walk"
+length = 0.20000167
+loop_mode = 2
+step = 0.016666668
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.10000001, 0.20000002),
+"transitions": PackedFloat32Array(1e-05, 1e-05, 1.624505e-05),
+"update": 1,
+"values": [1, 2, 3]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_3x41v"]
+_data = {
+&"RESET": SubResource("Animation_netpo"),
+&"attack": SubResource("Animation_eo037"),
+&"def": SubResource("Animation_py1qv"),
+&"hurt": SubResource("Animation_3x41v"),
+&"idle": SubResource("Animation_80j5y"),
+&"walk": SubResource("Animation_ck3em")
+}
+
+[node name="Witch" type="CharacterBody2D" node_paths=PackedStringArray("anim", "wand", "wandTip", "broom", "sprite", "collision")]
+texture_filter = 1
+script = ExtResource("1_pxqsn")
+anim = NodePath("AnimationPlayer")
+wand = NodePath("sprite/wand")
+wandTip = NodePath("sprite/wand/wandTip")
+broom = NodePath("sprite/Node2D/broom")
+sprite = NodePath("sprite")
+collision = NodePath("CollisionShape2D")
+
+[node name="sprite" type="AnimatedSprite2D" parent="."]
+texture_filter = 1
+material = SubResource("ShaderMaterial_xg55p")
+position = Vector2(2, -3)
+sprite_frames = SubResource("SpriteFrames_pxqsn")
+
+[node name="Node2D" type="Node2D" parent="sprite"]
+show_behind_parent = true
+position = Vector2(-2, 8.5)
+
+[node name="broom" type="Sprite2D" parent="sprite/Node2D"]
+texture = ExtResource("4_82ipo")
+
+[node name="wand" type="Sprite2D" parent="sprite"]
+position = Vector2(2, 2)
+texture = ExtResource("6_82ipo")
+offset = Vector2(7.5, 0)
+
+[node name="wandTip" type="Node2D" parent="sprite/wand"]
+position = Vector2(17, -1)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CapsuleShape2D_80j5y")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+root_node = NodePath("../sprite")
+libraries = {
+&"": SubResource("AnimationLibrary_3x41v")
+}
+autoplay = "idle"
