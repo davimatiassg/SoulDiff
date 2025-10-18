@@ -1,0 +1,66 @@
+[gd_scene load_steps=9 format=3 uid="uid://cpg2si6ckb27h"]
+
+[ext_resource type="Script" uid="uid://cj8ra0yhddfjq" path="res://scripts/effects/MagicBolt.cs" id="1_k8mu6"]
+[ext_resource type="Texture2D" uid="uid://m83yetny2o34" path="res://sprites/effects/witch-bolt.png" id="2_k8mu6"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yytyk"]
+atlas = ExtResource("2_k8mu6")
+region = Rect2(0, 0, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_c6rc1"]
+atlas = ExtResource("2_k8mu6")
+region = Rect2(24, 0, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mnjx0"]
+atlas = ExtResource("2_k8mu6")
+region = Rect2(48, 0, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gqyso"]
+atlas = ExtResource("2_k8mu6")
+region = Rect2(72, 0, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xfyi6"]
+atlas = ExtResource("2_k8mu6")
+region = Rect2(96, 0, 24, 24)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_4msfh"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_yytyk")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_c6rc1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mnjx0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gqyso")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xfyi6")
+}],
+"loop": true,
+"name": &"default",
+"speed": 18.0
+}]
+
+[node name="Bolt" type="Node2D" node_paths=PackedStringArray("animation", "collider")]
+texture_filter = 1
+script = ExtResource("1_k8mu6")
+animation = NodePath("AnimatedSprite2D")
+collider = NodePath("Area2D")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+texture_filter = 1
+sprite_frames = SubResource("SpriteFrames_4msfh")
+autoplay = "default"
+frame_progress = 0.6480486
+
+[node name="Area2D" type="Area2D" parent="."]
+texture_filter = 1
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Area2D"]
+texture_filter = 1
+polygon = PackedVector2Array(0, 8, 0, -9, 10, 0)

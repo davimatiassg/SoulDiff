@@ -3,7 +3,7 @@ using System;
 
 public partial class SwordSlash : DamageEffect
 {
-    public int damage = 3;
+    
     [Export] public Vector2 direction = Vector2.Right;
     public float knockback = 16f;
     public override void OnCollisionEnter(Rid bodyRid, Node2D body, long bodyShapeIndex, long localShapeIndex)

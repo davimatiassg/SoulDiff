@@ -3,7 +3,6 @@ using System;
 
 public partial class Shockwave : DamageEffect
 {
-    public int damage = 0;
     public float knockback = 640f;
     public override void OnCollisionEnter(Rid bodyRid, Node2D body, long bodyShapeIndex, long localShapeIndex)
     {

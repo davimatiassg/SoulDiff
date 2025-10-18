@@ -23,7 +23,7 @@ public partial class WitchBody : EnemyBody
     public int attackDamage = 3;
 
     [Export]
-    public float attackPushForce = 32f;
+    public float projectileSpeed = 3200f;
 
     [Export]
     public float attackCooldown = 0.1f;
@@ -49,15 +49,37 @@ public partial class WitchBody : EnemyBody
     }
 
 
+    Action attackAction = null;
+
     public override void Button1(bool pressed)
     {
+        if (pressed) { attackAction = CastBolt; }
+        else { attackAction = null;  }
+    }
+
+    Tween _atkTween;
+    bool canAttack = true;
+    public void CastBolt()
+    {
+        if (!canAttack || stunned) return;
+
+        var bolt = (MagicBolt)EffectPool.SpawnEffect(boltPrefab, GetParent());
+        bolt.GlobalPosition = wandTip.GlobalPosition;
+        bolt.playerEffect = isPlayer;
+        bolt.velocity = aimDirection*projectileSpeed;
+        bolt.damage = attackDamage;
+
+        canAttack = false;
+        _atkTween = CreateTween();
+        _atkTween.TweenInterval(attackCooldown);
+        _atkTween.TweenCallback(Callable.From(() => canAttack = true));
 
     }
 
 
     public override void Button2(bool pressed)
     {
-
+        //TODO!
     }
 
     public override void _PhysicsProcess(double delta)
@@ -65,6 +87,8 @@ public partial class WitchBody : EnemyBody
         base._PhysicsProcess(delta);
 
         if (stunned) { MoveAndSlide(); return; }
+
+        attackAction?.Invoke();
 
         Vector2 currentVelocity = Velocity;
         currentVelocity = (moveDirection * speed);

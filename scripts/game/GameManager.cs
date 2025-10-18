@@ -17,8 +17,14 @@ public partial class GameManager : Node
 	public static GameManager instance;
 	[Export] public PlayerController player;
 
+	
+	[ExportGroup("Debug")]
+
+	[Export] bool SPAWN_ENEMIES = true;
 
 	[Export] public GhostBody ghost;
+
+
 
 	public override void _EnterTree()
 	{
@@ -47,7 +53,7 @@ public partial class GameManager : Node
 		ghost.PossessStart(player);
 
 
-		SetupSpawns();
+		if(SPAWN_ENEMIES) SetupSpawns();
 	}
 	
 

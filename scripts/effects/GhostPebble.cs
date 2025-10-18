@@ -7,7 +7,6 @@ public partial class GhostPebble : DamageEffect
 
     
     Vector2 velocity = Vector2.Zero;
-    public int damage = 0;
     public override void _Ready()
     {
         base._Ready();
@@ -41,7 +40,7 @@ public partial class GhostPebble : DamageEffect
         {
             if (hit is AnyBody creature) { if (creature.isPlayer) return; }
 
-            hit.TakeDamage(damage, velocity * 0.1f);
+            hit.TakeDamage(damage, velocity);
         }
 
         Dispawn();
