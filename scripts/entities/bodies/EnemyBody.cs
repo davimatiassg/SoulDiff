@@ -6,6 +6,7 @@ using Godot;
 
 public abstract partial class EnemyBody : AnyBody
 {
+    [Export] public AnimationPlayer anim;
     public virtual bool StartWithDefaultController { get => true; }
     public virtual AnyController DefaultController => new MeleeAIController();
     public override void Button3(bool pressed)
@@ -30,6 +31,7 @@ public abstract partial class EnemyBody : AnyBody
         if (HP < MaxHP * (0.2))
         {
             OutlineColor = Colors.Red;
+
         }
 
         if (HP <= 0)
@@ -38,5 +40,10 @@ public abstract partial class EnemyBody : AnyBody
             return;
         }
 
+    }
+
+    public override void Die()
+    {
+        base.Die();
     }
 }

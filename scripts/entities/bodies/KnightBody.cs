@@ -5,7 +5,7 @@ using Godot;
 
 public partial class KnightBody : EnemyBody
 {
-    [Export] private AnimationPlayer anim;
+    
     [Export] private PackedScene slashPrefab;
 
     [Export] private PackedScene shockwavePrefab;

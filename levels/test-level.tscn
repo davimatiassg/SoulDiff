@@ -1,10 +1,11 @@
-[gd_scene load_steps=8 format=3 uid="uid://bqa8vwqpy2rvs"]
+[gd_scene load_steps=9 format=3 uid="uid://bqa8vwqpy2rvs"]
 
 [ext_resource type="PackedScene" uid="uid://w7scrx2p6vkw" path="res://objects/GameManager.tscn" id="3_l60ws"]
 [ext_resource type="PackedScene" uid="uid://dk2iakv4iqyo8" path="res://objects/entities/Player.tscn" id="3_wo0s5"]
 [ext_resource type="PackedScene" uid="uid://b4283bflripuo" path="res://objects/entities/Ghost.tscn" id="4_bk5ri"]
 [ext_resource type="PackedScene" uid="uid://70ceu615i4b" path="res://objects/Camera.tscn" id="6_1atlx"]
 [ext_resource type="PackedScene" uid="uid://c2rkhx1kyi633" path="res://objects/entities/ShittyArcher.tscn" id="7_83x5u"]
+[ext_resource type="PackedScene" uid="uid://b4j7hdg38dqio" path="res://objects/entities/Knight.tscn" id="7_o73k4"]
 [ext_resource type="Script" uid="uid://b2kkca2pbctmx" path="res://scripts/game/EffectPool.cs" id="9_o73k4"]
 [ext_resource type="PackedScene" uid="uid://oaxil6vm2ft1" path="res://objects/effects/Hit.tscn" id="10_o73k4"]
 
@@ -29,3 +30,5 @@ currentBody = NodePath("../Archer")
 
 [node name="Archer" parent="." instance=ExtResource("7_83x5u")]
 position = Vector2(3, -6)
+
+[node name="Knight" parent="." instance=ExtResource("7_o73k4")]

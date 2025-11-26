@@ -68,7 +68,7 @@ public partial class ArcherBody : AnyBody
         var _atkTween = CreateTween();
         _atkTween.TweenInterval(arrowCooldown);
         _atkTween.TweenCallback(Callable.From(() => canShoot = true));
-        
+
 
         float spd = speed;
         float a = acel;
@@ -134,7 +134,7 @@ public partial class ArcherBody : AnyBody
         moving = false;
         anim.Play("RESET");
     }
-    
+
 
     public override void _PhysicsProcess(double delta)
     {
@@ -148,6 +148,14 @@ public partial class ArcherBody : AnyBody
         Velocity = currentVelocity;
 
         MoveAndSlide();
+    }
+
+
+    public override void Die()
+    {
+        anim.Play("hurt");
+        PlayerController.Disembody(this);
+
     }
 
 }

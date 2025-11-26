@@ -165,7 +165,7 @@ _data = {
 &"walk": SubResource("Animation_ck3em")
 }
 
-[node name="Witch" type="CharacterBody2D" node_paths=PackedStringArray("anim", "wand", "wandTip", "broom", "sprite", "collision")]
+[node name="Witch" type="CharacterBody2D" node_paths=PackedStringArray("anim", "wand", "wandTip", "broom", "anim", "sprite", "collision")]
 texture_filter = 1
 script = ExtResource("1_pxqsn")
 anim = NodePath("AnimationPlayer")
@@ -174,7 +174,8 @@ wandTip = NodePath("sprite/wand/wandTip")
 broom = NodePath("sprite/Node2D/broom")
 boltPrefab = ExtResource("2_wfgpb")
 projectileSpeed = 320.0
-attackCooldown = 0.19999999999708962
+attackCooldown = 0.1999999999970896
+anim = NodePath("AnimationPlayer")
 sprite = NodePath("sprite")
 collision = NodePath("CollisionShape2D")
 

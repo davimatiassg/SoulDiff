@@ -351,6 +351,8 @@ arrowPrefab = ExtResource("2_uxxji")
 bow = NodePath("sprite/Bow")
 bowTip = NodePath("sprite/Bow/tip")
 anim = NodePath("AnimationPlayer")
+MaxHP = 1
+HP = 1
 sprite = NodePath("sprite")
 collision = NodePath("CollisionShape2D")
 

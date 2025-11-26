@@ -370,12 +370,12 @@ _data = {
 [node name="Knight" type="CharacterBody2D" node_paths=PackedStringArray("anim", "sprite", "collision")]
 texture_filter = 1
 script = ExtResource("1_netpo")
-anim = NodePath("AnimationPlayer")
 slashPrefab = ExtResource("2_ipplv")
 shockwavePrefab = ExtResource("3_xg55p")
 attackDamage = 2
 attackPushForce = 640.0
 attackCooldown = 0.3000000000029104
+anim = NodePath("AnimationPlayer")
 invincibilityTime = 0.0
 hitStunTime = 0.15000000000873115
 sprite = NodePath("sprite")
