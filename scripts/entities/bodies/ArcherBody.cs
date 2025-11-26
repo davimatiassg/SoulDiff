@@ -97,9 +97,6 @@ public partial class ArcherBody : AnyBody
 
         float spd = speed;
         float a = acel;
-        Vector2 dir = lastMoveDirection;
-
-
 
         Tween dashCD = CreateTween();
         dashCD.TweenInterval(dashCooldown);
@@ -110,7 +107,6 @@ public partial class ArcherBody : AnyBody
         {
             speed = spd * f;
             acel = a * f;
-            moveDirection = dir;
         }), dashForce, 1f, 0.2f);
 
     }
@@ -154,7 +150,16 @@ public partial class ArcherBody : AnyBody
     public override void Die()
     {
         anim.Play("hurt");
-        PlayerController.Disembody(this);
+        stunned = true;
+        if (controller != null)
+        {
+            PlayerController.Disembody(this);
+            controller = null;
+        }
+        else
+        {
+            QueueFree();
+        }
 
     }
 

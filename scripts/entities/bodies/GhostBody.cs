@@ -29,10 +29,12 @@ public partial class GhostBody : AnyBody
     private float dashCD;
 
     [ExportGroup("Extras & Cosmetics")]
+
+    [Export] private PackedScene ghostBlastPrefab;
     [Export] private PackedScene ghostPebblePrefab;
 
     /// Cosmetic Tools
-    [Export] public AnimatedSprite2D skull;
+    [Export] public AnimationPlayer anim;
     [Export] public AnimatedSprite2D skullGlow;
 
 
@@ -143,20 +145,50 @@ public partial class GhostBody : AnyBody
         }
     }
 
+    public void EmitSpawnBlast()
+    {
+        var wave = (Shockwave)EffectPool.SpawnEffect(ghostBlastPrefab, GetParent<Node2D>());
+        wave.GlobalPosition = GlobalPosition;
+        wave.playerEffect = isPlayer;
+        wave.knockback = 50;
+        wave.damage = flingDamage * 2;
 
+    }
+
+    public override void PossessStart(PlayerController cntrl)
+    {
+        base.PossessStart(cntrl);
+
+        anim.Play("spawn");
+
+        vulnerable = false;
+        stunned = true;
+        float spd = speed;
+        float a = acel;
+        Tween spawnTween = CreateTween();
+        spawnTween.TweenMethod(Callable.From((float f) =>
+        {
+            speed = spd * f;
+            acel = a * f;
+        }), dashForce, 1f, 0.5f);
+        spawnTween.TweenInterval(1);
+        spawnTween.TweenCallback(Callable.From(() => vulnerable = true));
+        spawnTween.TweenCallback(Callable.From(() => stunned = false));
+        spawnTween.TweenCallback(Callable.From(() => anim.Play("idle")));
+    }
 
 
     public override void HitstunApply()
     {
         base.HitstunApply();
-        skull.Play("damaged");
+        anim.Play("damaged");
        // skullGlow.Play("damaged");
     }
 
     public override void HitstunCleanse()
     {
         base.HitstunCleanse();
-        skull.Play("idle");
+        anim.Play("idle");
         //skullGlow.Play("idle");
     }
 
@@ -209,7 +241,7 @@ public partial class GhostBody : AnyBody
 
         
         
-        if (moveDirection != Vector2.Zero)
+        if (moveDirection != Vector2.Zero && !stunned)
         {
             currentVelocity = currentVelocity.MoveToward(moveDirection * speed, (float)delta * acel *
                 (currentVelocity.LengthSquared() / (moveDirection + currentVelocity).LengthSquared() + 1f)
@@ -222,7 +254,7 @@ public partial class GhostBody : AnyBody
 
         Velocity = currentVelocity;
 
-        if (stunned) { MoveAndSlide();  return; }
+        
 
         MoveAndSlide();
     }

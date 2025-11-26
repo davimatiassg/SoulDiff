@@ -101,10 +101,9 @@ collider = NodePath("Area2D")
 texture_filter = 1
 sprite_frames = SubResource("SpriteFrames_l2llc")
 autoplay = "default"
-frame_progress = 0.91087526
+frame_progress = 0.3953304
 
 [node name="Area2D" type="Area2D" parent="."]
-visible = false
 texture_filter = 1
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
