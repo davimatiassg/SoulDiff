@@ -7,19 +7,17 @@ using Godot;
 public abstract partial class EnemyBody : AnyBody
 {
     public virtual bool StartWithDefaultController { get => true; }
-    public virtual AnyController DefaultController => StartWithDefaultController? new MeleeAIController() : null;
+    public virtual AnyController DefaultController => new MeleeAIController();
     public override void Button3(bool pressed)
     {
         if (!pressed) return;
-
-        GameManager.PossessionDown(this);
         Die();
     }
 
     public override void _Ready()
     {
         base._Ready();
-        if (StartWithDefaultController) GameManager.ConnectBodies(this, DefaultController);
+        if (StartWithDefaultController) DefaultController.Connect(this);
 
         HP = MaxHP;
     }
@@ -27,7 +25,7 @@ public abstract partial class EnemyBody : AnyBody
     public override void TakeDamage(int damage, Vector2 knockback)
     {
         base.TakeDamage(damage, knockback);
-        if (HP <= 0 && isPlayer) { GameManager.PossessionDown(this); return; }
+        if (HP <= 0 && isPlayer) { PlayerController.Disembody(this); return; }
 
         if (HP < MaxHP * (0.2))
         {

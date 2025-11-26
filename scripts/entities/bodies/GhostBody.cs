@@ -131,7 +131,7 @@ public partial class GhostBody : AnyBody
                 {
                     GlobalPosition = enemy.GlobalPosition;
                     PossessEnd();
-                    GameManager.PossessionUp(enemy);
+                    PlayerController.Embody(enemy);
                     break;
                 }
 

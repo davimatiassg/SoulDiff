@@ -13,7 +13,7 @@ public partial class MeleeAIController : AnyController
     [Export] public float WanderDuration = 3f;
     [Export] public float IdleDuration = 2f;
 
-    private Vector2 PlayerGlobalPosition { get => GameManager.instance.player.currentBody.GlobalPosition; }
+    private Vector2 PlayerGlobalPosition { get => PlayerController.Instance.currentBody.GlobalPosition; }
     private float _attackTimer = 0f;
     private float _abilityTimer = 0f;
 

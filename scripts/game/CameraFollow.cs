@@ -13,9 +13,9 @@ public partial class CameraFollow : Camera2D
 
     public Vector2 GetPlayerPosition() 
     {
-        if(GameManager.instance.player == null) return Vector2.Zero;
+        if(PlayerController.Instance == null) return Vector2.Zero;
 
-        return GameManager.instance.player.currentBody.GlobalPosition;
+        return PlayerController.Instance.currentBody.GlobalPosition;
     }
 
     public override void _Process(double delta)
