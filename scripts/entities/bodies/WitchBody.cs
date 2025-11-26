@@ -29,18 +29,17 @@ public partial class WitchBody : EnemyBody
     public float attackCooldown = 0.1f;
 
     [Export]
+    public float fireballDamage = 4f;
+
+    [Export]
     public float fireballCooldown = 4f;
 
-
-    // inner variables
-    public virtual bool StartWithDefaultController { get => true; }
-    public override AnyController DefaultController => new MeleeAIController();
 
     public override void Move(Vector2 direction)
     {
         base.Move(direction);
         broom.LookAt(broom.GlobalPosition + direction);
-        
+
     }
     public override void Aim(Vector2 direction)
     {
@@ -63,7 +62,7 @@ public partial class WitchBody : EnemyBody
     {
         if (!canAttack || stunned) return;
 
-        var bolt = (MagicBolt)EffectPool.SpawnEffect(boltPrefab, GetParent());
+        var bolt = (MagicBolt)EffectPool.SpawnEffect(boltPrefab, GetParent<Node2D>());
         bolt.GlobalPosition = wandTip.GlobalPosition;
         bolt.playerEffect = isPlayer;
         bolt.velocity = aimDirection*projectileSpeed;

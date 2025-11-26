@@ -47,8 +47,10 @@ public partial class Effect : Node2D
 
 	public virtual void Dispawn()
 	{
-		
-		EffectPool.DispawnEffect(this, name);
+		Position = Vector2.Zero;
+		Rotation = 0;
+		Scale = Vector2.One;
+		EffectPool.DispawnEffect(this);
 	}
 
 }

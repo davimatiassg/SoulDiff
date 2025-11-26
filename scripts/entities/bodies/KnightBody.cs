@@ -111,7 +111,7 @@ public partial class KnightBody : EnemyBody
     /// </summary>
     public void SwingSword()
     {
-        var slash = (SwordSlash)EffectPool.SpawnEffect(slashPrefab, GetParent());
+        var slash = (SwordSlash)EffectPool.SpawnEffect(slashPrefab, GetParent<Node2D>());
         slash.GlobalPosition = GlobalPosition + (aimDirection * 16f);
         slash.LookAt(GlobalPosition + 32 * aimDirection);
         if(sprite.Scale.Y < 0) { slash.Scale = new Vector2(1, -1); }
@@ -164,7 +164,7 @@ public partial class KnightBody : EnemyBody
         if (shielding)
         {
             Unshield();
-            var wave = (Shockwave)EffectPool.SpawnEffect(shockwavePrefab, GetParent());
+            var wave = (Shockwave)EffectPool.SpawnEffect(shockwavePrefab, GetParent<Node2D>());
             wave.GlobalPosition = GlobalPosition;
             wave.playerEffect = isPlayer;
             wave.knockback = knockback.Length();

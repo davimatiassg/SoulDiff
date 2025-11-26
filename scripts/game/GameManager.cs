@@ -95,7 +95,6 @@ public partial class GameManager : Node
 
 	public static void ConnectBodies(AnyBody body, AnyController controller)
 	{
-		GD.Print($"connected {body.GetType()} onto {controller.GetType()}");
 
 		if (controller.GetParent() == null) body.AddChild(controller);
 
@@ -111,7 +110,6 @@ public partial class GameManager : Node
 
 	public static void DisconnectBodies(AnyBody body, AnyController controller)
 	{
-		GD.Print($"disconnected {body.GetType()} from {controller.GetType()}");
 		if (controller.GetParent() == body) body.RemoveChild(controller);
 
 		body.controller = null;

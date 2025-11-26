@@ -154,7 +154,7 @@ public partial class MinotaurBody : EnemyBody
     /// </summary>
     public void SwingAxe()
     {
-        var slash = (SwordSlash)EffectPool.SpawnEffect(slashPrefab, GetParent());
+        var slash = (SwordSlash)EffectPool.SpawnEffect(slashPrefab, GetParent<Node2D>());
         slash.GlobalPosition = sprite.GlobalPosition;
         slash.LookAt(GlobalPosition + 32 * aimDirection);
         if(sprite.Scale.Y < 0) { slash.Scale = new Vector2(1, -1); }

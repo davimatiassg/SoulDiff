@@ -1,0 +1,21 @@
+[gd_scene load_steps=3 format=3 uid="uid://cn45irh5po8vy"]
+
+[ext_resource type="Script" uid="uid://cj8ra0yhddfjq" path="res://scripts/effects/MagicBolt.cs" id="1_8p5op"]
+[ext_resource type="Texture2D" uid="uid://crmrkrn5mijxh" path="res://sprites/effects/arrow.png" id="2_8p5op"]
+
+[node name="Bolt" type="Node2D" node_paths=PackedStringArray("animation", "collider")]
+texture_filter = 1
+script = ExtResource("1_8p5op")
+animation = NodePath("")
+collider = NodePath("Area2D")
+
+[node name="Area2D" type="Area2D" parent="."]
+texture_filter = 1
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Area2D"]
+texture_filter = 1
+position = Vector2(-3, 0)
+polygon = PackedVector2Array(-8, 2, -8, -2, 10, 0)
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_8p5op")

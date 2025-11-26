@@ -6,15 +6,12 @@ using Godot;
 
 public abstract partial class EnemyBody : AnyBody
 {
-
-    public abstract AnyController DefaultController { get; }
-
     public virtual bool StartWithDefaultController { get => true; }
-
+    public virtual AnyController DefaultController => StartWithDefaultController? new MeleeAIController() : null;
     public override void Button3(bool pressed)
     {
         if (!pressed) return;
-        
+
         GameManager.PossessionDown(this);
         Die();
     }

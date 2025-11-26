@@ -3,6 +3,7 @@ using System.Diagnostics;
 using System.Threading.Tasks;
 using Godot;
 
+[GlobalClass]
 public abstract partial class AnyBody : CharacterBody2D, Hitable
 {
     [Export] protected bool vulnerable = true;
@@ -98,8 +99,7 @@ public abstract partial class AnyBody : CharacterBody2D, Hitable
     public virtual void PossessStart(PlayerController cntrl)
     {
         HP = MaxHP;
-        GD.Print(HP, " é a vida q eu tenho po");
-        
+
         isPlayer = true;
         cntrl.currentBody = this;
         this.controller = cntrl;
@@ -125,17 +125,21 @@ public abstract partial class AnyBody : CharacterBody2D, Hitable
     public virtual void TakeDamage(int damage, Vector2 knockback)
     {
 
-        // FIXME: esse hitFX ainda não funciona
-        //  ----------------------------------vvvvvvvvvv------------>ainda não está setado corretamente
-        //EffectPool.SpawnEffect(Hitable.fx, "hitFX", this);
+        var fx = EffectPool.SpawnEffect("Hit", GlobalPosition);
+        fx.Scale *= damage / 8f;
+        fx.SetExitTime(0.2);
 
-        if (!vulnerable) return;
+        if (!vulnerable)
+        {
+
+            return;
+        }
 
         HP -= damage;
         GD.Print($"{Name} tomou {damage} de dano. HP atual: {HP}");
         GD.Print("TakeDamage em: ", this);
 
-        
+
 
         HitstunApply();
         KnockbackApply(knockback);
@@ -187,7 +191,7 @@ public abstract partial class AnyBody : CharacterBody2D, Hitable
         if (isPlayer)
         {
             GD.Print("O jogador morreu!");
-            
+
         }
 
         QueueFree();

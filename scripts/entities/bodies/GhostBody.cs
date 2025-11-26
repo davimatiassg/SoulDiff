@@ -61,7 +61,7 @@ public partial class GhostBody : AnyBody
             if (flingCD > 0) return;
             flingCD = flingCooldown;
 
-            curr_pebble = (GhostPebble)EffectPool.SpawnEffect(ghostPebblePrefab, GetParent());
+            curr_pebble = (GhostPebble)EffectPool.SpawnEffect(ghostPebblePrefab, GetParent<Node2D>());
             curr_pebble.Position = Position;
             curr_pebble.StartOrbit(this);
 
@@ -86,7 +86,7 @@ public partial class GhostBody : AnyBody
         }
 
         pebbleIncreaser.Kill();
-        pebbleIncreaser.Kill();
+        pebbleRotater.Kill();
         if (curr_pebble == null) return;
         curr_pebble.Fling(aimDirection);
         curr_pebble = null;
