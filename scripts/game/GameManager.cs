@@ -27,7 +27,7 @@ public partial class GameManager : Node
 
 	private void PlayerFirstDeath()
 	{
-
+		OnPlayerDie = PlayerDeath;
 
 
 		OnPlayerRefuseToDie = () =>
@@ -39,14 +39,17 @@ public partial class GameManager : Node
 			OnPlayerRefuseToDie = () => SceneManager.ChangeLevel("Level_1");
 		};
 
-		OnPlayerDie = PlayerDeath;
 		
-		
-		PlayerDeath();
+		//TODO! - Desacelerar a música
+		//TODO! - Zoom na câmera
+		MenuManager.PlayDeathMenu();
 	
 	}
 	private void PlayerDeath()
 	{
+
+		if (PlayerController.Instance.currentBody is ArcherBody)
+		{ GhostSpawn(); return; }
 		deathCount++;
 		//TODO! - Desacelerar a música
 		//TODO! - Zoom na câmera

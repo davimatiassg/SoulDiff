@@ -1,12 +1,10 @@
-[gd_scene load_steps=8 format=3 uid="uid://trooaratn7mp"]
+[gd_scene load_steps=6 format=3 uid="uid://trooaratn7mp"]
 
 [ext_resource type="PackedScene" uid="uid://70ceu615i4b" path="res://objects/Camera.tscn" id="8_fc4ab"]
 [ext_resource type="PackedScene" uid="uid://dk2iakv4iqyo8" path="res://objects/entities/Player.tscn" id="9_8x0ck"]
 [ext_resource type="PackedScene" uid="uid://b4283bflripuo" path="res://objects/entities/Ghost.tscn" id="10_6oglv"]
 [ext_resource type="PackedScene" uid="uid://c2rkhx1kyi633" path="res://objects/entities/ShittyArcher.tscn" id="11_5i0tk"]
 [ext_resource type="PackedScene" uid="uid://b4j7hdg38dqio" path="res://objects/entities/Knight.tscn" id="12_xkbm3"]
-[ext_resource type="Script" uid="uid://b2kkca2pbctmx" path="res://scripts/game/EffectPool.cs" id="13_maxqf"]
-[ext_resource type="PackedScene" uid="uid://oaxil6vm2ft1" path="res://objects/effects/Hit.tscn" id="14_krnhl"]
 
 [node name="TestLevel" type="Node2D"]
 texture_filter = 1
@@ -26,10 +24,3 @@ position = Vector2(104, -8)
 
 [node name="Knight2" parent="." instance=ExtResource("12_xkbm3")]
 position = Vector2(880, 96)
-
-[node name="EffectPool" type="Node" parent="."]
-script = ExtResource("13_maxqf")
-objects = Dictionary[String, PackedScene]({
-"Hit": ExtResource("14_krnhl")
-})
-metadata/_custom_type_script = "uid://b2kkca2pbctmx"
