@@ -205,9 +205,7 @@ public partial class GhostBody : AnyBody
     //TODO!
     public override void Die()
     {
-        GameManager.PlayerDie();
-        base.Die();
-        
+        GameManager.OnPlayerDie();
     }
 
 
@@ -285,13 +283,6 @@ public partial class GhostBody : AnyBody
         base._Process(delta);
         CalculateTrail((float)delta);
         reduceCooldowns((float)delta);
-
-        // Vector2 p = GlobalPosition;
-        // if (moveDirection == Vector2.Zero) p += Vector2.Down;
-        // else ghostTrail.Position = -p;
-        // if (p != ghostTrail.Points.LastOrDefault()) ghostTrail.AddPoint(p);
-
-
 
     }
 }

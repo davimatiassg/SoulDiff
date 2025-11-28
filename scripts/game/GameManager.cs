@@ -4,24 +4,73 @@ using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Linq;
+using System;
 
 
 public partial class GameManager : Node
 {
+
+
 	public static GameManager Instance;
 
-	public static void PlayerDie()
+
+    public static Action OnPlayerDie;
+
+	public static Action OnPlayerRefuseToDie;
+
+    [Export]
+    public Control DeathMenu;
+
+
+	[Export]
+	public int deathCount = 0;
+
+	private void PlayerFirstDeath()
 	{
-		var tree = Instance.GetTree();
-		//STUB: fazer transição de tela adequada.
-		tree.CallDeferred("change_scene_to_file", tree.CurrentScene.SceneFilePath);
+
+
+
+		OnPlayerRefuseToDie = () =>
+		{
+			GhostSpawn();
+			//TODO! - Reacelerar a música
+			//TODO! - Remover gradualmente zoom na câmera
+
+			OnPlayerRefuseToDie = () => SceneManager.ChangeLevel("Level_1");
+		};
+
+		OnPlayerDie = PlayerDeath;
+		
+		
+		PlayerDeath();
+	
 	}
+	private void PlayerDeath()
+	{
+		deathCount++;
+		//TODO! - Desacelerar a música
+		//TODO! - Zoom na câmera
+		MenuManager.PlayDeathMenu();
+	}
+
+	public void GhostSpawn()
+	{
+		var body = PlayerController.Instance.currentBody;
+		Debug.Assert(body != null);
+
+		PlayerController.Disembody(body);
+
+		OnPlayerRefuseToDie = () => SceneManager.ChangeLevel("Level_1");
+	}
+
+
 
 	public override void _Ready()
 	{
 		base._Ready();
-		base._EnterTree();
-		if (Instance == null) { Instance = this; return; }
+		if (Instance == null) { Instance = this; }
 		else if (Instance != this) { QueueFree(); return; }
+
+		OnPlayerDie += PlayerFirstDeath;
 	}
 }

@@ -346,6 +346,8 @@ _data = {
 [node name="Archer" type="CharacterBody2D" node_paths=PackedStringArray("bow", "bowTip", "anim", "sprite", "collision")]
 texture_filter = 1
 script = ExtResource("1_uwrfa")
+speed = 100.0
+arrowDamage = 1
 projectileSpeed = 500.0
 arrowPrefab = ExtResource("2_uxxji")
 bow = NodePath("sprite/Bow")

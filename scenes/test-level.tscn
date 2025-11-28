@@ -1,0 +1,331 @@
+[gd_scene load_steps=21 format=3 uid="uid://bqa8vwqpy2rvs"]
+
+[ext_resource type="PackedScene" uid="uid://w7scrx2p6vkw" path="res://objects/GameManager.tscn" id="1_uyaml"]
+[ext_resource type="Script" uid="uid://crppldnbwltdf" path="res://scripts/game/SceneManager.cs" id="2_ivv02"]
+[ext_resource type="FontFile" uid="uid://5qyau3olj3s4" path="res://fonts/hf-free-complete/compass-pro-v1.1/CompassPro.otf" id="2_vnfnc"]
+[ext_resource type="FontFile" uid="uid://bvsdwijfhhd7t" path="res://fonts/hf-free-complete/expression-pro-v1.1/ExpressionPro.ttf" id="3_ivv02"]
+[ext_resource type="Texture2D" uid="uid://gu3h1rvge2b" path="res://sprites/hud/Ghost laugh.png" id="4_celrk"]
+[ext_resource type="Script" uid="uid://bmq8357rjdwuq" path="res://scripts/hud/TransitionVignette.cs" id="5_phm0u"]
+[ext_resource type="Script" uid="uid://b2kkca2pbctmx" path="res://scripts/game/EffectPool.cs" id="6_c2pys"]
+[ext_resource type="PackedScene" uid="uid://oaxil6vm2ft1" path="res://objects/effects/Hit.tscn" id="7_ktgw0"]
+[ext_resource type="PackedScene" uid="uid://70ceu615i4b" path="res://objects/Camera.tscn" id="8_xymbh"]
+[ext_resource type="PackedScene" uid="uid://dk2iakv4iqyo8" path="res://objects/entities/Player.tscn" id="9_ui634"]
+[ext_resource type="PackedScene" uid="uid://b4283bflripuo" path="res://objects/entities/Ghost.tscn" id="10_v3mvl"]
+[ext_resource type="PackedScene" uid="uid://c2rkhx1kyi633" path="res://objects/entities/ShittyArcher.tscn" id="11_b7uj6"]
+[ext_resource type="Script" uid="uid://dncath0cnhb34" path="res://scripts/hud/MenuManager.cs" id="12_celrk"]
+[ext_resource type="PackedScene" uid="uid://b4j7hdg38dqio" path="res://objects/entities/Knight.tscn" id="12_reddi"]
+
+[sub_resource type="Gradient" id="Gradient_iqc6g"]
+interpolation_mode = 2
+interpolation_color_space = 2
+offsets = PackedFloat32Array(0.5298913, 1)
+colors = PackedColorArray(0, 0, 0, 0, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_q27tn"]
+gradient = SubResource("Gradient_iqc6g")
+fill = 1
+fill_from = Vector2(0.51282054, 0.508547)
+fill_to = Vector2(0.4957265, 0.012820513)
+
+[sub_resource type="Animation" id="Animation_63hi1"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0.574)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("give up button:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(18.892157, 18.892157, 18.892157, 1)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("refuse button:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(18.892157, 18.892157, 18.892157, 1)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath(".:visible")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0.033333335),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="Animation" id="Animation_3c5mn"]
+resource_name = "intro"
+length = 3.3333368
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.9),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(18.892157, 18.892157, 18.892157, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("give up button:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.26666665, 0.76666665),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(18.892157, 18.892157, 18.892157, 1)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("refuse button:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(1.8333334, 2.7),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(18.892157, 18.892157, 18.892157, 0), Color(18.892157, 18.892157, 18.892157, 1)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath(".:visible")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="Animation" id="Animation_iqc6g"]
+resource_name = "exit"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0.099999994, 0.8333333),
+"transitions": PackedFloat32Array(1, 2.639016),
+"update": 0,
+"values": [Color(18.892157, 18.892157, 18.892157, 1), Color(1.1377786, 0, 0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(1),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/2/type = "method"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("AnimationPlayer")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(1),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [&"RESET", -1, 1.0, false],
+"method": &"play"
+}]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_iqc6g"]
+_data = {
+&"RESET": SubResource("Animation_63hi1"),
+&"intro": SubResource("Animation_3c5mn"),
+&"outro": SubResource("Animation_iqc6g")
+}
+
+[node name="Game" type="Node2D"]
+texture_filter = 1
+
+[node name="GameManager" parent="." instance=ExtResource("1_uyaml")]
+
+[node name="TransitionScreen" type="CanvasLayer" parent="GameManager" node_paths=PackedStringArray("vignette")]
+visible = false
+offset = Vector2(0.5, 0.5)
+scale = Vector2(0.5, 0.5)
+transform = Transform2D(0.5, 0, 0, 0.5, 0.5, 0.5)
+script = ExtResource("2_ivv02")
+vignette = NodePath("SubViewportContainer/SubViewport/GhostLaugh")
+
+[node name="SubViewportContainer" type="SubViewportContainer" parent="GameManager/TransitionScreen"]
+visible = false
+offset_right = 640.0
+offset_bottom = 360.0
+
+[node name="SubViewport" type="SubViewport" parent="GameManager/TransitionScreen/SubViewportContainer"]
+transparent_bg = true
+handle_input_locally = false
+size = Vector2i(640, 360)
+render_target_update_mode = 0
+
+[node name="GhostLaugh" type="TextureRect" parent="GameManager/TransitionScreen/SubViewportContainer/SubViewport"]
+modulate = Color(0.012920001, 0.012920001, 0.012920001, 1)
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(320, 280)
+size_flags_horizontal = 3
+size_flags_vertical = 3
+texture = ExtResource("4_celrk")
+script = ExtResource("5_phm0u")
+sizeMax = 8.0
+metadata/_edit_use_anchors_ = true
+
+[node name="EffectPool" type="Node" parent="GameManager"]
+script = ExtResource("6_c2pys")
+objects = Dictionary[String, PackedScene]({
+"Hit": ExtResource("7_ktgw0")
+})
+metadata/_custom_type_script = "uid://b2kkca2pbctmx"
+
+[node name="Node" type="Node" parent="GameManager"]
+
+[node name="Hud" type="CanvasLayer" parent="." node_paths=PackedStringArray("anim", "refuseButton", "giveupButton")]
+script = ExtResource("12_celrk")
+anim = NodePath("Death Menu/AnimationPlayer")
+refuseButton = NodePath("Death Menu/refuse button")
+giveupButton = NodePath("Death Menu/give up button")
+
+[node name="Death Menu" type="TextureRect" parent="Hud"]
+modulate = Color(1, 1, 1, 0.574)
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+texture = SubResource("GradientTexture2D_q27tn")
+expand_mode = 2
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Hud/Death Menu"]
+libraries = {
+&"": SubResource("AnimationLibrary_iqc6g")
+}
+
+[node name="give up button" type="Button" parent="Hud/Death Menu"]
+modulate = Color(18.892157, 18.892157, 18.892157, 1)
+self_modulate = Color(0, 0, 0, 1)
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.1
+anchor_top = 0.356
+anchor_right = 0.39800003
+anchor_bottom = 0.53300005
+offset_top = -0.16000366
+offset_right = 1.2799835
+offset_bottom = 0.11997986
+
+[node name="RichTextLabel" type="RichTextLabel" parent="Hud/Death Menu/give up button"]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 0.99600005
+anchor_bottom = 1.0
+offset_right = 0.7679901
+theme_override_fonts/normal_font = ExtResource("2_vnfnc")
+theme_override_fonts/bold_font = ExtResource("3_ivv02")
+theme_override_font_sizes/normal_font_size = 24
+bbcode_enabled = true
+text = "give up..."
+fit_content = true
+scroll_active = false
+horizontal_alignment = 1
+justification_flags = 0
+deselect_on_focus_loss_enabled = false
+drag_and_drop_selection_enabled = false
+
+[node name="refuse button" type="Button" parent="Hud/Death Menu"]
+modulate = Color(18.892157, 18.892157, 18.892157, 1)
+self_modulate = Color(0, 0, 0, 1)
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.6
+anchor_top = 0.356
+anchor_right = 0.90000004
+anchor_bottom = 0.53300005
+offset_top = -0.16000366
+offset_bottom = 0.11997986
+button_mask = 7
+keep_pressed_outside = true
+
+[node name="RichTextLabel" type="RichTextLabel" parent="Hud/Death Menu/refuse button"]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 0.99600005
+anchor_bottom = 1.0
+offset_right = -0.03201294
+offset_bottom = -1.0
+theme_override_fonts/normal_font = ExtResource("2_vnfnc")
+theme_override_fonts/bold_font = ExtResource("3_ivv02")
+theme_override_font_sizes/normal_font_size = 28
+bbcode_enabled = true
+text = "[color=red][shake rate=80.0 level=15 connected=1]REFUSE[/shake][/color]
+"
+fit_content = true
+scroll_active = false
+horizontal_alignment = 1
+justification_flags = 0
+deselect_on_focus_loss_enabled = false
+drag_and_drop_selection_enabled = false
+
+[node name="Camera" parent="." instance=ExtResource("8_xymbh")]
+zoom = Vector2(1, 1)
+
+[node name="Player" parent="." node_paths=PackedStringArray("currentBody") instance=ExtResource("9_ui634")]
+ghostPrefab = ExtResource("10_v3mvl")
+currentBody = NodePath("../Archer")
+
+[node name="Archer" parent="." instance=ExtResource("11_b7uj6")]
+position = Vector2(3, -6)
+
+[node name="Knight" parent="." instance=ExtResource("12_reddi")]
+position = Vector2(104, -8)
+
+[node name="Knight2" parent="." instance=ExtResource("12_reddi")]
+position = Vector2(264, -32)

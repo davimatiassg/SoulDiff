@@ -60,7 +60,7 @@ public partial class ArcherBody : AnyBody
 
     public override void Button1(bool pressed)
     {
-        if (!pressed || !canShoot) return;
+        if (!pressed || !canShoot || stunned) return;
         anim.Play("attack");
 
         attacking = true;
@@ -146,21 +146,22 @@ public partial class ArcherBody : AnyBody
         MoveAndSlide();
     }
 
+    public override void KnockbackApply(Vector2 knockbac)
+    { 
+        
+    }
 
+    public override void TakeDamage(int damage, Vector2 knockback)
+    {
+        Die();
+    }
     public override void Die()
     {
         anim.Play("hurt");
-        stunned = true;
-        if (controller != null)
-        {
-            PlayerController.Disembody(this);
-            controller = null;
-        }
-        else
-        {
-            QueueFree();
-        }
+        //TODO! Disable collision
+        if (!stunned) GameManager.OnPlayerDie();
 
+        stunned = true;
     }
 
 }
