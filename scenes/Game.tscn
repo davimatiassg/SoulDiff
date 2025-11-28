@@ -1,0 +1,309 @@
+[gd_scene load_steps=15 format=3 uid="uid://bqa8vwqpy2rvs"]
+
+[ext_resource type="PackedScene" uid="uid://w7scrx2p6vkw" path="res://objects/GameManager.tscn" id="1_400sg"]
+[ext_resource type="Script" uid="uid://crppldnbwltdf" path="res://scripts/game/SceneManager.cs" id="2_g4kob"]
+[ext_resource type="Texture2D" uid="uid://gu3h1rvge2b" path="res://sprites/hud/Ghost laugh.png" id="3_qy1jj"]
+[ext_resource type="Script" uid="uid://bmq8357rjdwuq" path="res://scripts/hud/TransitionVignette.cs" id="4_3xj3m"]
+[ext_resource type="Script" uid="uid://dncath0cnhb34" path="res://scripts/hud/MenuManager.cs" id="5_mcffj"]
+[ext_resource type="FontFile" uid="uid://5qyau3olj3s4" path="res://fonts/hf-free-complete/compass-pro-v1.1/CompassPro.otf" id="6_2rd6h"]
+[ext_resource type="FontFile" uid="uid://bvsdwijfhhd7t" path="res://fonts/hf-free-complete/expression-pro-v1.1/ExpressionPro.ttf" id="7_7ua8r"]
+[ext_resource type="PackedScene" uid="uid://trooaratn7mp" path="res://scenes/Test-Level.tscn" id="8_r7sob"]
+
+[sub_resource type="Gradient" id="Gradient_iqc6g"]
+interpolation_mode = 2
+interpolation_color_space = 2
+offsets = PackedFloat32Array(0.5298913, 1)
+colors = PackedColorArray(0, 0, 0, 0, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_q27tn"]
+gradient = SubResource("Gradient_iqc6g")
+fill = 1
+fill_from = Vector2(0.51282054, 0.508547)
+fill_to = Vector2(0.4957265, 0.012820513)
+
+[sub_resource type="Animation" id="Animation_63hi1"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0.574)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("give up button:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(18.892157, 18.892157, 18.892157, 1)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("refuse button:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(18.892157, 18.892157, 18.892157, 1)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath(".:visible")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0.033333335),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="Animation" id="Animation_3c5mn"]
+resource_name = "intro"
+length = 3.3333368
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.9),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(18.892157, 18.892157, 18.892157, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("give up button:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.26666665, 0.76666665),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(18.892157, 18.892157, 18.892157, 1)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("refuse button:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(1.8333334, 2.7),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(18.892157, 18.892157, 18.892157, 0), Color(18.892157, 18.892157, 18.892157, 1)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath(".:visible")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="Animation" id="Animation_iqc6g"]
+resource_name = "exit"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0.099999994, 0.8333333),
+"transitions": PackedFloat32Array(1, 2.639016),
+"update": 0,
+"values": [Color(18.892157, 18.892157, 18.892157, 1), Color(1.1377786, 0, 0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(1),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/2/type = "method"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("AnimationPlayer")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(1),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [&"RESET", -1, 1.0, false],
+"method": &"play"
+}]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_iqc6g"]
+_data = {
+&"RESET": SubResource("Animation_63hi1"),
+&"intro": SubResource("Animation_3c5mn"),
+&"outro": SubResource("Animation_iqc6g")
+}
+
+[node name="Game" type="Node2D"]
+texture_filter = 1
+
+[node name="GameManager" parent="." instance=ExtResource("1_400sg")]
+
+[node name="SceneManager" type="CanvasLayer" parent="GameManager" node_paths=PackedStringArray("currentLevel", "vignette")]
+offset = Vector2(0.5, 0.5)
+scale = Vector2(0.5, 0.5)
+transform = Transform2D(0.5, 0, 0, 0.5, 0.5, 0.5)
+script = ExtResource("2_g4kob")
+levels = Dictionary[String, String]({
+"Level_1": "res://scenes/Level_1.tscn"
+})
+currentLevel = NodePath("../../Level")
+vignette = NodePath("SubViewportContainer/SubViewport/GhostLaugh")
+
+[node name="SubViewportContainer" type="SubViewportContainer" parent="GameManager/SceneManager"]
+offset_right = 640.0
+offset_bottom = 360.0
+
+[node name="SubViewport" type="SubViewport" parent="GameManager/SceneManager/SubViewportContainer"]
+transparent_bg = true
+handle_input_locally = false
+size = Vector2i(640, 360)
+render_target_update_mode = 4
+
+[node name="GhostLaugh" type="TextureRect" parent="GameManager/SceneManager/SubViewportContainer/SubViewport"]
+modulate = Color(0.012920001, 0.012920001, 0.012920001, 1)
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(320, 280)
+size_flags_horizontal = 3
+size_flags_vertical = 3
+texture = ExtResource("3_qy1jj")
+script = ExtResource("4_3xj3m")
+sizeMax = 8.0
+metadata/_edit_use_anchors_ = true
+
+[node name="Hud" type="CanvasLayer" parent="GameManager" node_paths=PackedStringArray("anim", "refuseButton", "giveupButton")]
+script = ExtResource("5_mcffj")
+anim = NodePath("Death Menu/AnimationPlayer")
+refuseButton = NodePath("Death Menu/refuse button")
+giveupButton = NodePath("Death Menu/give up button")
+
+[node name="Death Menu" type="TextureRect" parent="GameManager/Hud"]
+visible = false
+modulate = Color(1, 1, 1, 0.574)
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+texture = SubResource("GradientTexture2D_q27tn")
+expand_mode = 2
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="GameManager/Hud/Death Menu"]
+libraries = {
+&"": SubResource("AnimationLibrary_iqc6g")
+}
+
+[node name="give up button" type="Button" parent="GameManager/Hud/Death Menu"]
+modulate = Color(18.892157, 18.892157, 18.892157, 1)
+self_modulate = Color(0, 0, 0, 1)
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.1
+anchor_top = 0.356
+anchor_right = 0.39800003
+anchor_bottom = 0.53300005
+offset_top = -0.16000366
+offset_right = 1.2799835
+offset_bottom = 0.11997986
+
+[node name="RichTextLabel" type="RichTextLabel" parent="GameManager/Hud/Death Menu/give up button"]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 0.99600005
+anchor_bottom = 1.0
+offset_right = 0.7679901
+mouse_filter = 2
+theme_override_fonts/normal_font = ExtResource("6_2rd6h")
+theme_override_fonts/bold_font = ExtResource("7_7ua8r")
+theme_override_font_sizes/normal_font_size = 24
+bbcode_enabled = true
+text = "give up..."
+fit_content = true
+scroll_active = false
+horizontal_alignment = 1
+justification_flags = 0
+deselect_on_focus_loss_enabled = false
+drag_and_drop_selection_enabled = false
+
+[node name="refuse button" type="Button" parent="GameManager/Hud/Death Menu"]
+modulate = Color(18.892157, 18.892157, 18.892157, 1)
+self_modulate = Color(0, 0, 0, 1)
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.6
+anchor_top = 0.356
+anchor_right = 0.90000004
+anchor_bottom = 0.53300005
+offset_top = -0.16000366
+offset_bottom = 0.11997986
+button_mask = 7
+keep_pressed_outside = true
+
+[node name="RichTextLabel" type="RichTextLabel" parent="GameManager/Hud/Death Menu/refuse button"]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 0.99600005
+anchor_bottom = 1.0
+offset_right = -0.03201294
+offset_bottom = -1.0
+mouse_filter = 2
+theme_override_fonts/normal_font = ExtResource("6_2rd6h")
+theme_override_fonts/bold_font = ExtResource("7_7ua8r")
+theme_override_font_sizes/normal_font_size = 28
+bbcode_enabled = true
+text = "[color=red][shake rate=80.0 level=15 connected=1]REFUSE[/shake][/color]
+"
+fit_content = true
+scroll_active = false
+horizontal_alignment = 1
+justification_flags = 0
+deselect_on_focus_loss_enabled = false
+drag_and_drop_selection_enabled = false
+
+[node name="Level" type="Node2D" parent="."]
+
+[node name="Game" parent="Level" instance=ExtResource("8_r7sob")]

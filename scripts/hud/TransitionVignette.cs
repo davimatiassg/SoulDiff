@@ -26,6 +26,7 @@ public partial class TransitionVignette : TextureRect
     public void FadeOut()
     {
         Visible = true;
+        isTransitioning = true;
         Scale = Vector2.Zero;
         Tween tween = CreateTween();
         tween.TweenProperty(this, "scale", Vector2.One * sizeMax, 0.8).SetTrans(Tween.TransitionType.Expo);

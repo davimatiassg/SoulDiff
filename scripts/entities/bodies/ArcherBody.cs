@@ -153,15 +153,15 @@ public partial class ArcherBody : AnyBody
 
     public override void TakeDamage(int damage, Vector2 knockback)
     {
-        Die();
+        anim.Play("hurt");
+        CallDeferred(MethodName.DisableCollision);
+        GameManager.OnPlayerDie();
+
+        stunned = true;
     }
     public override void Die()
     {
-        anim.Play("hurt");
-        //TODO! Disable collision
-        if (!stunned) GameManager.OnPlayerDie();
-
-        stunned = true;
+        QueueFree();
     }
 
 }

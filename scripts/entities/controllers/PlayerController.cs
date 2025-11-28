@@ -72,7 +72,11 @@ public partial class PlayerController : AnyController
     {
         base._Ready();
         if (Instance == null) Instance = this;
-        else if (Instance != this) { QueueFree(); return; }
+        else if (Instance != this)
+        {
+            Instance.QueueFree();
+            Instance = this;
+        }
 
         ghost = (GhostBody)ghostPrefab.Instantiate();
 

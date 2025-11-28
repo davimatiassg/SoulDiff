@@ -19,18 +19,10 @@ public partial class MenuManager : CanvasLayer
     public static void PlayDeathMenu()
     {
         Instance.anim.Play("intro");
-        Instance.refuseButton.Pressed += GameManager.OnPlayerRefuseToDie;
-        Instance.giveupButton.Pressed += test;
-        Instance.refuseButton.Pressed += () => Instance.anim.Play("outro");
+  
         
     }
 
-
-    public static void test()
-    {
-
-        GD.Print("lolkk");
-    }
 
 
     public override void _Ready()
@@ -38,5 +30,8 @@ public partial class MenuManager : CanvasLayer
         base._Ready();
         if (Instance == null) Instance = this;
         else if (Instance != this) { QueueFree(); return; }
+
+        Instance.refuseButton.Pressed += () => GameManager.OnPlayerRefuseToDie();
+        Instance.refuseButton.Pressed += () => Instance.anim.Play("outro");
     }
 }

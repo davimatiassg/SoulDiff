@@ -1,5 +1,6 @@
 using Godot;
 using System;
+using System.Threading.Tasks;
 
 public partial class SceneManager : Node
 {
@@ -46,11 +47,11 @@ public partial class SceneManager : Node
 
     public async static void ChangeLevel(string sceneName)
     {
-        if (!Instance.levels.ContainsKey(sceneName)) return;
+        
         Instance.vignette.FadeOut();
         while (Instance.vignette.isTransitioning)
         {
-            await System.Threading.Tasks.Task.Delay(1000);
+            await Task.Delay(1000);
         }
         ChangeScene(Instance.levels[sceneName]);
         Instance.vignette.FadeIn();

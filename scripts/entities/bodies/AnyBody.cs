@@ -58,6 +58,7 @@ public abstract partial class AnyBody : CharacterBody2D, Hitable
     }
 
 
+
     /// Inner Visuals
     /// 
     Tween tweenOutlineColor;
@@ -118,6 +119,7 @@ public abstract partial class AnyBody : CharacterBody2D, Hitable
         isPlayer = false;
         OutlineColor = Colors.Transparent;
         tweenOutlineColor.Kill();
+        Die(); 
     }
 
     Tween hitstunControl;
@@ -195,6 +197,16 @@ public abstract partial class AnyBody : CharacterBody2D, Hitable
         }
 
         QueueFree();
+    }
+
+    public void DisableCollision()
+    {
+        collision.Disabled = true;
+    }
+
+    public void EnableCollision()
+    {
+        collision.Disabled = false;
     }
 
     public override void _PhysicsProcess(double delta)

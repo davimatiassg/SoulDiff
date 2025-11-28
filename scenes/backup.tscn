@@ -1,19 +1,19 @@
-[gd_scene load_steps=21 format=3 uid="uid://bqa8vwqpy2rvs"]
+[gd_scene load_steps=21 format=3 uid="uid://lp8vehfqphx1"]
 
-[ext_resource type="PackedScene" uid="uid://w7scrx2p6vkw" path="res://objects/GameManager.tscn" id="1_uyaml"]
-[ext_resource type="Script" uid="uid://crppldnbwltdf" path="res://scripts/game/SceneManager.cs" id="2_ivv02"]
-[ext_resource type="FontFile" uid="uid://5qyau3olj3s4" path="res://fonts/hf-free-complete/compass-pro-v1.1/CompassPro.otf" id="2_vnfnc"]
-[ext_resource type="FontFile" uid="uid://bvsdwijfhhd7t" path="res://fonts/hf-free-complete/expression-pro-v1.1/ExpressionPro.ttf" id="3_ivv02"]
-[ext_resource type="Texture2D" uid="uid://gu3h1rvge2b" path="res://sprites/hud/Ghost laugh.png" id="4_celrk"]
-[ext_resource type="Script" uid="uid://bmq8357rjdwuq" path="res://scripts/hud/TransitionVignette.cs" id="5_phm0u"]
-[ext_resource type="Script" uid="uid://b2kkca2pbctmx" path="res://scripts/game/EffectPool.cs" id="6_c2pys"]
-[ext_resource type="PackedScene" uid="uid://oaxil6vm2ft1" path="res://objects/effects/Hit.tscn" id="7_ktgw0"]
-[ext_resource type="PackedScene" uid="uid://70ceu615i4b" path="res://objects/Camera.tscn" id="8_xymbh"]
-[ext_resource type="PackedScene" uid="uid://dk2iakv4iqyo8" path="res://objects/entities/Player.tscn" id="9_ui634"]
-[ext_resource type="PackedScene" uid="uid://b4283bflripuo" path="res://objects/entities/Ghost.tscn" id="10_v3mvl"]
-[ext_resource type="PackedScene" uid="uid://c2rkhx1kyi633" path="res://objects/entities/ShittyArcher.tscn" id="11_b7uj6"]
-[ext_resource type="Script" uid="uid://dncath0cnhb34" path="res://scripts/hud/MenuManager.cs" id="12_celrk"]
-[ext_resource type="PackedScene" uid="uid://b4j7hdg38dqio" path="res://objects/entities/Knight.tscn" id="12_reddi"]
+[ext_resource type="PackedScene" uid="uid://w7scrx2p6vkw" path="res://objects/GameManager.tscn" id="1_sjrnu"]
+[ext_resource type="Script" uid="uid://crppldnbwltdf" path="res://scripts/game/SceneManager.cs" id="2_7h3ht"]
+[ext_resource type="Texture2D" uid="uid://gu3h1rvge2b" path="res://sprites/hud/Ghost laugh.png" id="3_m66kx"]
+[ext_resource type="Script" uid="uid://bmq8357rjdwuq" path="res://scripts/hud/TransitionVignette.cs" id="4_x4kph"]
+[ext_resource type="Script" uid="uid://dncath0cnhb34" path="res://scripts/hud/MenuManager.cs" id="5_60bs5"]
+[ext_resource type="FontFile" uid="uid://5qyau3olj3s4" path="res://fonts/hf-free-complete/compass-pro-v1.1/CompassPro.otf" id="6_8hxdd"]
+[ext_resource type="FontFile" uid="uid://bvsdwijfhhd7t" path="res://fonts/hf-free-complete/expression-pro-v1.1/ExpressionPro.ttf" id="7_28f82"]
+[ext_resource type="PackedScene" uid="uid://70ceu615i4b" path="res://objects/Camera.tscn" id="8_5m2fo"]
+[ext_resource type="PackedScene" uid="uid://dk2iakv4iqyo8" path="res://objects/entities/Player.tscn" id="9_hu02e"]
+[ext_resource type="PackedScene" uid="uid://b4283bflripuo" path="res://objects/entities/Ghost.tscn" id="10_5noto"]
+[ext_resource type="PackedScene" uid="uid://c2rkhx1kyi633" path="res://objects/entities/ShittyArcher.tscn" id="11_wnih0"]
+[ext_resource type="PackedScene" uid="uid://b4j7hdg38dqio" path="res://objects/entities/Knight.tscn" id="12_5e214"]
+[ext_resource type="Script" uid="uid://b2kkca2pbctmx" path="res://scripts/game/EffectPool.cs" id="13_a1bpa"]
+[ext_resource type="PackedScene" uid="uid://oaxil6vm2ft1" path="res://objects/effects/Hit.tscn" id="14_ojuy5"]
 
 [sub_resource type="Gradient" id="Gradient_iqc6g"]
 interpolation_mode = 2
@@ -154,7 +154,7 @@ tracks/1/keys = {
 "times": PackedFloat32Array(1),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [true]
+"values": [false]
 }
 tracks/2/type = "method"
 tracks/2/imported = false
@@ -181,18 +181,17 @@ _data = {
 [node name="Game" type="Node2D"]
 texture_filter = 1
 
-[node name="GameManager" parent="." instance=ExtResource("1_uyaml")]
+[node name="GameManager" parent="." instance=ExtResource("1_sjrnu")]
 
-[node name="TransitionScreen" type="CanvasLayer" parent="GameManager" node_paths=PackedStringArray("vignette")]
-visible = false
+[node name="TransitionScreen" type="CanvasLayer" parent="GameManager" node_paths=PackedStringArray("currentLevel", "vignette")]
 offset = Vector2(0.5, 0.5)
 scale = Vector2(0.5, 0.5)
 transform = Transform2D(0.5, 0, 0, 0.5, 0.5, 0.5)
-script = ExtResource("2_ivv02")
+script = ExtResource("2_7h3ht")
+currentLevel = NodePath("../Level")
 vignette = NodePath("SubViewportContainer/SubViewport/GhostLaugh")
 
 [node name="SubViewportContainer" type="SubViewportContainer" parent="GameManager/TransitionScreen"]
-visible = false
 offset_right = 640.0
 offset_bottom = 360.0
 
@@ -200,7 +199,7 @@ offset_bottom = 360.0
 transparent_bg = true
 handle_input_locally = false
 size = Vector2i(640, 360)
-render_target_update_mode = 0
+render_target_update_mode = 4
 
 [node name="GhostLaugh" type="TextureRect" parent="GameManager/TransitionScreen/SubViewportContainer/SubViewport"]
 modulate = Color(0.012920001, 0.012920001, 0.012920001, 1)
@@ -212,27 +211,19 @@ grow_vertical = 2
 pivot_offset = Vector2(320, 280)
 size_flags_horizontal = 3
 size_flags_vertical = 3
-texture = ExtResource("4_celrk")
-script = ExtResource("5_phm0u")
+texture = ExtResource("3_m66kx")
+script = ExtResource("4_x4kph")
 sizeMax = 8.0
 metadata/_edit_use_anchors_ = true
 
-[node name="EffectPool" type="Node" parent="GameManager"]
-script = ExtResource("6_c2pys")
-objects = Dictionary[String, PackedScene]({
-"Hit": ExtResource("7_ktgw0")
-})
-metadata/_custom_type_script = "uid://b2kkca2pbctmx"
-
-[node name="Node" type="Node" parent="GameManager"]
-
-[node name="Hud" type="CanvasLayer" parent="." node_paths=PackedStringArray("anim", "refuseButton", "giveupButton")]
-script = ExtResource("12_celrk")
+[node name="Hud" type="CanvasLayer" parent="GameManager" node_paths=PackedStringArray("anim", "refuseButton", "giveupButton")]
+script = ExtResource("5_60bs5")
 anim = NodePath("Death Menu/AnimationPlayer")
 refuseButton = NodePath("Death Menu/refuse button")
 giveupButton = NodePath("Death Menu/give up button")
 
-[node name="Death Menu" type="TextureRect" parent="Hud"]
+[node name="Death Menu" type="TextureRect" parent="GameManager/Hud"]
+visible = false
 modulate = Color(1, 1, 1, 0.574)
 anchors_preset = 15
 anchor_right = 1.0
@@ -244,12 +235,12 @@ size_flags_vertical = 3
 texture = SubResource("GradientTexture2D_q27tn")
 expand_mode = 2
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="Hud/Death Menu"]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="GameManager/Hud/Death Menu"]
 libraries = {
 &"": SubResource("AnimationLibrary_iqc6g")
 }
 
-[node name="give up button" type="Button" parent="Hud/Death Menu"]
+[node name="give up button" type="Button" parent="GameManager/Hud/Death Menu"]
 modulate = Color(18.892157, 18.892157, 18.892157, 1)
 self_modulate = Color(0, 0, 0, 1)
 layout_mode = 1
@@ -262,14 +253,15 @@ offset_top = -0.16000366
 offset_right = 1.2799835
 offset_bottom = 0.11997986
 
-[node name="RichTextLabel" type="RichTextLabel" parent="Hud/Death Menu/give up button"]
+[node name="RichTextLabel" type="RichTextLabel" parent="GameManager/Hud/Death Menu/give up button"]
 layout_mode = 1
 anchors_preset = -1
 anchor_right = 0.99600005
 anchor_bottom = 1.0
 offset_right = 0.7679901
-theme_override_fonts/normal_font = ExtResource("2_vnfnc")
-theme_override_fonts/bold_font = ExtResource("3_ivv02")
+mouse_filter = 2
+theme_override_fonts/normal_font = ExtResource("6_8hxdd")
+theme_override_fonts/bold_font = ExtResource("7_28f82")
 theme_override_font_sizes/normal_font_size = 24
 bbcode_enabled = true
 text = "give up..."
@@ -280,7 +272,7 @@ justification_flags = 0
 deselect_on_focus_loss_enabled = false
 drag_and_drop_selection_enabled = false
 
-[node name="refuse button" type="Button" parent="Hud/Death Menu"]
+[node name="refuse button" type="Button" parent="GameManager/Hud/Death Menu"]
 modulate = Color(18.892157, 18.892157, 18.892157, 1)
 self_modulate = Color(0, 0, 0, 1)
 layout_mode = 1
@@ -294,15 +286,16 @@ offset_bottom = 0.11997986
 button_mask = 7
 keep_pressed_outside = true
 
-[node name="RichTextLabel" type="RichTextLabel" parent="Hud/Death Menu/refuse button"]
+[node name="RichTextLabel" type="RichTextLabel" parent="GameManager/Hud/Death Menu/refuse button"]
 layout_mode = 1
 anchors_preset = -1
 anchor_right = 0.99600005
 anchor_bottom = 1.0
 offset_right = -0.03201294
 offset_bottom = -1.0
-theme_override_fonts/normal_font = ExtResource("2_vnfnc")
-theme_override_fonts/bold_font = ExtResource("3_ivv02")
+mouse_filter = 2
+theme_override_fonts/normal_font = ExtResource("6_8hxdd")
+theme_override_fonts/bold_font = ExtResource("7_28f82")
 theme_override_font_sizes/normal_font_size = 28
 bbcode_enabled = true
 text = "[color=red][shake rate=80.0 level=15 connected=1]REFUSE[/shake][/color]
@@ -314,18 +307,27 @@ justification_flags = 0
 deselect_on_focus_loss_enabled = false
 drag_and_drop_selection_enabled = false
 
-[node name="Camera" parent="." instance=ExtResource("8_xymbh")]
+[node name="Level" type="Node2D" parent="GameManager"]
+
+[node name="Camera" parent="GameManager/Level" instance=ExtResource("8_5m2fo")]
 zoom = Vector2(1, 1)
 
-[node name="Player" parent="." node_paths=PackedStringArray("currentBody") instance=ExtResource("9_ui634")]
-ghostPrefab = ExtResource("10_v3mvl")
+[node name="Player" parent="GameManager/Level" node_paths=PackedStringArray("currentBody") instance=ExtResource("9_hu02e")]
+ghostPrefab = ExtResource("10_5noto")
 currentBody = NodePath("../Archer")
 
-[node name="Archer" parent="." instance=ExtResource("11_b7uj6")]
+[node name="Archer" parent="GameManager/Level" instance=ExtResource("11_wnih0")]
 position = Vector2(3, -6)
 
-[node name="Knight" parent="." instance=ExtResource("12_reddi")]
+[node name="Knight" parent="GameManager/Level" instance=ExtResource("12_5e214")]
 position = Vector2(104, -8)
 
-[node name="Knight2" parent="." instance=ExtResource("12_reddi")]
-position = Vector2(264, -32)
+[node name="Knight2" parent="GameManager/Level" instance=ExtResource("12_5e214")]
+position = Vector2(880, 96)
+
+[node name="EffectPool" type="Node" parent="GameManager/Level"]
+script = ExtResource("13_a1bpa")
+objects = Dictionary[String, PackedScene]({
+"Hit": ExtResource("14_ojuy5")
+})
+metadata/_custom_type_script = "uid://b2kkca2pbctmx"

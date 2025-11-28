@@ -205,6 +205,8 @@ public partial class GhostBody : AnyBody
     //TODO!
     public override void Die()
     {
+        stunned = true;
+        CallDeferred(MethodName.DisableCollision);
         GameManager.OnPlayerDie();
     }
 
