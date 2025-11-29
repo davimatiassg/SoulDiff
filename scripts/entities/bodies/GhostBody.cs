@@ -51,12 +51,13 @@ public partial class GhostBody : AnyBody
     GhostPebble curr_pebble;
     Tween pebbleIncreaser;
     Tween pebbleRotater;
-    
 
+    [Export]
+    public bool disembodying = false;
     
     public override void Button1(bool pressed)
     {
-
+        if (disembodying) return;
 
         if (pressed)
         {
@@ -99,6 +100,7 @@ public partial class GhostBody : AnyBody
     Tween dashMaker;
     public override void Button2(bool pressed)
     {
+        if (disembodying) return;
         if (!pressed || dashCD > 0) return;
         float spd = speed;
         float a = acel;
@@ -118,6 +120,8 @@ public partial class GhostBody : AnyBody
 
     public override void Button3(bool pressed)
     {
+        if (disembodying) return;
+        if (!pressed) return;
         var spaceState = GetWorld2D().DirectSpaceState;
         Godot.Collections.Array<Rid> exclusionArray = [GetRid()];
 
@@ -129,7 +133,7 @@ public partial class GhostBody : AnyBody
             var collider = (Node2D)result["collider"];
             if (collider is EnemyBody enemy)
             {
-                if (((float)enemy.HP) / enemy.MaxHP <= 0.1f)
+                if (enemy.dead)
                 {
                     GlobalPosition = enemy.GlobalPosition;
                     PossessEnd();
@@ -180,6 +184,7 @@ public partial class GhostBody : AnyBody
 
     public override void HitstunApply()
     {
+        if (disembodying) return;
         base.HitstunApply();
         anim.Play("damaged");
        // skullGlow.Play("damaged");
@@ -187,6 +192,7 @@ public partial class GhostBody : AnyBody
 
     public override void HitstunCleanse()
     {
+        if (disembodying) return;
         base.HitstunCleanse();
         anim.Play("idle");
         //skullGlow.Play("idle");
@@ -205,7 +211,8 @@ public partial class GhostBody : AnyBody
     //TODO!
     public override void Die()
     {
-        stunned = true;
+        if (disembodying) return;
+        dead = true;
         CallDeferred(MethodName.DisableCollision);
         GameManager.OnPlayerDie();
     }
@@ -239,7 +246,7 @@ public partial class GhostBody : AnyBody
         base._PhysicsProcess(delta);
         Vector2 currentVelocity = Velocity;
 
-        
+        if (disembodying) return;
         
         if (moveDirection != Vector2.Zero && !stunned)
         {

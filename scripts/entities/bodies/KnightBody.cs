@@ -12,9 +12,10 @@ public partial class KnightBody : EnemyBody
 
     [ExportGroup("Balance Variables")]
 
-    [Export]
-    public float speed = 128.0f;
 
+
+    [Export]
+    public float baseMoveSpeed = 128f;
 
     [Export]
     public int attackDamage = 3;
@@ -37,12 +38,15 @@ public partial class KnightBody : EnemyBody
 
 
     // inner variables
+    public float speed = 128.0f;
+
 
     public override AnyController DefaultController => new MeleeAIController();
 
     private bool moving;
     public override void Move(Vector2 direction)
     {
+        if (dead) return;
         base.Move(direction);
 
         bool movingToggled = (direction.LengthSquared() != 0 != moving);
@@ -60,6 +64,7 @@ public partial class KnightBody : EnemyBody
     }
     public override void Aim(Vector2 direction)
     {
+        if (dead) return;
         base.Aim(direction);
     }
 
@@ -69,7 +74,7 @@ public partial class KnightBody : EnemyBody
 
     public override void Button1(bool pressed)
     {
-        if (!canAttack || attacking || stunned) return;
+        if (dead || !canAttack || attacking || stunned) return;
 
 
 
@@ -78,9 +83,8 @@ public partial class KnightBody : EnemyBody
         anim.Play("RESET");
         anim.Play("attack");
         attacking = true;
-        var temp = attackMoveSpeed;
-        attackMoveSpeed = speed;
-        speed = temp;
+
+        speed = attackMoveSpeed;
 
         canAttack = false;
         attackTween = CreateTween();
@@ -96,10 +100,7 @@ public partial class KnightBody : EnemyBody
             attacking = false;
             anim.Play("RESET");
 
-            var temp = attackMoveSpeed;
-            attackMoveSpeed = speed;
-            speed = temp;
-            moving = false;
+            speed = baseMoveSpeed;
 
         };
 
@@ -125,7 +126,7 @@ public partial class KnightBody : EnemyBody
     private bool canShield = true;
     public override void Button2(bool pressed)
     {
-        if (attacking || stunned || !canShield) return;
+        if (dead || attacking || stunned || !canShield) return;
         if (pressed) Shield();
         else Unshield();
     }
@@ -137,9 +138,7 @@ public partial class KnightBody : EnemyBody
     {
         if (shielding) return;
 
-        var temp = shieldMoveSpeed;
-        shieldMoveSpeed = speed;
-        speed = temp;
+        speed = shieldMoveSpeed;
 
         anim.Play("RESET");
         anim.Play("def");
@@ -149,9 +148,7 @@ public partial class KnightBody : EnemyBody
     {
         if (!shielding) return;
 
-        var temp = shieldMoveSpeed;
-        shieldMoveSpeed = speed;
-        speed = temp;
+        speed = baseMoveSpeed;
 
         
         anim.Play("RESET");
@@ -161,6 +158,8 @@ public partial class KnightBody : EnemyBody
 
     public override void TakeDamage(int damage, Vector2 knockback)
     {
+        if (dead) return;
+
         if (shielding)
         {
             Unshield();
@@ -183,10 +182,23 @@ public partial class KnightBody : EnemyBody
 
     }
 
+    public override void PossessStart(PlayerController playerController)
+    {
+        base.PossessStart(playerController);
+
+        shielding = false;
+        dead = false;
+        stunned = false;
+        attacking = false;
+        moving = false;
+        speed = baseMoveSpeed;
+    }
+
 
 
     public override void HitstunApply()
     {
+        if (dead) return;
         base.HitstunApply();
         anim.Play("RESET");
         anim.Play("hurt");
@@ -194,6 +206,7 @@ public partial class KnightBody : EnemyBody
 
     public override void HitstunCleanse()
     {
+        if (dead) return;
         base.HitstunCleanse();
         anim.Play("RESET");
         moving = false;
@@ -203,7 +216,7 @@ public partial class KnightBody : EnemyBody
     {
         base._PhysicsProcess(delta);
 
-        if (stunned) { MoveAndSlide(); return; }
+        if (dead || stunned) { return; }
 
         Vector2 currentVelocity = Velocity;
         currentVelocity = (moveDirection * speed);

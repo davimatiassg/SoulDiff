@@ -85,7 +85,7 @@ public partial class WitchBody : EnemyBody
     {
         base._PhysicsProcess(delta);
 
-        if (stunned) { MoveAndSlide(); return; }
+        if (dead || stunned) { MoveAndSlide(); return; }
 
         attackAction?.Invoke();
 

@@ -54,7 +54,7 @@ public partial class EffectPool : Node
 		}
 
 
-		Instance.AddChild(fx);
+		SceneManager.Instance.currentLevel.AddChild(fx);
 
 		fx.name = name;
 

@@ -8,16 +8,18 @@ public partial class PlayerController : AnyController
     
     public GhostBody ghost;
     [Export] PackedScene ghostPrefab;
-    [Export] public AnyBody currentBody;
+
+    
+
     public static void Embody(AnyBody body)
     {
         Debug.Assert(Instance != null);
         Debug.Assert(Instance.ghost != null);
 
         var ghostParent = Instance.ghost.GetParent();
-        if(ghostParent != null) ghostParent.RemoveChild(Instance.ghost);
-        if(body.controller != null) body.controller.Disconnect(body);
-        
+        if (ghostParent != null) ghostParent.RemoveChild(Instance.ghost);
+        if (body.controller != null) body.controller.Disconnect(body);
+
         Instance.Connect(body);
         body.PossessStart(Instance);
     }

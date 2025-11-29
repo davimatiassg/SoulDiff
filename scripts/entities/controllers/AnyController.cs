@@ -10,12 +10,14 @@ public partial class AnyController : Node2D
     public Action<bool> Button2Action = (bool pressed) => { };
     public Action<bool> Button3Action = (bool pressed) => { };
 
+    [Export] public AnyBody currentBody;
 
     public void Connect(AnyBody body)
     {
         if (GetParent() == null) body.AddChild(this);
 
         body.controller = this;
+        currentBody = body;
 
         Button1Action = body.Button1;
         Button2Action = body.Button2;
@@ -31,6 +33,7 @@ public partial class AnyController : Node2D
 		if (GetParent() == body) body.RemoveChild(this);
 
 		body.controller = null;
+        currentBody = null;
 
 		Button1Action = (bool pressed) => { };
 		Button2Action = (bool pressed) => { };

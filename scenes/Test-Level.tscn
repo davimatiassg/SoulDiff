@@ -18,9 +18,34 @@ currentBody = NodePath("../Archer")
 
 [node name="Archer" parent="." instance=ExtResource("11_5i0tk")]
 position = Vector2(3, -6)
+hitStunTime = 1.0
 
 [node name="Knight" parent="." instance=ExtResource("12_xkbm3")]
 position = Vector2(104, -8)
 
 [node name="Knight2" parent="." instance=ExtResource("12_xkbm3")]
 position = Vector2(880, 96)
+
+[node name="Knight3" parent="." instance=ExtResource("12_xkbm3")]
+position = Vector2(168, -56)
+
+[node name="Knight4" parent="." instance=ExtResource("12_xkbm3")]
+position = Vector2(152, 16)
+
+[node name="Knight5" parent="." instance=ExtResource("12_xkbm3")]
+position = Vector2(40, 88)
+
+[node name="Knight6" parent="." instance=ExtResource("12_xkbm3")]
+position = Vector2(-112, 96)
+
+[node name="Knight7" parent="." instance=ExtResource("12_xkbm3")]
+position = Vector2(64, -96)
+
+[node name="Knight8" parent="." instance=ExtResource("12_xkbm3")]
+position = Vector2(-112, -8)
+
+[node name="Knight9" parent="." instance=ExtResource("12_xkbm3")]
+position = Vector2(-120, -88)
+
+[node name="Knight10" parent="." instance=ExtResource("12_xkbm3")]
+position = Vector2(-48, 24)

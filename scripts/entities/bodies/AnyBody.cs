@@ -12,8 +12,9 @@ public abstract partial class AnyBody : CharacterBody2D, Hitable
 
     [Export] public bool isHitStunnable = true;
 
-    [Export] public double hitStunTime = 1;
+    [Export] public double hitStunTime = 0.5;
     [Export] protected bool stunned = false;
+    [Export] public bool dead = false;
 
     /// Stats
     [Export] public int MaxHP = 10;
@@ -93,6 +94,8 @@ public abstract partial class AnyBody : CharacterBody2D, Hitable
 
         shaderMat = (ShaderMaterial)sprite.Material.Duplicate();
         sprite.Material = shaderMat;
+
+        HP = MaxHP;
     }
 
 
@@ -102,8 +105,8 @@ public abstract partial class AnyBody : CharacterBody2D, Hitable
         HP = MaxHP;
 
         isPlayer = true;
-        cntrl.currentBody = this;
-        this.controller = cntrl;
+        dead = false;
+        stunned = false;
         hasDamageFrames = true;
 
         tweenOutlineColor = CreateTween();
@@ -118,17 +121,15 @@ public abstract partial class AnyBody : CharacterBody2D, Hitable
     {
         isPlayer = false;
         OutlineColor = Colors.Transparent;
-        tweenOutlineColor.Kill();
-        Die(); 
+        tweenOutlineColor.Kill(); 
     }
 
     Tween hitstunControl;
     Tween damageBoostControl;
     public virtual void TakeDamage(int damage, Vector2 knockback)
     {
-
+        if (dead) return;
         var fx = EffectPool.SpawnEffect("Hit", GlobalPosition);
-        fx.Scale *= damage / 8f;
         fx.SetExitTime(0.2);
 
         if (!vulnerable)
@@ -137,17 +138,17 @@ public abstract partial class AnyBody : CharacterBody2D, Hitable
             return;
         }
 
+
+
         HP -= damage;
-        GD.Print($"{Name} tomou {damage} de dano. HP atual: {HP}");
-        GD.Print("TakeDamage em: ", this);
-
-
 
         HitstunApply();
         KnockbackApply(knockback);
         DamageFrameApply();
 
         if (HP <= 0) Die();
+
+        if(isPlayer) MainCamera.CameraShake(damage, 0.1f);
 
     }
     public virtual void HitstunApply()
@@ -188,16 +189,8 @@ public abstract partial class AnyBody : CharacterBody2D, Hitable
         this.Velocity += force;
     }
 
-    public virtual void Die()
-    {
-        if (isPlayer)
-        {
-            GD.Print("O jogador morreu!");
 
-        }
-
-        QueueFree();
-    }
+    public abstract void Die();
 
     public void DisableCollision()
     {

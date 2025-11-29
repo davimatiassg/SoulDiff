@@ -245,7 +245,7 @@ public partial class MinotaurBody : EnemyBody
     {
         base._PhysicsProcess(delta);
 
-        if (stunned) { MoveAndSlide(); return; }
+        if (dead || stunned) { MoveAndSlide(); return; }
 
         Vector2 currentVelocity = Velocity;
         currentVelocity = (moveDirection * speed);

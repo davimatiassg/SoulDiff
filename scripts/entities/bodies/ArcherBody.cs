@@ -157,6 +157,7 @@ public partial class ArcherBody : AnyBody
         CallDeferred(MethodName.DisableCollision);
         GameManager.OnPlayerDie();
 
+        MainCamera.CameraShake(5, 0.5f);
         stunned = true;
     }
     public override void Die()

@@ -197,6 +197,60 @@ animations = [{
 "texture": SubResource("AtlasTexture_j1bhg")
 }, {
 "duration": 1.0,
+"texture": SubResource("AtlasTexture_2phum")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_j1bhg")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2phum")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_j1bhg")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2phum")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_j1bhg")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2phum")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_j1bhg")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2phum")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_j1bhg")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2phum")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_j1bhg")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2phum")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_j1bhg")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2phum")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_j1bhg")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2phum")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_j1bhg")
+}, {
+"duration": 1.0,
 "texture": SubResource("AtlasTexture_0tiv6")
 }],
 "loop": false,
@@ -234,85 +288,6 @@ animations = [{
 [sub_resource type="CircleShape2D" id="CircleShape2D_8ni2t"]
 radius = 5.0
 
-[sub_resource type="Animation" id="Animation_5i6j2"]
-resource_name = "idle"
-length = 0.03333667
-loop_mode = 2
-tracks/0/type = "method"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("skull")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"values": [{
-"args": [&"idle", 1.0, false],
-"method": &"play"
-}]
-}
-
-[sub_resource type="Animation" id="Animation_j4k2g"]
-resource_name = "damaged"
-length = 0.03333667
-tracks/0/type = "method"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("skull")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"values": [{
-"args": [&"damaged", 1.0, false],
-"method": &"play"
-}]
-}
-
-[sub_resource type="Animation" id="Animation_piif3"]
-resource_name = "spawn"
-length = 2.0000033
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("skull:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 1.9666667),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [0, 19]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("skull:animation")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [&"spawn"]
-}
-tracks/2/type = "method"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath(".")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(1.0333333),
-"transitions": PackedFloat32Array(1),
-"values": [{
-"args": [],
-"method": &"EmitSpawnBlast"
-}]
-}
-
 [sub_resource type="Animation" id="Animation_nol0j"]
 length = 0.001
 tracks/0/type = "value"
@@ -338,6 +313,109 @@ tracks/1/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 1,
 "values": [0]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath(".:disembodying")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="Animation" id="Animation_j4k2g"]
+resource_name = "damaged"
+length = 0.03333667
+tracks/0/type = "method"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("skull")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [&"damaged", 1.0, false],
+"method": &"play"
+}]
+}
+
+[sub_resource type="Animation" id="Animation_5i6j2"]
+resource_name = "idle"
+length = 0.03333667
+loop_mode = 2
+tracks/0/type = "method"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("skull")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [&"idle", 1.0, false],
+"method": &"play"
+}]
+}
+
+[sub_resource type="Animation" id="Animation_piif3"]
+resource_name = "spawn"
+length = 3.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("skull:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0, 37]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("skull:animation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [&"spawn"]
+}
+tracks/2/type = "method"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath(".")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0.96666664),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"EmitSpawnBlast"
+}]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath(".:disembodying")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 1.0666667),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_4t1uk"]
@@ -368,6 +446,7 @@ collision = NodePath("CollisionShape2D")
 OutlineColor = Color(1, 1, 1, 0)
 
 [node name="Line2D" type="Line2D" parent="."]
+visible = false
 show_behind_parent = true
 points = PackedVector2Array(0, 0)
 width_curve = SubResource("Curve_85uya")

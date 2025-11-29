@@ -17,8 +17,6 @@ public partial class MeleeAIController : AnyController
     private float _attackTimer = 0f;
     private float _abilityTimer = 0f;
 
-    private RandomNumberGenerator _rng = new RandomNumberGenerator();
-
     private enum AIState { Idle, Wander, Chase }
     private AIState _state = AIState.Idle;
 
@@ -27,7 +25,6 @@ public partial class MeleeAIController : AnyController
 
     public override void _Ready()
     {
-        _rng.Randomize();
         SetNewState(AIState.Idle);
     }
 
@@ -54,7 +51,7 @@ public partial class MeleeAIController : AnyController
                     SetNewState(AIState.Wander);
 
                 // Chance de começar a perseguir o jogador se estiver por perto
-                if (distance < VisionRange * 0.7f && _rng.Randf() < 0.01f)
+                if (distance < VisionRange * 0.7f && Random.GenerateFloat() < 0.01f)
                     SetNewState(AIState.Chase);
                 break;
 
@@ -67,7 +64,7 @@ public partial class MeleeAIController : AnyController
                     SetNewState(AIState.Idle);
 
                 // Chance de avistar o jogador e decidir persegui-lo
-                if (distance < VisionRange && _rng.Randf() < 0.03f)
+                if (distance < VisionRange && Random.GenerateFloat() < 0.03f)
                     SetNewState(AIState.Chase);
                 break;
 
@@ -76,11 +73,11 @@ public partial class MeleeAIController : AnyController
                 lookDir = moveDir;
 
                 // Chance de desistir de perseguir (vira wander)
-                if (distance > VisionRange * 1.2f && _rng.Randf() < 0.02f)
+                if (distance > VisionRange * 1.2f && Random.GenerateFloat() < 0.02f)
                     SetNewState(AIState.Wander);
 
                 // Chance de ficar cansado e parar por um tempo
-                if (_stateTimer <= 0f && _rng.Randf() < 0.01f)
+                if (_stateTimer <= 0f && Random.GenerateFloat() < 0.01f)
                     SetNewState(AIState.Idle);
                 break;
         }
@@ -98,7 +95,7 @@ public partial class MeleeAIController : AnyController
         }
 
         // --- Habilidade esporádica ---
-        if (_abilityTimer <= 0f && distance < VisionRange * 0.75f && _rng.Randf() < 0.02f)
+        if (_abilityTimer <= 0f && distance < VisionRange * 0.75f && Random.GenerateFloat() < 0.02f)
         {
             Button2Action.Invoke(true);
             _abilityTimer = AbilityCooldown;
@@ -113,20 +110,20 @@ public partial class MeleeAIController : AnyController
         switch (_state)
         {
             case AIState.Idle:
-                _stateTimer = IdleDuration + _rng.RandfRange(-1f, 1f);
+                _stateTimer = IdleDuration + Random.GenerateFloat(-1f, 1f);
                 break;
 
             case AIState.Wander:
-                _stateTimer = WanderDuration + _rng.RandfRange(-1f, 1f);
+                _stateTimer = WanderDuration + Random.GenerateFloat(-1f, 1f);
                 Vector2 randomOffset = new Vector2(
-                    _rng.RandfRange(-WanderRadius, WanderRadius),
-                    _rng.RandfRange(-WanderRadius, WanderRadius)
+                    Random.GenerateFloat(-WanderRadius, WanderRadius),
+                    Random.GenerateFloat(-WanderRadius, WanderRadius)
                 );
                 _wanderTarget = GlobalPosition + randomOffset;
                 break;
 
             case AIState.Chase:
-                _stateTimer = _rng.RandfRange(3f, 6f); // tempo antes de possivelmente desistir
+                _stateTimer = Random.GenerateFloat(3f, 6f); // tempo antes de possivelmente desistir
                 break;
         }
     }
