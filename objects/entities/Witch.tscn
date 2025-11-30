@@ -167,6 +167,8 @@ _data = {
 
 [node name="Witch" type="CharacterBody2D" node_paths=PackedStringArray("anim", "wand", "wandTip", "broom", "anim", "sprite", "collision")]
 texture_filter = 1
+collision_layer = 2
+collision_mask = 54
 script = ExtResource("1_pxqsn")
 anim = NodePath("AnimationPlayer")
 wand = NodePath("sprite/wand")

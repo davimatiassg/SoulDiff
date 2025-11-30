@@ -7,7 +7,9 @@ using Godot;
 public abstract partial class EnemyBody : AnyBody
 {
     public const float DEAD_TIME = 5f;
+    public const double VANISH_TIME = 2f;
     [Export] public AnimationPlayer anim;
+    [Export] public GpuParticles2D deathParticles;
     public virtual bool StartWithDefaultController { get => true; }
     public virtual AnyController DefaultController => new MeleeAIController();
     public override void Button3(bool pressed)
@@ -22,7 +24,7 @@ public abstract partial class EnemyBody : AnyBody
         base._Ready();
         if (StartWithDefaultController) DefaultController.Connect(this);
 
-        
+
     }
 
     public override void TakeDamage(int damage, Vector2 knockback)
@@ -30,20 +32,34 @@ public abstract partial class EnemyBody : AnyBody
         base.TakeDamage(damage, knockback);
         if (HP <= 0)
         {
-            if (isPlayer) PlayerController.Disembody(this); 
-            else OutlineColor = Colors.Red;
+            if (isPlayer) PlayerController.Disembody(this);
+            else
+            {
+                OutlineColor = Colors.Red;
+                Tween tween = CreateTween();
+                tween.TweenProperty(this, "OutlineColor", Colors.Black, DEAD_TIME).SetTrans(Tween.TransitionType.Sine);
+            }
+            
         }
+    }
+
+    public override void PossessStart(PlayerController cntrl)
+    {
+        base.PossessStart(cntrl);
+
+        CollisionLayer = 1 << 1;
     }
 
     public override void Die()
     {
         dead = true;
 
+        CollisionLayer = 1 << 0;
 
         if (isPlayer)
         {
             PlayerController.Disembody(this);
-            QueueFree();
+            Vanish();
             return;
         }
 
@@ -54,12 +70,23 @@ public abstract partial class EnemyBody : AnyBody
         controller.Disconnect(this);
 
         deadControl.QueueFree();
-        
+
         Tween tween = CreateTween();
         tween.TweenInterval(DEAD_TIME);
         tween.TweenCallback(Callable.From(() =>
         {
-            if (controller == null) QueueFree();
+            if (controller == null) Vanish();
         }));
+    }
+
+    public void Vanish()
+    {
+        CollisionLayer = 0;
+        sprite.Visible = false;
+        deathParticles.Emitting = true;
+
+        Tween deathtween = CreateTween();
+        deathtween.TweenInterval(VANISH_TIME);
+        deathtween.TweenCallback(Callable.From(QueueFree));
     }
 }

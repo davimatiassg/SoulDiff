@@ -427,6 +427,8 @@ _data = {
 }
 
 [node name="Ghost" type="CharacterBody2D" node_paths=PackedStringArray("anim", "skullGlow", "ghostTrail", "sprite", "collision")]
+collision_layer = 2
+collision_mask = 50
 motion_mode = 1
 script = ExtResource("1_4ml3q")
 speed = 128.0

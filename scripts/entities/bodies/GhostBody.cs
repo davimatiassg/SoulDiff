@@ -125,7 +125,7 @@ public partial class GhostBody : AnyBody
         var spaceState = GetWorld2D().DirectSpaceState;
         Godot.Collections.Array<Rid> exclusionArray = [GetRid()];
 
-        var query = PhysicsRayQueryParameters2D.Create(GlobalPosition, GlobalPosition + aimDirection * 128, CollisionMask, exclusionArray);
+        var query = PhysicsRayQueryParameters2D.Create(GlobalPosition, GlobalPosition + aimDirection * 128, 1 << 0, exclusionArray);
         var result = spaceState.IntersectRay(query);
 
         while (result.Count > 0)
@@ -213,7 +213,6 @@ public partial class GhostBody : AnyBody
     {
         if (disembodying) return;
         dead = true;
-        CallDeferred(MethodName.DisableCollision);
         GameManager.OnPlayerDie();
     }
 

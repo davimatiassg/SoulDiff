@@ -3,9 +3,6 @@
 [ext_resource type="Script" uid="uid://oud4asg1etpl" path="res://scripts/effects/GhostPebble.cs" id="1_juxpx"]
 [ext_resource type="Texture2D" uid="uid://cxiyjcq71gm2v" path="res://sprites/effects/pebble.png" id="2_gddty"]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_juxpx"]
-radius = 4.1231055
-
 [sub_resource type="SpriteFrames" id="SpriteFrames_jo3vf"]
 animations = [{
 "frames": [{
@@ -17,16 +14,21 @@ animations = [{
 "speed": 5.0
 }]
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_juxpx"]
+radius = 4.1231055
+
 [node name="Pebble" type="Node2D" node_paths=PackedStringArray("animation", "collider")]
 texture_filter = 1
 script = ExtResource("1_juxpx")
 animation = NodePath("Sprite2D")
 collider = NodePath("Area2D")
 
+[node name="Sprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_jo3vf")
+
 [node name="Area2D" type="Area2D" parent="."]
+collision_layer = 8
+collision_mask = 6
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 shape = SubResource("CircleShape2D_juxpx")
-
-[node name="Sprite2D" type="AnimatedSprite2D" parent="."]
-sprite_frames = SubResource("SpriteFrames_jo3vf")

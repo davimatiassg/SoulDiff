@@ -192,16 +192,6 @@ public abstract partial class AnyBody : CharacterBody2D, Hitable
 
     public abstract void Die();
 
-    public void DisableCollision()
-    {
-        collision.Disabled = true;
-    }
-
-    public void EnableCollision()
-    {
-        collision.Disabled = false;
-    }
-
     public override void _PhysicsProcess(double delta)
     {
         base._PhysicsProcess(delta);

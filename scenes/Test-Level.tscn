@@ -21,25 +21,25 @@ position = Vector2(3, -6)
 hitStunTime = 1.0
 
 [node name="Knight" parent="." instance=ExtResource("12_xkbm3")]
-position = Vector2(104, -8)
+position = Vector2(864, -48)
 
 [node name="Knight2" parent="." instance=ExtResource("12_xkbm3")]
 position = Vector2(880, 96)
 
 [node name="Knight3" parent="." instance=ExtResource("12_xkbm3")]
-position = Vector2(168, -56)
+position = Vector2(928, -96)
 
 [node name="Knight4" parent="." instance=ExtResource("12_xkbm3")]
-position = Vector2(152, 16)
+position = Vector2(776, -32)
 
 [node name="Knight5" parent="." instance=ExtResource("12_xkbm3")]
-position = Vector2(40, 88)
+position = Vector2(800, 48)
 
 [node name="Knight6" parent="." instance=ExtResource("12_xkbm3")]
 position = Vector2(-112, 96)
 
 [node name="Knight7" parent="." instance=ExtResource("12_xkbm3")]
-position = Vector2(64, -96)
+position = Vector2(824, -136)
 
 [node name="Knight8" parent="." instance=ExtResource("12_xkbm3")]
 position = Vector2(-112, -8)

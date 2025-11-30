@@ -1,4 +1,4 @@
-[gd_scene load_steps=30 format=3 uid="uid://b4j7hdg38dqio"]
+[gd_scene load_steps=37 format=3 uid="uid://b4j7hdg38dqio"]
 
 [ext_resource type="Texture2D" uid="uid://ddnuflopnblue" path="res://sprites/knight.png" id="1_80j5y"]
 [ext_resource type="Script" uid="uid://ig2ltxdhbhqb" path="res://scripts/entities/bodies/KnightBody.cs" id="1_netpo"]
@@ -209,6 +209,33 @@ tracks/3/keys = {
 }]
 }
 
+[sub_resource type="Animation" id="Animation_0hfep"]
+resource_name = "dead"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [8]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("flagAnchor:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(14, 8)]
+}
+
 [sub_resource type="Animation" id="Animation_py1qv"]
 resource_name = "def"
 length = 1.0000017
@@ -364,33 +391,6 @@ tracks/2/keys = {
 "values": [true]
 }
 
-[sub_resource type="Animation" id="Animation_0hfep"]
-resource_name = "dead"
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [8]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("flagAnchor:position")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(14, 8)]
-}
-
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_3x41v"]
 _data = {
 &"RESET": SubResource("Animation_netpo"),
@@ -402,8 +402,55 @@ _data = {
 &"walk": SubResource("Animation_ck3em")
 }
 
-[node name="Knight" type="CharacterBody2D" node_paths=PackedStringArray("anim", "sprite", "collision")]
+[sub_resource type="Curve" id="Curve_xg55p"]
+_data = [Vector2(0, 0.99652964), 0.0, 0.0, 0, 0, Vector2(1, 0), -3.356043, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_5ckdi"]
+curve = SubResource("Curve_xg55p")
+
+[sub_resource type="Curve" id="Curve_thh36"]
+_data = [Vector2(0.034285717, 1), 0.0, -0.03937038, 0, 0, Vector2(1, 0), -3.6954138, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_0mmp3"]
+curve = SubResource("Curve_thh36")
+
+[sub_resource type="Curve" id="Curve_hmnxn"]
+_limits = [0.0, 180.0, 0.0, 1.0]
+_data = [Vector2(0, 180), 0.0, 135.4794, 0, 0, Vector2(1, 0), -559.05566, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_vrb57"]
+curve = SubResource("Curve_hmnxn")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_wjnvf"]
+lifetime_randomness = 0.6
+particle_flag_disable_z = true
+emission_shape = 1
+emission_sphere_radius = 8.0
+angle_min = -170.7
+angle_max = -170.7
+direction = Vector3(0, -1, 0)
+flatness = 1.0
+initial_velocity_min = 99.65
+initial_velocity_max = 140.08
+angular_velocity_min = -177.45001
+angular_velocity_max = 157.42998
+angular_velocity_curve = SubResource("CurveTexture_0mmp3")
+velocity_limit_curve = SubResource("CurveTexture_vrb57")
+gravity = Vector3(0, 0, 0)
+scale_max = 5.0
+color = Color(0, 0, 0, 0.43137255)
+alpha_curve = SubResource("CurveTexture_5ckdi")
+turbulence_enabled = true
+turbulence_noise_strength = 3.24
+turbulence_influence_max = 0.104
+
+[node name="Knight" type="CharacterBody2D" node_paths=PackedStringArray("anim", "deathParticles", "sprite", "collision")]
 texture_filter = 1
+collision_layer = 2
+collision_mask = 54
 script = ExtResource("1_netpo")
 slashPrefab = ExtResource("2_ipplv")
 shockwavePrefab = ExtResource("3_xg55p")
@@ -411,6 +458,7 @@ attackDamage = 2
 attackPushForce = 640.0
 attackCooldown = 0.3000000000029104
 anim = NodePath("AnimationPlayer")
+deathParticles = NodePath("DeathSmoke")
 invincibilityTime = 0.0
 hitStunTime = 0.15000000000873115
 sprite = NodePath("sprite")
@@ -444,3 +492,14 @@ libraries = {
 &"": SubResource("AnimationLibrary_3x41v")
 }
 autoplay = "idle"
+
+[node name="DeathSmoke" type="GPUParticles2D" parent="."]
+position = Vector2(0, 12)
+emitting = false
+amount = 100
+amount_ratio = 0.95
+lifetime = 2.0
+one_shot = true
+explosiveness = 0.93
+randomness = 1.0
+process_material = SubResource("ParticleProcessMaterial_wjnvf")
