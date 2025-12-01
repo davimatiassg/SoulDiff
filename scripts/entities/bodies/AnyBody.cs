@@ -134,7 +134,6 @@ public abstract partial class AnyBody : CharacterBody2D, Hitable
 
         if (!vulnerable)
         {
-
             return;
         }
 

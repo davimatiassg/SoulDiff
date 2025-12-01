@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://cpg2si6ckb27h"]
+[gd_scene load_steps=10 format=3 uid="uid://cpg2si6ckb27h"]
 
 [ext_resource type="Script" uid="uid://cj8ra0yhddfjq" path="res://scripts/effects/MagicBolt.cs" id="1_k8mu6"]
 [ext_resource type="Texture2D" uid="uid://m83yetny2o34" path="res://sprites/effects/witch-bolt.png" id="2_k8mu6"]
@@ -46,6 +46,17 @@ animations = [{
 "speed": 18.0
 }]
 
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_k8mu6"]
+particle_flag_disable_z = true
+inherit_velocity_ratio = 0.328
+spread = 180.0
+initial_velocity_min = 65.61
+initial_velocity_max = 65.61
+gravity = Vector3(0, 0, 0)
+hue_variation_min = -0.09000002
+hue_variation_max = 0.10999998
+turbulence_enabled = true
+
 [node name="Bolt" type="Node2D" node_paths=PackedStringArray("animation", "collider")]
 texture_filter = 1
 script = ExtResource("1_k8mu6")
@@ -66,3 +77,6 @@ collision_mask = 6
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Area2D"]
 texture_filter = 1
 polygon = PackedVector2Array(0, 8, 0, -8, 10, 0)
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="."]
+process_material = SubResource("ParticleProcessMaterial_k8mu6")

@@ -37,7 +37,6 @@ public partial class PlayerController : AnyController
 
     public static void Disembody()
 	{
-        Instance.Disconnect(null);
         Instance.Connect(Instance.ghost);
         Instance.GetParent().CallDeferred("add_child", Instance.ghost);
         Instance.ghost.PossessStart(Instance);

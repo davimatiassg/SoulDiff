@@ -10,7 +10,9 @@ public abstract partial class EnemyBody : AnyBody
     public const double VANISH_TIME = 2f;
     [Export] public AnimationPlayer anim;
     [Export] public GpuParticles2D deathParticles;
-    public virtual bool StartWithDefaultController { get => true; }
+
+    [Export]
+    public virtual bool StartWithDefaultController { get; set; }
     public virtual AnyController DefaultController => new MeleeAIController();
     public override void Button3(bool pressed)
     {

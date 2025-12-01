@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://oaxil6vm2ft1"]
+[gd_scene load_steps=10 format=3 uid="uid://oaxil6vm2ft1"]
 
 [ext_resource type="Texture2D" uid="uid://bhgjam6jj3up0" path="res://sprites/vfx/hitFX.png" id="1_04p7v"]
 [ext_resource type="Script" uid="uid://djrmxqyodo3jn" path="res://scripts/effects/Effect.cs" id="1_yttpg"]
@@ -32,6 +32,23 @@ animations = [{
 "speed": 24.0
 }]
 
+[sub_resource type="Curve" id="Curve_yttpg"]
+_limits = [0.0, 2.0, 0.0, 1.0]
+_data = [Vector2(0, 2), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_gcw11"]
+curve = SubResource("Curve_yttpg")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_yttpg"]
+particle_flag_disable_z = true
+spread = 180.0
+initial_velocity_max = 403.58
+gravity = Vector3(0, 0, 0)
+scale_min = 2.0
+scale_max = 2.0
+scale_curve = SubResource("CurveTexture_gcw11")
+
 [node name="Hit" type="Node2D"]
 script = ExtResource("1_yttpg")
 
@@ -39,3 +56,9 @@ script = ExtResource("1_yttpg")
 sprite_frames = SubResource("SpriteFrames_ar0ea")
 autoplay = "default"
 frame_progress = 0.13765049
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="AnimatedSprite2D2"]
+amount = 10
+lifetime = 0.33
+explosiveness = 1.0
+process_material = SubResource("ParticleProcessMaterial_yttpg")

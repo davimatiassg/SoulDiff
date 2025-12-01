@@ -10,7 +10,9 @@ public partial class MinotaurBody : EnemyBody
     [ExportGroup("Balance Variables")]
 
     [Export]
-    public float speed = 96.0f;
+    public float baseMoveSpeed = 96.0f;
+
+
 
 
     [Export]
@@ -27,7 +29,7 @@ public partial class MinotaurBody : EnemyBody
     [ExportGroup("Balance Variables/Rage")]
 
     [Export]
-    public float rageAttackPushForce = 1080f;
+    public float rageAttackPushForce = 640f;
 
     [Export]
     public float rageAttackCooldown = 0.5f;
@@ -41,11 +43,11 @@ public partial class MinotaurBody : EnemyBody
 
 
 
-
+    public float speed = 96;
 
     bool _raging;
     [Export]
-    protected bool raging
+    protected bool Raging
     {
         get
         {
@@ -74,7 +76,7 @@ public partial class MinotaurBody : EnemyBody
     public override void _Ready()
     {
         base._Ready();
-        raging = false;
+        Raging = false;
     }
 
     public override AnyController DefaultController => new MeleeAIController();
@@ -82,6 +84,7 @@ public partial class MinotaurBody : EnemyBody
     private bool moving;
     public override void Move(Vector2 direction)
     {
+        if (dead) return;
         base.Move(direction);
 
         bool movingToggled = (direction.LengthSquared() != 0 != moving);
@@ -92,12 +95,13 @@ public partial class MinotaurBody : EnemyBody
 
         if (movingToggled)
         { 
-            sprite.Play(moving ? "walk" : "idle");
+            anim.Play(moving ? "walk" : "idle");
         }
         
     }
     public override void Aim(Vector2 direction)
     {
+        if (dead) return;
         base.Aim(direction);
     }
 
@@ -107,50 +111,18 @@ public partial class MinotaurBody : EnemyBody
 
     public override void Button1(bool pressed)
     {
-        if (!canAttack || attacking || stunned) return;
+        if (dead || !canAttack || attacking || stunned) return;
 
 
-        Action swing = () => { };
-        swing = () =>
-        {
-            if (sprite.Frame == 1)
-            {
-                SwingAxe();
-                sprite.FrameChanged -= swing;
-            }
-        };
-        sprite.FrameChanged += swing;
 
-        sprite.Play("atk");      
+        anim.Play("attack");
+        canAttack = false;  
         attacking = true;
-        var temp = attackMoveSpeed;
-        attackMoveSpeed = speed;
-        speed = temp;
-
-        canAttack = false;
-        attackTween = CreateTween();
-        attackTween.TweenInterval(attackCooldown);
-        attackTween.TweenCallback(Callable.From(() => { canAttack = true; }));
-
-        Action stopAtkAction = () => { };
-
-        stopAtkAction = () =>
-        {
-            sprite.AnimationFinished -= stopAtkAction;
-            attacking = false;
-
-            var temp = attackMoveSpeed;
-            attackMoveSpeed = speed;
-            speed = temp;
-            moving = false;
-
-        };
-
-        sprite.AnimationFinished += stopAtkAction;
+        speed = attackMoveSpeed;
 
     }
     /// <summary>
-    /// called by the animation player, a child from the knight node.
+    /// called by the animation player, a child from the minotaur node.
     /// </summary>
     public void SwingAxe()
     {
@@ -163,23 +135,29 @@ public partial class MinotaurBody : EnemyBody
         slash.knockback = attackPushForce;
         slash.direction = aimDirection;
         slash.damage = attackDamage;
+    }
 
+    public void EndAttack()
+    {
+        attacking = false;
+        speed = baseMoveSpeed;
+        moving = false;
 
-        
-    
-
+        attackTween = CreateTween();
+        attackTween.TweenInterval(Raging ? rageAttackCooldown : attackCooldown);
+        attackTween.TweenCallback(Callable.From(() => { canAttack = true; }));
     }
 
     private bool canRage = true;
     Tween rageTracker;
     public override void Button2(bool pressed)
     {
-        if (stunned || raging || !canRage) return;
+        if (dead || stunned || Raging || !canRage) return;
 
         rageTracker = CreateTween();
         rageTracker.TweenCallback(Callable.From(() =>
         {
-            raging = true;
+            Raging = true;
             float temp = attackCooldown;
             attackCooldown = rageAttackCooldown;
             rageAttackCooldown = temp;
@@ -196,7 +174,7 @@ public partial class MinotaurBody : EnemyBody
         rageTracker.TweenInterval(rageDuration);
         rageTracker.TweenCallback(Callable.From(() =>
         {
-            raging = false;
+            Raging = false;
             canRage = false;
 
             float temp = attackCooldown;
@@ -232,7 +210,8 @@ public partial class MinotaurBody : EnemyBody
     public override void HitstunApply()
     {
         base.HitstunApply();
-        sprite.Play("hurt");
+        if (Raging) HitstunCleanse();
+        else { anim.Play("hurt"); }
     }
 
     public override void HitstunCleanse()

@@ -459,6 +459,7 @@ attackPushForce = 640.0
 attackCooldown = 0.3000000000029104
 anim = NodePath("AnimationPlayer")
 deathParticles = NodePath("DeathSmoke")
+StartWithDefaultController = true
 invincibilityTime = 0.0
 hitStunTime = 0.15000000000873115
 sprite = NodePath("sprite")

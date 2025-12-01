@@ -154,16 +154,22 @@ public partial class ArcherBody : AnyBody
 
     public override void TakeDamage(int damage, Vector2 knockback)
     {
-        anim.Play("hurt");
-        GameManager.OnPlayerDie();
-        CollisionLayer = 1 << 0;
-        CollisionMask = CollisionLayer;
-        MainCamera.CameraShake(5, 0.5f);
-        stunned = true;
+        base.TakeDamage(damage, knockback);
+        
     }
     public override void Die()
     {
-        QueueFree();
+        anim.Play("hurt");
+        stunned = true;
+        CollisionLayer = 1 << 0;
+        CollisionMask = CollisionLayer;
+
+
+        if (!isPlayer) return;
+        
+        GameManager.OnPlayerDie();
+        MainCamera.CameraShake(5, 0.5f);
+        
     }
 
 }

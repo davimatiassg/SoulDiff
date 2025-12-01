@@ -1,4 +1,5 @@
 using System;
+using System.Diagnostics;
 using Godot;
 
 public partial class AnyController : Node2D
@@ -29,7 +30,7 @@ public partial class AnyController : Node2D
     
     public void Disconnect(AnyBody body)
 	{
-        if (body == null) return;
+        Debug.Assert(body != null);
 		if (GetParent() == body) body.RemoveChild(this);
 
 		body.controller = null;
