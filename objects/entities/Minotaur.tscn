@@ -51,7 +51,7 @@ region = Rect2(2784, 0, 96, 96)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_lossl"]
 atlas = ExtResource("5_x66bs")
-region = Rect2(2400, 0, 96, 96)
+region = Rect2(2304, 0, 96, 96)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_yt74b"]
 atlas = ExtResource("5_x66bs")
@@ -119,7 +119,7 @@ animations = [{
 }],
 "loop": false,
 "name": &"atk",
-"speed": 0.0
+"speed": 1.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -264,7 +264,7 @@ tracks/1/keys = {
 }
 tracks/2/type = "value"
 tracks/2/imported = false
-tracks/2/enabled = true
+tracks/2/enabled = false
 tracks/2/path = NodePath("sprite:frame")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
@@ -288,7 +288,7 @@ tracks/3/keys = {
 }
 tracks/4/type = "value"
 tracks/4/imported = false
-tracks/4/enabled = true
+tracks/4/enabled = false
 tracks/4/path = NodePath("sprite/axeParticles:texture:gradient")
 tracks/4/interp = 1
 tracks/4/loop_wrap = true

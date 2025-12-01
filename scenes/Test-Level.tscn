@@ -27,3 +27,6 @@ StartWithDefaultController = false
 
 [node name="Minotaur" parent="." instance=ExtResource("6_2v4gc")]
 position = Vector2(88, 0)
+
+[node name="Knight2" parent="." instance=ExtResource("12_xkbm3")]
+position = Vector2(496, -64)

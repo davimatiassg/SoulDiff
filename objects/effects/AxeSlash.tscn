@@ -47,13 +47,14 @@ collider = NodePath("Area2D")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 texture_filter = 1
-position = Vector2(45.1, 2)
+position = Vector2(26.037275, -8.962724)
 rotation = 0.55171835
 sprite_frames = SubResource("SpriteFrames_wwrkt")
 autoplay = "default"
 
 [node name="Area2D" type="Area2D" parent="."]
 texture_filter = 1
+position = Vector2(-19.062721, -10.962723)
 collision_layer = 8
 collision_mask = 6
 

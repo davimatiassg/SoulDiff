@@ -42,7 +42,7 @@ public partial class MinotaurBody : EnemyBody
     public float rageMoveSpeed = 0f;
 
 
-
+    [Export]
     public float speed = 96;
 
     bool _raging;
@@ -56,6 +56,7 @@ public partial class MinotaurBody : EnemyBody
         set
         {
             _raging = value;
+            isHitStunnable = value;
             if (shaderMat == null) return;
             if (value)
             {
@@ -84,7 +85,7 @@ public partial class MinotaurBody : EnemyBody
     private bool moving;
     public override void Move(Vector2 direction)
     {
-        if (dead) return;
+        if (dead || stunned) return;
         base.Move(direction);
 
         bool movingToggled = (direction.LengthSquared() != 0 != moving);
@@ -101,7 +102,7 @@ public partial class MinotaurBody : EnemyBody
     }
     public override void Aim(Vector2 direction)
     {
-        if (dead) return;
+        if (dead || stunned) return;
         base.Aim(direction);
     }
 
@@ -114,7 +115,7 @@ public partial class MinotaurBody : EnemyBody
         if (dead || !canAttack || attacking || stunned) return;
 
 
-
+        anim.Play("RESET");
         anim.Play("attack");
         canAttack = false;  
         attacking = true;
@@ -132,7 +133,7 @@ public partial class MinotaurBody : EnemyBody
         if(sprite.Scale.Y < 0) { slash.Scale = new Vector2(1, -1); }
 
         slash.playerEffect = isPlayer;
-        slash.knockback = attackPushForce;
+        slash.knockback = Raging ? rageAttackPushForce : attackPushForce;
         slash.direction = aimDirection;
         slash.damage = attackDamage;
     }
@@ -154,45 +155,18 @@ public partial class MinotaurBody : EnemyBody
     {
         if (dead || stunned || Raging || !canRage) return;
 
+        speed = rageMoveSpeed;
+        Raging = true;
+
         rageTracker = CreateTween();
-        rageTracker.TweenCallback(Callable.From(() =>
-        {
-            Raging = true;
-            float temp = attackCooldown;
-            attackCooldown = rageAttackCooldown;
-            rageAttackCooldown = temp;
-
-            temp = attackPushForce;
-            attackPushForce = rageAttackPushForce;
-            rageAttackPushForce = temp;
-
-            temp = speed;
-            speed = rageMoveSpeed;
-            rageMoveSpeed = temp;
-
-        }));
         rageTracker.TweenInterval(rageDuration);
         rageTracker.TweenCallback(Callable.From(() =>
         {
             Raging = false;
             canRage = false;
-
-            float temp = attackCooldown;
-            attackCooldown = rageAttackCooldown;
-            rageAttackCooldown = temp;
-
-            temp = attackPushForce;
-            attackPushForce = rageAttackPushForce;
-            rageAttackPushForce = temp;
-
-            temp = speed;
-            speed = rageMoveSpeed;
-            rageMoveSpeed = temp;
-
         }));
         rageTracker.TweenInterval(rageCooldown);
         rageTracker.TweenCallback(Callable.From(() => canRage = true ));
-
     }
 
 
@@ -211,13 +185,14 @@ public partial class MinotaurBody : EnemyBody
     {
         base.HitstunApply();
         if (Raging) HitstunCleanse();
-        else { anim.Play("hurt"); }
+        else { anim.Play("RESET"); anim.Play("hurt"); }
     }
 
     public override void HitstunCleanse()
     {
         base.HitstunCleanse();
         moving = false;
+        anim.Play("RESET");
     }
 
     public override void _PhysicsProcess(double delta)
