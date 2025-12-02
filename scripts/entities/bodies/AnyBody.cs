@@ -198,25 +198,28 @@ public abstract partial class AnyBody : CharacterBody2D, Hitable
     {
         base._PhysicsProcess(delta);
 
+
+
+        Velocity *= 0.85f;
+
+
+        
+        KinematicCollision2D collision = MoveAndCollide(Velocity * (float)delta);
+        if (collision != null)
+        {
+            Vector2 motion = Velocity.Normalized();
+            motion = motion.Slide(collision.GetNormal());
+            MoveAndCollide(motion);
+        }
+
+        if (dead || stunned) return;
+        
         var curr_vel = Velocity;
 
-        if(!dead || !stunned) { curr_vel = (moveDirection * speed); }
-
-        curr_vel *= 0.85f;
+        curr_vel = moveDirection * speed;
 
         Velocity = curr_vel;
-
-        Vector2 motion = Velocity;
-
-        // MoveAndSlide();
-
-        MoveAndCollide(motion * (float)delta);
-
-        // KinematicCollision2D collision = 
-        // if (collision != null)
-        // {
-        //     motion = motion.Slide(collision.GetNormal());
-        //     MoveAndCollide(motion);
-        // }
+        
+        
     }
 }
