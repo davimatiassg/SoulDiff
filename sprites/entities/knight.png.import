@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bihu6kyvo8hqj"
-path="res://.godot/imported/archer-bow.png-fab6470fed357aefb6ddd36ed0370f72.ctex"
+uid="uid://ddnuflopnblue"
+path="res://.godot/imported/knight.png-8a0fbd16ef3dd22453015c9347e97f8d.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://sprites/archer-bow.png"
-dest_files=["res://.godot/imported/archer-bow.png-fab6470fed357aefb6ddd36ed0370f72.ctex"]
+source_file="res://sprites/entities/knight.png"
+dest_files=["res://.godot/imported/knight.png-8a0fbd16ef3dd22453015c9347e97f8d.ctex"]
 
 [params]
 

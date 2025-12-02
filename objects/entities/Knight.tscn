@@ -1,6 +1,6 @@
 [gd_scene load_steps=37 format=3 uid="uid://b4j7hdg38dqio"]
 
-[ext_resource type="Texture2D" uid="uid://ddnuflopnblue" path="res://sprites/knight.png" id="1_80j5y"]
+[ext_resource type="Texture2D" uid="uid://ddnuflopnblue" path="res://sprites/entities/knight.png" id="1_80j5y"]
 [ext_resource type="Script" uid="uid://ig2ltxdhbhqb" path="res://scripts/entities/bodies/KnightBody.cs" id="1_netpo"]
 [ext_resource type="PackedScene" uid="uid://cp4ikqfe2wqft" path="res://objects/effects/SwordSlash.tscn" id="2_ipplv"]
 [ext_resource type="Shader" uid="uid://bcwyj2yow674w" path="res://materials/Highlight.gdshader" id="3_qo31y"]
@@ -406,14 +406,14 @@ _data = {
 _data = [Vector2(0, 0.99652964), 0.0, 0.0, 0, 0, Vector2(1, 0), -3.356043, 0.0, 0, 0]
 point_count = 2
 
-[sub_resource type="CurveTexture" id="CurveTexture_5ckdi"]
+[sub_resource type="CurveTexture" id="CurveTexture_xg55p"]
 curve = SubResource("Curve_xg55p")
 
 [sub_resource type="Curve" id="Curve_thh36"]
 _data = [Vector2(0.034285717, 1), 0.0, -0.03937038, 0, 0, Vector2(1, 0), -3.6954138, 0.0, 0, 0]
 point_count = 2
 
-[sub_resource type="CurveTexture" id="CurveTexture_0mmp3"]
+[sub_resource type="CurveTexture" id="CurveTexture_5ckdi"]
 curve = SubResource("Curve_thh36")
 
 [sub_resource type="Curve" id="Curve_hmnxn"]
@@ -421,7 +421,7 @@ _limits = [0.0, 180.0, 0.0, 1.0]
 _data = [Vector2(0, 180), 0.0, 135.4794, 0, 0, Vector2(1, 0), -559.05566, 0.0, 0, 0]
 point_count = 2
 
-[sub_resource type="CurveTexture" id="CurveTexture_vrb57"]
+[sub_resource type="CurveTexture" id="CurveTexture_thh36"]
 curve = SubResource("Curve_hmnxn")
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_wjnvf"]
@@ -437,12 +437,12 @@ initial_velocity_min = 99.65
 initial_velocity_max = 140.08
 angular_velocity_min = -177.45001
 angular_velocity_max = 157.42998
-angular_velocity_curve = SubResource("CurveTexture_0mmp3")
-velocity_limit_curve = SubResource("CurveTexture_vrb57")
+angular_velocity_curve = SubResource("CurveTexture_5ckdi")
+velocity_limit_curve = SubResource("CurveTexture_thh36")
 gravity = Vector3(0, 0, 0)
 scale_max = 5.0
 color = Color(0, 0, 0, 0.43137255)
-alpha_curve = SubResource("CurveTexture_5ckdi")
+alpha_curve = SubResource("CurveTexture_xg55p")
 turbulence_enabled = true
 turbulence_noise_strength = 3.24
 turbulence_influence_max = 0.104

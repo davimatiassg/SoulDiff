@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cy5b7vll42kq8"
-path="res://.godot/imported/archer.png-1cc187e04a5b9a5c3679c3d2a1b29c7a.ctex"
+uid="uid://dqw4seerv2wn5"
+path="res://.godot/imported/ghost-face.png-6b1dea0c5497fd7006e5025d33c450da.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://sprites/archer.png"
-dest_files=["res://.godot/imported/archer.png-1cc187e04a5b9a5c3679c3d2a1b29c7a.ctex"]
+source_file="res://sprites/entities/ghost-face.png"
+dest_files=["res://.godot/imported/ghost-face.png-6b1dea0c5497fd7006e5025d33c450da.ctex"]
 
 [params]
 

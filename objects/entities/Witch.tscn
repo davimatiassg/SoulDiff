@@ -4,9 +4,9 @@
 [ext_resource type="PackedScene" uid="uid://cpg2si6ckb27h" path="res://objects/effects/MagicBolt.tscn" id="2_wfgpb"]
 [ext_resource type="PackedScene" uid="uid://c2yvflccrru0s" path="res://objects/effects/Fireblast.tscn" id="3_82ipo"]
 [ext_resource type="Shader" uid="uid://bcwyj2yow674w" path="res://materials/Highlight.gdshader" id="4_7osfo"]
-[ext_resource type="Texture2D" uid="uid://dn5nmif3l2m7s" path="res://sprites/witch-broom.png" id="4_82ipo"]
-[ext_resource type="Texture2D" uid="uid://dpi276n85t7os" path="res://sprites/witch.png" id="5_wfgpb"]
-[ext_resource type="Texture2D" uid="uid://dnp4j0v4p7xp8" path="res://sprites/witch-wand.png" id="6_82ipo"]
+[ext_resource type="Texture2D" uid="uid://dn5nmif3l2m7s" path="res://sprites/entities/witch-broom.png" id="4_82ipo"]
+[ext_resource type="Texture2D" uid="uid://dpi276n85t7os" path="res://sprites/entities/witch.png" id="5_wfgpb"]
+[ext_resource type="Texture2D" uid="uid://dnp4j0v4p7xp8" path="res://sprites/entities/witch-wand.png" id="6_82ipo"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_xg55p"]
 shader = ExtResource("4_7osfo")

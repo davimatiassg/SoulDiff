@@ -2,9 +2,9 @@
 
 [ext_resource type="Script" uid="uid://clqa1t1ljrws7" path="res://scripts/entities/bodies/ArcherBody.cs" id="1_uwrfa"]
 [ext_resource type="PackedScene" uid="uid://cn45irh5po8vy" path="res://objects/effects/Arrow.tscn" id="2_uxxji"]
-[ext_resource type="Texture2D" uid="uid://bihu6kyvo8hqj" path="res://sprites/archer-bow.png" id="3_cx2jr"]
+[ext_resource type="Texture2D" uid="uid://bihu6kyvo8hqj" path="res://sprites/entities/archer-bow.png" id="3_cx2jr"]
 [ext_resource type="Shader" uid="uid://bcwyj2yow674w" path="res://materials/Highlight.gdshader" id="4_25exd"]
-[ext_resource type="Texture2D" uid="uid://cy5b7vll42kq8" path="res://sprites/archer.png" id="5_saykt"]
+[ext_resource type="Texture2D" uid="uid://cy5b7vll42kq8" path="res://sprites/entities/archer.png" id="5_saykt"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_xg55p"]
 shader = ExtResource("4_25exd")

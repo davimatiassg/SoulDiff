@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://ud4ysrgr5loy"
-path="res://.godot/imported/ghostbring.png-1700b428452104662280343e692cedca.ctex"
+uid="uid://cy5b7vll42kq8"
+path="res://.godot/imported/archer.png-940a64d1cd8b3de3fbdd2185f80cfb32.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://sprites/ghostbring.png"
-dest_files=["res://.godot/imported/ghostbring.png-1700b428452104662280343e692cedca.ctex"]
+source_file="res://sprites/entities/archer.png"
+dest_files=["res://.godot/imported/archer.png-940a64d1cd8b3de3fbdd2185f80cfb32.ctex"]
 
 [params]
 

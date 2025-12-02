@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dnp4j0v4p7xp8"
-path="res://.godot/imported/witch-wand.png-81a06a800cafae83b55604a95fca46b3.ctex"
+uid="uid://baf66mpa4mleb"
+path="res://.godot/imported/ghost.png-4e42aca00f0f7c06c76b32ec2fcf5769.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://sprites/witch-wand.png"
-dest_files=["res://.godot/imported/witch-wand.png-81a06a800cafae83b55604a95fca46b3.ctex"]
+source_file="res://sprites/entities/ghost.png"
+dest_files=["res://.godot/imported/ghost.png-4e42aca00f0f7c06c76b32ec2fcf5769.ctex"]
 
 [params]
 

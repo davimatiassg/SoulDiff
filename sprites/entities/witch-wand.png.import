@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://ddnuflopnblue"
-path="res://.godot/imported/knight.png-c78c026709c2736971ffc0a39338542e.ctex"
+uid="uid://dnp4j0v4p7xp8"
+path="res://.godot/imported/witch-wand.png-4badb352ee4ed81f470f38b613b06151.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://sprites/knight.png"
-dest_files=["res://.godot/imported/knight.png-c78c026709c2736971ffc0a39338542e.ctex"]
+source_file="res://sprites/entities/witch-wand.png"
+dest_files=["res://.godot/imported/witch-wand.png-4badb352ee4ed81f470f38b613b06151.ctex"]
 
 [params]
 

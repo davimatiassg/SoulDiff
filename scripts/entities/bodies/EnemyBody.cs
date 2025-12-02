@@ -49,14 +49,14 @@ public abstract partial class EnemyBody : AnyBody
     {
         base.PossessStart(cntrl);
 
-        CollisionLayer = 1 << 1;
+        CollisionLayer = 2;
     }
 
     public override void Die()
     {
         dead = true;
 
-        CollisionLayer = 1 << 0;
+        CollisionLayer = 1;
 
         if (isPlayer)
         {

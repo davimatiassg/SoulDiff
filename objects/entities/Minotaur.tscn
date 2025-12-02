@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://b6gjo73hdaiul" path="res://scripts/entities/bodies/MinotaurBody.cs" id="1_owogu"]
 [ext_resource type="Shader" uid="uid://d08l0x7d512wq" path="res://materials/Minotaur.gdshader" id="1_x66bs"]
 [ext_resource type="PackedScene" uid="uid://yus25gb6r0f1" path="res://objects/effects/AxeSlash.tscn" id="2_owogu"]
-[ext_resource type="Texture2D" uid="uid://dgfpudh332uk7" path="res://sprites/minotaur.png" id="5_x66bs"]
+[ext_resource type="Texture2D" uid="uid://dgfpudh332uk7" path="res://sprites/entities/minotaur.png" id="5_x66bs"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_xg55p"]
 shader = ExtResource("1_x66bs")
