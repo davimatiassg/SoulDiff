@@ -42,8 +42,6 @@ public partial class MinotaurBody : EnemyBody
     public float rageMoveSpeed = 0f;
 
 
-    [Export]
-    public float speed = 96;
 
     bool _raging;
     [Export]
@@ -180,16 +178,18 @@ public partial class MinotaurBody : EnemyBody
 
 
 
-    public override void HitstunApply()
+    public override void HitstunApply(float damage)
     {
-        base.HitstunApply();
-        if (Raging) HitstunCleanse();
-        else
+        if (dead) return;
+        damage -= Raging ? 5 : 2;
+        if (damage > 0)
         {
+            base.HitstunApply(damage);
             anim.Play("RESET");
             anim.Play("hurt");
             if (attacking) EndAttack();
         }
+        else HitstunCleanse();
     }
 
     public override void HitstunCleanse()

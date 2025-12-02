@@ -5,7 +5,6 @@ using Godot;
 
 public partial class WitchBody : EnemyBody
 {
-    [Export] private AnimationPlayer anim;
     [Export] private Sprite2D wand;
     [Export] private Node2D wandTip;
     [Export] private Sprite2D broom;
@@ -15,12 +14,10 @@ public partial class WitchBody : EnemyBody
 
     [ExportGroup("Balance Variables")]
 
-    [Export]
-    public float speed = 128.0f;
 
 
     [Export]
-    public int attackDamage = 3;
+    public int attackDamage = 1;
 
     [Export]
     public float projectileSpeed = 3200f;
@@ -29,10 +26,13 @@ public partial class WitchBody : EnemyBody
     public float attackCooldown = 0.1f;
 
     [Export]
-    public float fireballDamage = 4f;
+    public float fireballDamage = 10f;
 
     [Export]
     public float fireballCooldown = 4f;
+
+    [Export]
+    public float fireballCharge = 2f;
 
 
     public override void Move(Vector2 direction)
@@ -76,10 +76,42 @@ public partial class WitchBody : EnemyBody
     }
 
 
+    Fireball curr_fireball;
+    Tween fireballCharger;
+
+    bool canFireball = true;
+
+
     public override void Button2(bool pressed)
     {
-        //TODO!
+        if (!(pressed && canAttack && canFireball)) return;
+        
+        canAttack = false;
+        Tween _atktween = CreateTween();
+        _atktween.TweenInterval(fireballCharge);
+        _atktween.TweenCallback(Callable.From(() => canAttack = true));
+
+        canFireball = false;
+        Tween _fireballtween = CreateTween();
+        _fireballtween.TweenInterval(fireballCharge + fireballCooldown);
+        _fireballtween.TweenCallback(Callable.From(() => canFireball = true));
+
+        curr_fireball = (Fireball)EffectPool.SpawnEffect(fireballPrefab, GetParent<Node2D>());
+        curr_fireball.Position = Position;
+        curr_fireball.StartOrbit(this);
+        curr_fireball.chargeTime = fireballCharge;
+
+
+        fireballCharger = CreateTween();
+        fireballCharger.TweenInterval(fireballCharge);
+        fireballCharger.TweenCallback(Callable.From(() =>
+        {
+            curr_fireball.Fling(aimDirection);
+        }));
+
+        
     }
+
 
     public override void _PhysicsProcess(double delta)
     {

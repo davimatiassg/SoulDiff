@@ -3,8 +3,6 @@ using System;
 
 public partial class ArcherBody : AnyBody
 {
-    [Export]
-    public float speed = 300.0f;
 
     [Export]
     public float acel = 400.0f;

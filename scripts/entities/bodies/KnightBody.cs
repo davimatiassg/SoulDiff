@@ -196,10 +196,10 @@ public partial class KnightBody : EnemyBody
 
 
 
-    public override void HitstunApply()
+    public override void HitstunApply(float damage)
     {
         if (dead) return;
-        base.HitstunApply();
+        base.HitstunApply(damage );
         anim.Play("RESET");
         anim.Play("hurt");
     }

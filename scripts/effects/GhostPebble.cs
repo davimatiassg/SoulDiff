@@ -4,14 +4,7 @@ using System.Collections.Generic;
 
 public partial class GhostPebble : DamageEffect
 {
-
-    
     Vector2 velocity = Vector2.Zero;
-    public override void _Ready()
-    {
-        base._Ready();
-    }
-
     Action<float> processAction;
 
     public void StartOrbit(GhostBody target)

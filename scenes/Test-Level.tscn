@@ -1,6 +1,7 @@
-[gd_scene load_steps=7 format=3 uid="uid://trooaratn7mp"]
+[gd_scene load_steps=8 format=3 uid="uid://trooaratn7mp"]
 
 [ext_resource type="PackedScene" uid="uid://divu6gwngrkvy" path="res://objects/entities/Minotaur.tscn" id="6_2v4gc"]
+[ext_resource type="PackedScene" uid="uid://c2uv7ojcq7hr" path="res://objects/entities/Witch.tscn" id="7_wueff"]
 [ext_resource type="PackedScene" uid="uid://70ceu615i4b" path="res://objects/Camera.tscn" id="8_fc4ab"]
 [ext_resource type="PackedScene" uid="uid://dk2iakv4iqyo8" path="res://objects/entities/Player.tscn" id="9_8x0ck"]
 [ext_resource type="PackedScene" uid="uid://b4283bflripuo" path="res://objects/entities/Ghost.tscn" id="10_6oglv"]
@@ -15,7 +16,7 @@ zoom = Vector2(1, 1)
 
 [node name="Player" parent="." node_paths=PackedStringArray("currentBody") instance=ExtResource("9_8x0ck")]
 ghostPrefab = ExtResource("10_6oglv")
-currentBody = NodePath("../Knight")
+currentBody = NodePath("../Witch")
 
 [node name="Archer" parent="." instance=ExtResource("11_5i0tk")]
 position = Vector2(3, -6)
@@ -30,3 +31,7 @@ position = Vector2(88, 0)
 
 [node name="Knight2" parent="." instance=ExtResource("12_xkbm3")]
 position = Vector2(496, -64)
+
+[node name="Witch" parent="." instance=ExtResource("7_wueff")]
+position = Vector2(184, -112)
+StartWithDefaultController = false

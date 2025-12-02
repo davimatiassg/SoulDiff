@@ -8,9 +8,6 @@ public partial class GhostBody : AnyBody
     [ExportGroup("Balance Variables")]
 
     [Export]
-    public float speed = 400.0f;
-
-    [Export]
     public float acel = 400.0f;
 
     [Export]
@@ -18,7 +15,7 @@ public partial class GhostBody : AnyBody
 
     [Export]
     public float flingCooldown = 1f;
-    private float flingCD;
+    private bool canAttack = true;
 
     [Export]
     public float dashForce = 4f;
@@ -26,7 +23,7 @@ public partial class GhostBody : AnyBody
     [Export]
     public float dashCooldown = 1f;
 
-    private float dashCD;
+    private bool canDash = true;
 
     [ExportGroup("Extras & Cosmetics")]
 
@@ -59,10 +56,12 @@ public partial class GhostBody : AnyBody
     {
         if (disembodying) return;
 
-        if (pressed)
+        if (pressed && canAttack)
         {
-            if (flingCD > 0) return;
-            flingCD = flingCooldown;
+            canAttack = false;
+            Tween _atktween = CreateTween();
+            _atktween.TweenInterval(flingCooldown);
+            _atktween.TweenCallback(Callable.From(() => canAttack = true));
 
             curr_pebble = (GhostPebble)EffectPool.SpawnEffect(ghostPebblePrefab, GetParent<Node2D>());
             curr_pebble.Position = Position;
@@ -72,7 +71,7 @@ public partial class GhostBody : AnyBody
             pebbleIncreaser.TweenMethod(
                 Callable.From((float f) =>
                 {
-                    curr_pebble.damage = Mathf.FloorToInt(f*flingDamage);
+                    curr_pebble.damage = Mathf.FloorToInt(f * flingDamage);
                     curr_pebble.Scale = Vector2.One * f;
                 }),
                 1f, //grow from one (damage, size)
@@ -101,20 +100,26 @@ public partial class GhostBody : AnyBody
     public override void Button2(bool pressed)
     {
         if (disembodying) return;
-        if (!pressed || dashCD > 0) return;
-        float spd = speed;
-        float a = acel;
-        Vector2 dir = lastMoveDirection;
-
-        dashCD = dashCooldown;
-
-        dashMaker = CreateTween();
-        dashMaker.TweenMethod(Callable.From((float f) =>
+        if (pressed && canDash)
         {
-            speed = spd * f;
-            acel = a * f;
-            moveDirection = dir;
-        }), dashForce, 1f, 0.2f);
+            canDash = false;
+            Tween _dashtween = CreateTween();
+            _dashtween.TweenInterval(dashCooldown + 0.2f);
+            _dashtween.TweenCallback(Callable.From(() => canDash = true));
+            
+            float spd = speed;
+            float a = acel;
+            Vector2 dir = lastMoveDirection;
+
+            dashMaker = CreateTween();
+            dashMaker.TweenMethod(Callable.From((float f) =>
+            {
+                speed = spd * f;
+                acel = a * f;
+                moveDirection = dir;
+            }), dashForce, 1f, 0.2f);
+        }
+
         
     }
 
@@ -182,10 +187,10 @@ public partial class GhostBody : AnyBody
     }
 
 
-    public override void HitstunApply()
+    public override void HitstunApply(float damage)
     {
         if (disembodying) return;
-        base.HitstunApply();
+        base.HitstunApply(damage);
         anim.Play("damaged");
        // skullGlow.Play("damaged");
     }
@@ -216,13 +221,6 @@ public partial class GhostBody : AnyBody
         GameManager.OnPlayerDie();
     }
 
-
-
-    public void reduceCooldowns(float delta)
-    {
-        if (flingCD > 0) flingCD -= delta;
-        if (dashCD > 0) dashCD -= delta;
-    }
 
     public override void _Ready()
     {
@@ -291,7 +289,6 @@ public partial class GhostBody : AnyBody
     {
         base._Process(delta);
         CalculateTrail((float)delta);
-        reduceCooldowns((float)delta);
 
     }
 }

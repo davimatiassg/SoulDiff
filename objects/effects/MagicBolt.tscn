@@ -43,7 +43,7 @@ animations = [{
 }],
 "loop": true,
 "name": &"default",
-"speed": 18.0
+"speed": 10.0
 }]
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_k8mu6"]
@@ -67,7 +67,7 @@ collider = NodePath("Area2D")
 texture_filter = 1
 sprite_frames = SubResource("SpriteFrames_4msfh")
 autoplay = "default"
-frame_progress = 0.6480486
+frame_progress = 0.8847067
 
 [node name="Area2D" type="Area2D" parent="."]
 texture_filter = 1

@@ -15,7 +15,7 @@ public abstract partial class AnyBody : CharacterBody2D, Hitable
 
     [Export] public bool isHitStunnable = true;
 
-    [Export] public double hitStunTime = 0.5;
+    [Export] public double hitStunTime = 1;
     [Export] protected bool stunned = false;
     [Export] public bool dead = false;
 
@@ -144,7 +144,7 @@ public abstract partial class AnyBody : CharacterBody2D, Hitable
 
         HP -= damage;
 
-        HitstunApply();
+        HitstunApply(damage);
         KnockbackApply(knockback);
         DamageFrameApply();
 
@@ -153,13 +153,13 @@ public abstract partial class AnyBody : CharacterBody2D, Hitable
         if(isPlayer) MainCamera.CameraShake(damage, 0.1f);
 
     }
-    public virtual void HitstunApply()
+    public virtual void HitstunApply(float damage)
     {
         if (isHitStunnable)
         {
             stunned = true;
             hitstunControl = CreateTween();
-            hitstunControl.TweenInterval(hitStunTime);
+            hitstunControl.TweenInterval(hitStunTime * Mathf.Sqrt(damage));
             hitstunControl.TweenCallback(Callable.From(HitstunCleanse));
         }
 
