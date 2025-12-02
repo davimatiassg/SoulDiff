@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://c2uv7ojcq7hr"]
+[gd_scene load_steps=32 format=3 uid="uid://c2uv7ojcq7hr"]
 
 [ext_resource type="Script" uid="uid://cfe4ajk1pvnmo" path="res://scripts/entities/bodies/WitchBody.cs" id="1_pxqsn"]
 [ext_resource type="PackedScene" uid="uid://cpg2si6ckb27h" path="res://objects/effects/MagicBolt.tscn" id="2_wfgpb"]
@@ -13,22 +13,71 @@ shader = ExtResource("4_7osfo")
 shader_parameter/outline_color = Color(1, 1, 1, 0)
 shader_parameter/thickness = 1
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_82ipo"]
+atlas = ExtResource("5_wfgpb")
+region = Rect2(0, 0, 64, 64)
+
 [sub_resource type="AtlasTexture" id="AtlasTexture_7osfo"]
 atlas = ExtResource("5_wfgpb")
-region = Rect2(0, 0, 32, 32)
+region = Rect2(64, 0, 64, 64)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_hqnyo"]
 atlas = ExtResource("5_wfgpb")
-region = Rect2(32, 0, 32, 32)
+region = Rect2(128, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_uwocx"]
+atlas = ExtResource("5_wfgpb")
+region = Rect2(192, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_uqdu0"]
+atlas = ExtResource("5_wfgpb")
+region = Rect2(256, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2mcs8"]
+atlas = ExtResource("5_wfgpb")
+region = Rect2(320, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vyal5"]
+atlas = ExtResource("5_wfgpb")
+region = Rect2(384, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_oum72"]
+atlas = ExtResource("5_wfgpb")
+region = Rect2(448, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6fbo3"]
+atlas = ExtResource("5_wfgpb")
+region = Rect2(512, 0, 64, 64)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_pxqsn"]
 animations = [{
 "frames": [{
 "duration": 1.0,
+"texture": SubResource("AtlasTexture_82ipo")
+}, {
+"duration": 1.0,
 "texture": SubResource("AtlasTexture_7osfo")
 }, {
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_hqnyo")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_uwocx")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_uqdu0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2mcs8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vyal5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_oum72")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6fbo3")
 }],
 "loop": true,
 "name": &"default",
@@ -39,8 +88,9 @@ animations = [{
 radius = 7.0
 height = 26.0
 
-[sub_resource type="Animation" id="Animation_netpo"]
-length = 0.001
+[sub_resource type="Animation" id="Animation_atr5k"]
+resource_name = "idle"
+length = 0.03333667
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -53,42 +103,22 @@ tracks/0/keys = {
 "update": 1,
 "values": [0]
 }
-
-[sub_resource type="Animation" id="Animation_eo037"]
-resource_name = "attack"
-length = 0.20000167
-step = 0.016666668
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.033333335),
-"transitions": PackedFloat32Array(1, 1),
-"update": 1,
-"values": [5, 6]
-}
-tracks/1/type = "method"
+tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("..")
+tracks/1/path = NodePath("wand:visible")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
-"values": [{
-"args": [],
-"method": &"SwingSword"
-}]
+"update": 1,
+"values": [true]
 }
 
-[sub_resource type="Animation" id="Animation_py1qv"]
-resource_name = "def"
-length = 1.0000017
-step = 0.016666668
+[sub_resource type="Animation" id="Animation_n5r73"]
+resource_name = "hurt"
+length = 0.03333667
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -96,17 +126,41 @@ tracks/0/path = NodePath(".:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.033333335),
-"transitions": PackedFloat32Array(1e-05, 1),
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [6, 7]
+"values": [1]
 }
 
-[sub_resource type="Animation" id="Animation_3x41v"]
-resource_name = "hurt"
-length = 0.033335
-loop_mode = 1
-step = 0.016666668
+[sub_resource type="Animation" id="Animation_5ayxl"]
+resource_name = "dead"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.4, 0.6333333),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [2, 2, 8]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("wand:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="Animation" id="Animation_qj7bl"]
+length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -119,54 +173,73 @@ tracks/0/keys = {
 "update": 1,
 "values": [4]
 }
-
-[sub_resource type="Animation" id="Animation_80j5y"]
-resource_name = "idle"
-length = 0.03333667
-loop_mode = 1
-step = 0.016666668
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("wand:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [0]
+"values": [true]
 }
 
-[sub_resource type="Animation" id="Animation_ck3em"]
-resource_name = "walk"
-length = 0.20000167
-loop_mode = 2
-step = 0.016666668
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.10000001, 0.20000002),
-"transitions": PackedFloat32Array(1e-05, 1e-05, 1.624505e-05),
-"update": 1,
-"values": [1, 2, 3]
-}
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_3x41v"]
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_ugk61"]
 _data = {
-&"RESET": SubResource("Animation_netpo"),
-&"attack": SubResource("Animation_eo037"),
-&"def": SubResource("Animation_py1qv"),
-&"hurt": SubResource("Animation_3x41v"),
-&"idle": SubResource("Animation_80j5y"),
-&"walk": SubResource("Animation_ck3em")
+&"RESET": SubResource("Animation_qj7bl"),
+&"dead": SubResource("Animation_5ayxl"),
+&"hurt": SubResource("Animation_n5r73"),
+&"idle": SubResource("Animation_atr5k")
 }
 
-[node name="Witch" type="CharacterBody2D" node_paths=PackedStringArray("wand", "wandTip", "broom", "anim", "sprite", "collision")]
+[sub_resource type="Curve" id="Curve_82ipo"]
+_data = [Vector2(0, 0.99652964), 0.0, 0.0, 0, 0, Vector2(1, 0), -3.356043, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_5ckdi"]
+curve = SubResource("Curve_82ipo")
+
+[sub_resource type="Curve" id="Curve_7osfo"]
+_data = [Vector2(0.034285717, 1), 0.0, -0.03937038, 0, 0, Vector2(1, 0), -3.6954138, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_0mmp3"]
+curve = SubResource("Curve_7osfo")
+
+[sub_resource type="Curve" id="Curve_hqnyo"]
+_limits = [0.0, 180.0, 0.0, 1.0]
+_data = [Vector2(0, 180), 0.0, 135.4794, 0, 0, Vector2(1, 0), -559.05566, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_vrb57"]
+curve = SubResource("Curve_hqnyo")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_uwocx"]
+lifetime_randomness = 0.6
+particle_flag_disable_z = true
+emission_shape = 1
+emission_sphere_radius = 8.0
+angle_min = -170.7
+angle_max = -170.7
+direction = Vector3(0, -1, 0)
+flatness = 1.0
+initial_velocity_min = 99.65
+initial_velocity_max = 140.08
+angular_velocity_min = -177.45001
+angular_velocity_max = 157.42998
+angular_velocity_curve = SubResource("CurveTexture_0mmp3")
+velocity_limit_curve = SubResource("CurveTexture_vrb57")
+gravity = Vector3(0, 0, 0)
+scale_max = 5.0
+color = Color(0, 0, 0, 0.43137255)
+alpha_curve = SubResource("CurveTexture_5ckdi")
+turbulence_enabled = true
+turbulence_noise_strength = 3.24
+turbulence_influence_max = 0.104
+
+[node name="Witch" type="CharacterBody2D" node_paths=PackedStringArray("wand", "wandTip", "broom", "anim", "deathParticles", "sprite", "collision")]
 texture_filter = 1
 collision_layer = 2
 collision_mask = 54
@@ -179,7 +252,9 @@ fireballPrefab = ExtResource("3_82ipo")
 projectileSpeed = 320.0
 attackCooldown = 0.1999999999970896
 anim = NodePath("AnimationPlayer")
+deathParticles = NodePath("DeathSmoke")
 StartWithDefaultController = true
+hitStunTime = 0.5
 sprite = NodePath("sprite")
 collision = NodePath("CollisionShape2D")
 
@@ -188,6 +263,7 @@ texture_filter = 1
 material = SubResource("ShaderMaterial_xg55p")
 position = Vector2(2, -3)
 sprite_frames = SubResource("SpriteFrames_pxqsn")
+frame = 4
 
 [node name="Node2D" type="Node2D" parent="sprite"]
 show_behind_parent = true
@@ -210,6 +286,17 @@ shape = SubResource("CapsuleShape2D_80j5y")
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 root_node = NodePath("../sprite")
 libraries = {
-&"": SubResource("AnimationLibrary_3x41v")
+&"": SubResource("AnimationLibrary_ugk61")
 }
 autoplay = "idle"
+
+[node name="DeathSmoke" type="GPUParticles2D" parent="."]
+position = Vector2(0, 12)
+emitting = false
+amount = 100
+amount_ratio = 0.95
+lifetime = 2.0
+one_shot = true
+explosiveness = 0.93
+randomness = 1.0
+process_material = SubResource("ParticleProcessMaterial_uwocx")

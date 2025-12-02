@@ -5,7 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://70ceu615i4b" path="res://objects/Camera.tscn" id="8_fc4ab"]
 [ext_resource type="PackedScene" uid="uid://dk2iakv4iqyo8" path="res://objects/entities/Player.tscn" id="9_8x0ck"]
 [ext_resource type="PackedScene" uid="uid://b4283bflripuo" path="res://objects/entities/Ghost.tscn" id="10_6oglv"]
-[ext_resource type="PackedScene" uid="uid://c2rkhx1kyi633" path="res://objects/entities/ShittyArcher.tscn" id="11_5i0tk"]
+[ext_resource type="PackedScene" uid="uid://c2rkhx1kyi633" path="res://objects/entities/Archer.tscn" id="11_5i0tk"]
 [ext_resource type="PackedScene" uid="uid://b4j7hdg38dqio" path="res://objects/entities/Knight.tscn" id="12_xkbm3"]
 
 [node name="TestLevel" type="Node2D"]
@@ -20,7 +20,6 @@ currentBody = NodePath("../Witch")
 
 [node name="Archer" parent="." instance=ExtResource("11_5i0tk")]
 position = Vector2(3, -6)
-hitStunTime = 1.0
 
 [node name="Knight" parent="." instance=ExtResource("12_xkbm3")]
 position = Vector2(192, 0)
@@ -35,3 +34,6 @@ position = Vector2(496, -64)
 [node name="Witch" parent="." instance=ExtResource("7_wueff")]
 position = Vector2(184, -112)
 StartWithDefaultController = false
+
+[node name="Witch2" parent="." instance=ExtResource("7_wueff")]
+position = Vector2(272, -8)

@@ -10,7 +10,7 @@
 [ext_resource type="PackedScene" uid="uid://70ceu615i4b" path="res://objects/Camera.tscn" id="8_5m2fo"]
 [ext_resource type="PackedScene" uid="uid://dk2iakv4iqyo8" path="res://objects/entities/Player.tscn" id="9_hu02e"]
 [ext_resource type="PackedScene" uid="uid://b4283bflripuo" path="res://objects/entities/Ghost.tscn" id="10_5noto"]
-[ext_resource type="PackedScene" uid="uid://c2rkhx1kyi633" path="res://objects/entities/ShittyArcher.tscn" id="11_wnih0"]
+[ext_resource type="PackedScene" uid="uid://c2rkhx1kyi633" path="res://objects/entities/Archer.tscn" id="11_wnih0"]
 [ext_resource type="PackedScene" uid="uid://b4j7hdg38dqio" path="res://objects/entities/Knight.tscn" id="12_5e214"]
 [ext_resource type="Script" uid="uid://b2kkca2pbctmx" path="res://scripts/game/EffectPool.cs" id="13_a1bpa"]
 [ext_resource type="PackedScene" uid="uid://oaxil6vm2ft1" path="res://objects/effects/Hit.tscn" id="14_ojuy5"]
