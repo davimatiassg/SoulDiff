@@ -242,27 +242,28 @@ public partial class GhostBody : AnyBody
 
     public override void _PhysicsProcess(double delta)
     {
-        base._PhysicsProcess(delta);
-        Vector2 currentVelocity = Velocity;
-
         if (disembodying) return;
-        
-        if (moveDirection != Vector2.Zero && !stunned)
-        {
-            currentVelocity = currentVelocity.MoveToward(moveDirection * speed, (float)delta * acel *
-                (currentVelocity.LengthSquared() / (moveDirection + currentVelocity).LengthSquared() + 1f)
-            );
-        }
-        else
-        {
-            currentVelocity = currentVelocity.MoveToward(Vector2.Zero, (float)delta * acel * 1.5f);
-        }
-
-        Velocity = currentVelocity;
+        base._PhysicsProcess(delta);
+        // Vector2 currentVelocity = Velocity;
 
         
+        
+        // if (moveDirection != Vector2.Zero && !stunned)
+        // {
+        //     currentVelocity = currentVelocity.MoveToward(moveDirection * speed, (float)delta * acel *
+        //         (currentVelocity.LengthSquared() / (moveDirection + currentVelocity).LengthSquared() + 1f)
+        //     );
+        // }
+        // else
+        // {
+        //     currentVelocity = currentVelocity.MoveToward(Vector2.Zero, (float)delta * acel * 1.5f);
+        // }
 
-        MoveAndSlide();
+        // Velocity = currentVelocity;
+
+        
+
+        // MoveAndCollide();
     }
 
     

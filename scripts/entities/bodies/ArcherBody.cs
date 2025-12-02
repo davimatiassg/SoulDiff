@@ -132,21 +132,6 @@ public partial class ArcherBody : AnyBody
         anim.Play("RESET");
     }
 
-
-    public override void _PhysicsProcess(double delta)
-    {
-        base._PhysicsProcess(delta);
-
-        if (stunned) { MoveAndSlide(); return; }
-
-        Vector2 currentVelocity = Velocity;
-        currentVelocity = (moveDirection * speed);
-
-        Velocity = currentVelocity;
-
-        MoveAndSlide();
-    }
-
     public override void KnockbackApply(Vector2 knockbac)
     { 
         

@@ -8,6 +8,9 @@ public abstract partial class AnyBody : CharacterBody2D, Hitable
 {
     [Export] protected bool vulnerable = true;
     [Export] public bool hasDamageFrames = false;
+
+
+    [Export] public float speed = 128.0f;
     [Export] public double invincibilityTime = 1.0;
 
     [Export] public bool isHitStunnable = true;
@@ -197,10 +200,23 @@ public abstract partial class AnyBody : CharacterBody2D, Hitable
 
         var curr_vel = Velocity;
 
+        if(!dead || !stunned) { curr_vel = (moveDirection * speed); }
+
         curr_vel *= 0.85f;
 
         Velocity = curr_vel;
 
-        //whatever inherits this must call MoveAndSlide(); after calling this base method.
+        Vector2 motion = Velocity;
+
+        // MoveAndSlide();
+
+        MoveAndCollide(motion * (float)delta);
+
+        // KinematicCollision2D collision = 
+        // if (collision != null)
+        // {
+        //     motion = motion.Slide(collision.GetNormal());
+        //     MoveAndCollide(motion);
+        // }
     }
 }

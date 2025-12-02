@@ -38,7 +38,7 @@ public partial class KnightBody : EnemyBody
 
 
     // inner variables
-    public float speed = 128.0f;
+    
 
 
     public override AnyController DefaultController => new MeleeAIController();
@@ -212,19 +212,6 @@ public partial class KnightBody : EnemyBody
         moving = false;
     }
 
-    public override void _PhysicsProcess(double delta)
-    {
-        base._PhysicsProcess(delta);
-
-        if (dead || stunned) { return; }
-
-        Vector2 currentVelocity = Velocity;
-        currentVelocity = (moveDirection * speed);
-
-        Velocity = currentVelocity;
-
-        MoveAndSlide();
-    }
 
 
 }  

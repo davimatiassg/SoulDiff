@@ -84,17 +84,7 @@ public partial class WitchBody : EnemyBody
     public override void _PhysicsProcess(double delta)
     {
         base._PhysicsProcess(delta);
-
-        if (dead || stunned) { MoveAndSlide(); return; }
-
         attackAction?.Invoke();
-
-        Vector2 currentVelocity = Velocity;
-        currentVelocity = (moveDirection * speed);
-
-        Velocity = currentVelocity;
-
-        MoveAndSlide();
     }
 
 

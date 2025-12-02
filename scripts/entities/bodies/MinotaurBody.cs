@@ -25,7 +25,7 @@ public partial class MinotaurBody : EnemyBody
     public float attackMoveSpeed = 0f;
 
     private bool attacking = false;
-    
+
     [ExportGroup("Balance Variables/Rage")]
 
     [Export]
@@ -64,11 +64,11 @@ public partial class MinotaurBody : EnemyBody
                 shaderMat.SetShaderParameter("color_pulse_strength", 0.8f);
             }
             else
-            { 
+            {
                 shaderMat.SetShaderParameter("aura_intensity", 0f);
-                shaderMat.SetShaderParameter("color_pulse_strength", 0f); 
+                shaderMat.SetShaderParameter("color_pulse_strength", 0f);
             }
-            
+
         }
     }
 
@@ -80,25 +80,25 @@ public partial class MinotaurBody : EnemyBody
         Raging = false;
     }
 
-    public override AnyController DefaultController => new MeleeAIController();
+    
 
     private bool moving;
     public override void Move(Vector2 direction)
     {
-        if (dead || stunned) return;
+        if (attacking || dead || stunned) return;
         base.Move(direction);
 
         bool movingToggled = (direction.LengthSquared() != 0 != moving);
         if (movingToggled) moving = !moving;
 
-        if (attacking || stunned) return;
+        if (stunned) return;
 
 
         if (movingToggled)
-        { 
+        {
             anim.Play(moving ? "walk" : "idle");
         }
-        
+
     }
     public override void Aim(Vector2 direction)
     {
@@ -117,7 +117,7 @@ public partial class MinotaurBody : EnemyBody
 
         anim.Play("RESET");
         anim.Play("attack");
-        canAttack = false;  
+        canAttack = false;
         attacking = true;
         speed = attackMoveSpeed;
 
@@ -130,7 +130,7 @@ public partial class MinotaurBody : EnemyBody
         var slash = (SwordSlash)EffectPool.SpawnEffect(slashPrefab, GetParent<Node2D>());
         slash.GlobalPosition = sprite.GlobalPosition;
         slash.LookAt(GlobalPosition + 32 * aimDirection);
-        if(sprite.Scale.Y < 0) { slash.Scale = new Vector2(1, -1); }
+        if (sprite.Scale.Y < 0) { slash.Scale = new Vector2(1, -1); }
 
         slash.playerEffect = isPlayer;
         slash.knockback = Raging ? rageAttackPushForce : attackPushForce;
@@ -166,17 +166,16 @@ public partial class MinotaurBody : EnemyBody
             canRage = false;
         }));
         rageTracker.TweenInterval(rageCooldown);
-        rageTracker.TweenCallback(Callable.From(() => canRage = true ));
+        rageTracker.TweenCallback(Callable.From(() => canRage = true));
     }
 
 
-    
+
 
     public override void TakeDamage(int damage, Vector2 knockback)
     {
-        attacking = false;
-        base.TakeDamage(damage, knockback);
 
+        base.TakeDamage(damage, knockback);
     }
 
 
@@ -185,29 +184,25 @@ public partial class MinotaurBody : EnemyBody
     {
         base.HitstunApply();
         if (Raging) HitstunCleanse();
-        else { anim.Play("RESET"); anim.Play("hurt"); }
+        else
+        {
+            anim.Play("RESET");
+            anim.Play("hurt");
+            if (attacking) EndAttack();
+        }
     }
 
     public override void HitstunCleanse()
     {
         base.HitstunCleanse();
         moving = false;
-        anim.Play("RESET");
     }
 
-    public override void _PhysicsProcess(double delta)
+
+    public override void PossessStart(PlayerController cntrl)
     {
-        base._PhysicsProcess(delta);
-
-        if (dead || stunned) { MoveAndSlide(); return; }
-
-        Vector2 currentVelocity = Velocity;
-        currentVelocity = (moveDirection * speed);
-
-        Velocity = currentVelocity;
-
-        MoveAndSlide();
+        base.PossessStart(cntrl);
+        anim.SpeedScale = 1.5f;
     }
-
 
 }  
