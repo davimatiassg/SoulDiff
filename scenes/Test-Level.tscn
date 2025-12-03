@@ -16,7 +16,7 @@ zoom = Vector2(1, 1)
 
 [node name="Player" parent="." node_paths=PackedStringArray("currentBody") instance=ExtResource("9_8x0ck")]
 ghostPrefab = ExtResource("10_6oglv")
-currentBody = NodePath("../Witch")
+currentBody = NodePath("../Archer")
 
 [node name="Archer" parent="." instance=ExtResource("11_5i0tk")]
 position = Vector2(3, -6)
@@ -33,7 +33,6 @@ position = Vector2(496, -64)
 
 [node name="Witch" parent="." instance=ExtResource("7_wueff")]
 position = Vector2(184, -112)
-StartWithDefaultController = false
 
 [node name="Witch2" parent="." instance=ExtResource("7_wueff")]
 position = Vector2(272, -8)

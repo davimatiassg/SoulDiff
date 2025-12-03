@@ -35,6 +35,7 @@ public partial class ArcherBody : AnyBody
     private bool moving;
     public override void Move(Vector2 direction)
     {
+        if (stunned || dead) return;
         base.Move(direction);
 
         bool movingToggled = direction.LengthSquared() != 0 != moving;
@@ -52,14 +53,15 @@ public partial class ArcherBody : AnyBody
     }
     public override void Aim(Vector2 direction)
     {
+        if (!canShoot || stunned || dead) return;
         base.Aim(direction);
         bow.LookAt(bow.GlobalPosition + direction);
     }
 
     public override void Button1(bool pressed)
     {
+        if (!canShoot || stunned || dead) return;
 
-        if (!canShoot || stunned) return;
         anim.Play("attack");
 
         attacking = true;
@@ -89,7 +91,7 @@ public partial class ArcherBody : AnyBody
 
     public override void Button2(bool pressed)
     {
-        if (!pressed || !canDash || attacking || stunned) return;
+        if (dead || !pressed || !canDash || attacking || stunned) return;
 
         canDash = false;
 
@@ -117,7 +119,7 @@ public partial class ArcherBody : AnyBody
 
     public void Shoot()
     {
-        if (stunned) return;
+        
 
         MagicBolt arrow = (MagicBolt)EffectPool.SpawnEffect(arrowPrefab, GetParent<Node2D>());
         arrow.GlobalPosition = bowTip.GlobalPosition;
@@ -137,13 +139,13 @@ public partial class ArcherBody : AnyBody
 
     public override void TakeDamage(int damage, Vector2 knockback)
     {
-        base.TakeDamage(damage, knockback);
-        
+        base.TakeDamage(damage, knockback);        
     }
     public override void Die()
     {
         anim.Play("hurt");
         stunned = true;
+        dead = true;
         CollisionLayer = 1 << 0;
         CollisionMask = CollisionLayer;
 
