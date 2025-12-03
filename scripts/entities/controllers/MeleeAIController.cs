@@ -1,6 +1,7 @@
 using Godot;
 using System;
 
+[GlobalClass]
 public partial class MeleeAIController : AnyController
 {
     [Export] public NodePath PlayerPath;
@@ -83,7 +84,7 @@ public partial class MeleeAIController : AnyController
         }
 
         // --- Controles principais ---
-        LeftAxisAction.Invoke(moveDir/2);
+        LeftAxisAction.Invoke(moveDir / 2);
         RightAxisAction.Invoke(moveDir);
 
         // --- Ataque corpo a corpo ---

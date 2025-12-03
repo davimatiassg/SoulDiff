@@ -8,12 +8,17 @@ public abstract partial class EnemyBody : AnyBody
 {
     public const float DEAD_TIME = 5f;
     public const double VANISH_TIME = 2f;
+
+    [ExportGroup("Connections")]
+
     [Export] public AnimationPlayer anim;
     [Export] public GpuParticles2D deathParticles;
+    [Export] public virtual bool StartWithDefaultController { get; set; }
+    [Export] public AnyController DefaultController = new MeleeAIController();
 
-    [Export]
-    public virtual bool StartWithDefaultController { get; set; }
-    public virtual AnyController DefaultController => new MeleeAIController();
+
+    //# Skills
+
     public override void Button3(bool pressed)
     {
         if (!pressed) return;
@@ -21,13 +26,18 @@ public abstract partial class EnemyBody : AnyBody
         QueueFree();
     }
 
-    public override void _Ready()
+    public override void Button1(bool pressed)
     {
-        base._Ready();
-        if (StartWithDefaultController) DefaultController.Connect(this);
-
-
+        //TODO! ADD `base.Button1(pressed)` to all inheritors 
+        //TODO: Activate cooldown on hud
     }
+
+    public override void Button2(bool pressed)
+    {
+        //TODO! ADD `base.Button2(pressed)` to all inheritors 
+        //TODO: Activate cooldown on hud
+    }
+
 
     public override void TakeDamage(int damage, Vector2 knockback)
     {
@@ -41,7 +51,7 @@ public abstract partial class EnemyBody : AnyBody
                 Tween tween = CreateTween();
                 tween.TweenProperty(this, "OutlineColor", Colors.Black, DEAD_TIME).SetTrans(Tween.TransitionType.Sine);
             }
-            
+
         }
     }
 
@@ -93,4 +103,28 @@ public abstract partial class EnemyBody : AnyBody
         deathtween.TweenInterval(VANISH_TIME);
         deathtween.TweenCallback(Callable.From(QueueFree));
     }
+
+
+    public override void HitstunApply(float damage)
+    {
+        if (dead) return;
+        base.HitstunApply(damage);
+        anim.Play("RESET");
+        anim.Play("hurt");
+    }
+
+    public override void HitstunCleanse()
+    {
+        if (dead) return;
+        base.HitstunCleanse();
+        anim.Play("RESET");
+    }
+    
+
+    public override void _Ready()
+    {
+        base._Ready();
+        if (StartWithDefaultController) DefaultController.Connect(this);
+    }
+
 }

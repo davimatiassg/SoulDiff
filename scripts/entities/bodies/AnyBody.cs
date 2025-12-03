@@ -44,34 +44,11 @@ public abstract partial class AnyBody : CharacterBody2D, Hitable
     public abstract void Button1(bool pressed);
     public abstract void Button2(bool pressed);
     public abstract void Button3(bool pressed);
-    public virtual void Move(Vector2 direction)
-    {
-        moveDirection = direction;
-        if (direction != Vector2.Zero) lastMoveDirection = direction;
-    }
-    public virtual void Aim(Vector2 direction)
-    {
-        aimDirection = direction;
-        bool flip = (lastAimDirectionX * (aimDirection.X) < 0);
-        lastAimDirectionX = Mathf.Sign(aimDirection.X);
-        if (flip)
-        {
-            sprite.Scale = new Vector2(1, lastAimDirectionX);
-            sprite.Rotation = ((1 - lastAimDirectionX) / 2) * Mathf.Pi;
-        }
-    }
-
-
-
     /// Inner Visuals
     /// 
     Tween tweenOutlineColor;
-
     protected ShaderMaterial shaderMat;
-
-
-    [Export]
-    protected Color OutlineColor
+    [Export] protected Color OutlineColor
     {
         get
         {
@@ -84,6 +61,28 @@ public abstract partial class AnyBody : CharacterBody2D, Hitable
             shaderMat.SetShaderParameter("outline_color", value);
         }
     }
+    public virtual void Move(Vector2 direction)
+    {
+        if (stunned || dead) return;
+        moveDirection = direction;
+        if (direction != Vector2.Zero) lastMoveDirection = direction;
+    }
+    public virtual void Aim(Vector2 direction)
+    {
+        if (stunned || dead) return;
+        aimDirection = direction;
+        bool flip = (lastAimDirectionX * (aimDirection.X) < 0);
+        lastAimDirectionX = Mathf.Sign(aimDirection.X);
+        if (flip)
+        {
+            sprite.Scale = new Vector2(1, lastAimDirectionX);
+            sprite.Rotation = ((1 - lastAimDirectionX) / 2) * Mathf.Pi;
+        }
+    }
+
+
+
+    
 
     public override void _EnterTree()
     {

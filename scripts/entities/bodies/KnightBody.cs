@@ -5,48 +5,32 @@ using Godot;
 
 public partial class KnightBody : EnemyBody
 {
+    [ExportGroup("Connections")]
     
     [Export] private PackedScene slashPrefab;
-
     [Export] private PackedScene shockwavePrefab;
 
     [ExportGroup("Balance Variables")]
 
+    [Export] public float baseMoveSpeed = 128f;
+    [Export] public int attackDamage = 3;
+    [Export] public float attackPushForce = 32f;
+    [Export] public float attackCooldown = 0.4f;
+    [Export] public float attackMoveSpeed = 32f;
+    [Export] public float shieldCooldown = 4f;
+    [Export] public float shieldMoveSpeed = 0f;
+
+    [ExportGroup("")]
 
 
-    [Export]
-    public float baseMoveSpeed = 128f;
-
-    [Export]
-    public int attackDamage = 3;
-    [Export]
-    public float attackPushForce = 32f;
-    [Export]
-    public float attackCooldown = 0.4f;
-    [Export]
-    public float attackMoveSpeed = 32f;
+    //# Controlling
 
     private bool attacking = false;
-
-    [Export]
-    public float shieldCooldown = 4f;
-    [Export]
-    public float shieldMoveSpeed = 0f;
-
-    [Export]
-    private bool shielding = false;
-
-
-    // inner variables
-    
-
-
-    public override AnyController DefaultController => new MeleeAIController();
-
     private bool moving;
+    private bool shielding = false;
     public override void Move(Vector2 direction)
     {
-        if (dead) return;
+        if (dead || stunned) return;
         base.Move(direction);
 
         bool movingToggled = (direction.LengthSquared() != 0 != moving);
@@ -64,20 +48,16 @@ public partial class KnightBody : EnemyBody
     }
     public override void Aim(Vector2 direction)
     {
-        if (dead) return;
+        if (dead || stunned) return;
         base.Aim(direction);
     }
 
-
+    //# Skills
     Tween attackTween;
     private bool canAttack = true;
-
     public override void Button1(bool pressed)
     {
         if (dead || !canAttack || attacking || stunned) return;
-
-
-
 
         if (shielding) Unshield();
         anim.Play("RESET");
@@ -130,9 +110,6 @@ public partial class KnightBody : EnemyBody
         if (pressed) Shield();
         else Unshield();
     }
-
-
-    
     Tween shieldTween;
     private void Shield()
     {
@@ -155,11 +132,10 @@ public partial class KnightBody : EnemyBody
         shielding = false;
     }
 
-
+    //# Inherited Methods
     public override void TakeDamage(int damage, Vector2 knockback)
     {
         if (dead) return;
-
         if (shielding)
         {
             Unshield();
@@ -182,6 +158,7 @@ public partial class KnightBody : EnemyBody
 
     }
 
+
     public override void PossessStart(PlayerController playerController)
     {
         base.PossessStart(playerController);
@@ -194,21 +171,9 @@ public partial class KnightBody : EnemyBody
         speed = baseMoveSpeed;
     }
 
-
-
-    public override void HitstunApply(float damage)
-    {
-        if (dead) return;
-        base.HitstunApply(damage );
-        anim.Play("RESET");
-        anim.Play("hurt");
-    }
-
     public override void HitstunCleanse()
     {
-        if (dead) return;
         base.HitstunCleanse();
-        anim.Play("RESET");
         moving = false;
     }
 

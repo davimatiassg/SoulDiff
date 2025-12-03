@@ -3,54 +3,45 @@ using System.Diagnostics;
 using System.Threading.Tasks;
 using Godot;
 
+/// <summary>
+/// Class that defines the Witch Enemy
+/// </summary>
 public partial class WitchBody : EnemyBody
 {
+    [ExportGroup("Connections")]
     [Export] private Sprite2D wand;
     [Export] private Node2D wandTip;
     [Export] private Sprite2D broom;
-
     [Export] private PackedScene boltPrefab;
     [Export] private PackedScene fireballPrefab;
 
     [ExportGroup("Balance Variables")]
+    [Export] public int attackDamage = 1;
+    [Export] public float projectileSpeed = 3200f;
+    [Export] public float attackCooldown = 0.1f;
+    [Export] public float fireballDamage = 10f;
+    [Export] public float fireballCooldown = 4f;
+    [Export] public float fireballCharge = 2f;
 
-
-
-    [Export]
-    public int attackDamage = 1;
-
-    [Export]
-    public float projectileSpeed = 3200f;
-
-    [Export]
-    public float attackCooldown = 0.1f;
-
-    [Export]
-    public float fireballDamage = 10f;
-
-    [Export]
-    public float fireballCooldown = 4f;
-
-    [Export]
-    public float fireballCharge = 2f;
-
+    //# Controlling
 
     public override void Move(Vector2 direction)
     {
-        if (stunned) return;
         base.Move(direction);
+        if (dead || stunned) return;
         broom.LookAt(broom.GlobalPosition + direction);
-
     }
     public override void Aim(Vector2 direction)
     {
         base.Aim(direction);
+        if (dead || stunned) return;
         wand.LookAt(wand.GlobalPosition + direction);
     }
 
 
-    Action attackAction = null;
+    //# Skills
 
+    Action attackAction = null;
     public override void Button1(bool pressed)
     {
         
@@ -77,13 +68,9 @@ public partial class WitchBody : EnemyBody
 
     }
 
-
     Fireball curr_fireball;
     Tween fireballCharger;
-
     bool canFireball = true;
-
-
     public override void Button2(bool pressed)
     {
         if (stunned || !(pressed && canAttack && canFireball)) return;
@@ -115,22 +102,11 @@ public partial class WitchBody : EnemyBody
         
     }
 
-     public override void HitstunApply(float damage)
-    {
-        if (dead) return;
-        base.HitstunApply(damage );
-        anim.Play("RESET");
-        anim.Play("hurt");
-    }
 
-    public override void HitstunCleanse()
-    {
-        if (dead) return;
-        base.HitstunCleanse();
-        anim.Play("RESET");
-    }
+    //# Inherited Methods
 
 
+    //# Processes
     public override void _PhysicsProcess(double delta)
     {
         base._PhysicsProcess(delta);

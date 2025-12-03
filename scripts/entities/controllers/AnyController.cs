@@ -2,6 +2,7 @@ using System;
 using System.Diagnostics;
 using Godot;
 
+[GlobalClass]
 public partial class AnyController : Node2D
 {
     public Action<Vector2> LeftAxisAction = (Vector2 v) => { };
@@ -27,21 +28,21 @@ public partial class AnyController : Node2D
         LeftAxisAction = body.Move;
         RightAxisAction = body.Aim;
     }
-    
-    public void Disconnect(AnyBody body)
-	{
-        Debug.Assert(body != null);
-		if (GetParent() == body) body.RemoveChild(this);
 
-		body.controller = null;
+    public void Disconnect(AnyBody body)
+    {
+        Debug.Assert(body != null);
+        if (GetParent() == body) body.RemoveChild(this);
+
+        body.controller = null;
         currentBody = null;
 
-		Button1Action = (bool pressed) => { };
-		Button2Action = (bool pressed) => { };
-		Button3Action = (bool pressed) => { };
+        Button1Action = (bool pressed) => { };
+        Button2Action = (bool pressed) => { };
+        Button3Action = (bool pressed) => { };
 
-		LeftAxisAction = (Vector2 v) => { };
-		RightAxisAction = (Vector2 v) => { };
-	}
+        LeftAxisAction = (Vector2 v) => { };
+        RightAxisAction = (Vector2 v) => { };
+    }
 
 }

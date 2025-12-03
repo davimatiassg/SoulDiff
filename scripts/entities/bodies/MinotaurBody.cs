@@ -5,44 +5,27 @@ using Godot;
 
 public partial class MinotaurBody : EnemyBody
 {
+    [ExportGroup("Connections")]
     [Export] private PackedScene slashPrefab;
 
     [ExportGroup("Balance Variables")]
 
-    [Export]
-    public float baseMoveSpeed = 96.0f;
+    [Export] public float baseMoveSpeed = 96.0f;
+    [Export] public int attackDamage = 10;
+    [Export] public float attackPushForce = 320f;
+    [Export] public float attackCooldown = 1f;
+    [Export] public float attackMoveSpeed = 0f;
+    [Export] public int stunResistance = 2;
 
-
-
-
-    [Export]
-    public int attackDamage = 10;
-    [Export]
-    public float attackPushForce = 320f;
-    [Export]
-    public float attackCooldown = 1f;
-    [Export]
-    public float attackMoveSpeed = 0f;
-
-    private bool attacking = false;
 
     [ExportGroup("Balance Variables/Rage")]
 
-    [Export]
-    public float rageAttackPushForce = 640f;
-
-    [Export]
-    public float rageAttackCooldown = 0.5f;
-
-    [Export]
-    public float rageCooldown = 6f;
-    [Export]
-    public float rageDuration = 3f;
-    [Export]
-    public float rageMoveSpeed = 0f;
-
-
-
+    [Export] public float rageAttackPushForce = 640f;
+    [Export] public float rageAttackCooldown = 0.5f;
+    [Export] public float rageCooldown = 6f;
+    [Export] public float rageDuration = 3f;
+    [Export] public float rageMoveSpeed = 0f;
+    [Export] public int rageStunResistance = 2;
     bool _raging;
     [Export]
     protected bool Raging
@@ -70,16 +53,10 @@ public partial class MinotaurBody : EnemyBody
         }
     }
 
-    // inner variables
 
-    public override void _Ready()
-    {
-        base._Ready();
-        Raging = false;
-    }
+    //# Controlling
 
-    
-
+    private bool attacking = false;
     private bool moving;
     public override void Move(Vector2 direction)
     {
@@ -98,12 +75,8 @@ public partial class MinotaurBody : EnemyBody
         }
 
     }
-    public override void Aim(Vector2 direction)
-    {
-        if (dead || stunned) return;
-        base.Aim(direction);
-    }
 
+    //# Skills
 
     Tween attackTween;
     private bool canAttack = true;
@@ -168,7 +141,7 @@ public partial class MinotaurBody : EnemyBody
     }
 
 
-
+    //# Inherited Methods
 
     public override void TakeDamage(int damage, Vector2 knockback)
     {
@@ -183,12 +156,10 @@ public partial class MinotaurBody : EnemyBody
     public override void HitstunApply(float damage)
     {
         if (dead) return;
-        damage -= Raging ? 5 : 2;
+        damage -= Raging ? rageStunResistance : stunResistance;
         if (damage > 0)
         {
             base.HitstunApply(damage);
-            anim.Play("RESET");
-            anim.Play("hurt");
             if (attacking) EndAttack();
         }
         else HitstunCleanse();
@@ -205,7 +176,14 @@ public partial class MinotaurBody : EnemyBody
     {
         base.PossessStart(cntrl);
         anim.SpeedScale = 2f;
-        
+    }
+    
+
+
+    public override void _Ready()
+    {
+        base._Ready();
+        Raging = Raging; //Needed to run the code in the set method
     }
 
 }  

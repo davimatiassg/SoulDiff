@@ -192,7 +192,6 @@ public partial class GhostBody : AnyBody
         if (disembodying) return;
         base.HitstunApply(damage);
         anim.Play("damaged");
-       // skullGlow.Play("damaged");
     }
 
     public override void HitstunCleanse()
@@ -200,7 +199,6 @@ public partial class GhostBody : AnyBody
         if (disembodying) return;
         base.HitstunCleanse();
         anim.Play("idle");
-        //skullGlow.Play("idle");
     }
 
     public override void DamageFrameApply()
