@@ -23,19 +23,6 @@ public abstract partial class EnemyBody : AnyBody
     {
         if (!pressed) return;
         Die();
-        QueueFree();
-    }
-
-    public override void Button1(bool pressed)
-    {
-        //TODO! ADD `base.Button1(pressed)` to all inheritors 
-        //TODO: Activate cooldown on hud
-    }
-
-    public override void Button2(bool pressed)
-    {
-        //TODO! ADD `base.Button2(pressed)` to all inheritors 
-        //TODO: Activate cooldown on hud
     }
 
 

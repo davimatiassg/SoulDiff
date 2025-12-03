@@ -111,6 +111,8 @@ public abstract partial class AnyBody : CharacterBody2D, Hitable
         stunned = false;
         hasDamageFrames = true;
 
+        HudManager.ResetHPBar(MaxHP);
+
         tweenOutlineColor = CreateTween();
         tweenOutlineColor.TweenProperty(this, "OutlineColor", new Color(0, 1, 1), .5);
         tweenOutlineColor.TweenProperty(this, "OutlineColor", new Color(1, 1, 1), .5);
@@ -146,6 +148,8 @@ public abstract partial class AnyBody : CharacterBody2D, Hitable
         HitstunApply(damage);
         KnockbackApply(knockback);
         DamageFrameApply();
+        if(isPlayer) HudManager.UpdateHPBar(HP);
+
 
         if (HP <= 0) Die();
 

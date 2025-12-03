@@ -1,15 +1,46 @@
-[gd_scene load_steps=17 format=3 uid="uid://bqa8vwqpy2rvs"]
+[gd_scene load_steps=28 format=3 uid="uid://bqa8vwqpy2rvs"]
 
 [ext_resource type="PackedScene" uid="uid://w7scrx2p6vkw" path="res://objects/GameManager.tscn" id="1_400sg"]
 [ext_resource type="Script" uid="uid://crppldnbwltdf" path="res://scripts/game/SceneManager.cs" id="2_g4kob"]
 [ext_resource type="Texture2D" uid="uid://gu3h1rvge2b" path="res://sprites/hud/Ghost laugh.png" id="3_qy1jj"]
 [ext_resource type="Script" uid="uid://bmq8357rjdwuq" path="res://scripts/hud/TransitionVignette.cs" id="4_3xj3m"]
+[ext_resource type="Script" uid="uid://cv5etmlcdu1uk" path="res://scripts/hud/HudManager.cs" id="4_r7sob"]
+[ext_resource type="Texture2D" uid="uid://beejosyx2bcnp" path="res://sprites/hud/portrait_frame.png" id="5_2rd6h"]
+[ext_resource type="Texture2D" uid="uid://cgbkqkxjh5d7l" path="res://sprites/hud/hp_bar.png" id="5_3xj3m"]
 [ext_resource type="Script" uid="uid://dncath0cnhb34" path="res://scripts/hud/MenuManager.cs" id="5_mcffj"]
 [ext_resource type="FontFile" uid="uid://5qyau3olj3s4" path="res://fonts/hf-free-complete/compass-pro-v1.1/CompassPro.otf" id="6_2rd6h"]
+[ext_resource type="Texture2D" uid="uid://m0pp5ccryq3g" path="res://icon.svg" id="6_y5y3l"]
+[ext_resource type="Texture2D" uid="uid://bf4s6t4gwk3mb" path="res://sprites/hud/slot.png" id="7_2rd6h"]
 [ext_resource type="FontFile" uid="uid://bvsdwijfhhd7t" path="res://fonts/hf-free-complete/expression-pro-v1.1/ExpressionPro.ttf" id="7_7ua8r"]
 [ext_resource type="Script" uid="uid://b2kkca2pbctmx" path="res://scripts/game/EffectPool.cs" id="8_qy1jj"]
 [ext_resource type="PackedScene" uid="uid://trooaratn7mp" path="res://scenes/Test-Level.tscn" id="8_r7sob"]
 [ext_resource type="PackedScene" uid="uid://oaxil6vm2ft1" path="res://objects/effects/Hit.tscn" id="9_3xj3m"]
+
+[sub_resource type="Gradient" id="Gradient_mcffj"]
+offsets = PackedFloat32Array(0)
+colors = PackedColorArray(0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_2rd6h"]
+gradient = SubResource("Gradient_mcffj")
+fill_from = Vector2(0.32051283, 0.44871795)
+fill_to = Vector2(1, 0.4059829)
+
+[sub_resource type="Gradient" id="Gradient_7ua8r"]
+offsets = PackedFloat32Array(0, 0.2987342, 1)
+colors = PackedColorArray(0.7289586, 0, 0.13246614, 1, 2.5698166e-06, 0.32964915, 0.23585522, 1, 5.3425133e-06, 0.68532324, 0.49033058, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_r7sob"]
+gradient = SubResource("Gradient_7ua8r")
+width = 256
+
+[sub_resource type="Gradient" id="Gradient_r7sob"]
+offsets = PackedFloat32Array(0.49873418)
+colors = PackedColorArray(0, 0, 0, 0.29803923)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_y5y3l"]
+gradient = SubResource("Gradient_r7sob")
+width = 40
+height = 40
 
 [sub_resource type="Gradient" id="Gradient_iqc6g"]
 interpolation_mode = 2
@@ -215,49 +246,139 @@ texture_filter = 1
 
 [node name="GameManager" parent="." instance=ExtResource("1_400sg")]
 
-[node name="SceneManager" type="CanvasLayer" parent="GameManager" node_paths=PackedStringArray("currentLevel", "vignette")]
-offset = Vector2(0.5, 0.5)
-scale = Vector2(0.5, 0.5)
-transform = Transform2D(0.5, 0, 0, 0.5, 0.5, 0.5)
-script = ExtResource("2_g4kob")
-levels = Dictionary[String, String]({
-"Level_1": "res://scenes/Level_1.tscn"
-})
-currentLevel = NodePath("../../Level")
-vignette = NodePath("SubViewportContainer/SubViewport/GhostLaugh")
-
-[node name="SubViewportContainer" type="SubViewportContainer" parent="GameManager/SceneManager"]
-offset_right = 640.0
-offset_bottom = 360.0
-
-[node name="SubViewport" type="SubViewport" parent="GameManager/SceneManager/SubViewportContainer"]
-transparent_bg = true
-handle_input_locally = false
-size = Vector2i(640, 360)
-render_target_update_mode = 4
-
-[node name="GhostLaugh" type="TextureRect" parent="GameManager/SceneManager/SubViewportContainer/SubViewport"]
-modulate = Color(0.012920001, 0.012920001, 0.012920001, 1)
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-pivot_offset = Vector2(320, 280)
-size_flags_horizontal = 3
-size_flags_vertical = 3
-texture = ExtResource("3_qy1jj")
-script = ExtResource("4_3xj3m")
-sizeMax = 8.0
-metadata/_edit_use_anchors_ = true
-
-[node name="Hud" type="CanvasLayer" parent="GameManager" node_paths=PackedStringArray("anim", "refuseButton", "giveupButton")]
+[node name="Hud Layer" type="CanvasLayer" parent="GameManager" node_paths=PackedStringArray("anim", "refuseButton", "giveupButton")]
 script = ExtResource("5_mcffj")
 anim = NodePath("Death Menu/AnimationPlayer")
 refuseButton = NodePath("Death Menu/refuse button")
 giveupButton = NodePath("Death Menu/give up button")
 
-[node name="Death Menu" type="TextureRect" parent="GameManager/Hud"]
+[node name="Hud" type="Control" parent="GameManager/Hud Layer" node_paths=PackedStringArray("hpBar", "AbilityBar1", "AbilityBar2")]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 640.0
+offset_bottom = 360.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+script = ExtResource("4_r7sob")
+hpBar = NodePath("HP Frame/HP")
+AbilityBar1 = NodePath("Ability Frame 1/photo 1")
+AbilityBar2 = NodePath("Ability Frame 2/photo 2")
+
+[node name="HP Frame" type="TextureRect" parent="GameManager/Hud Layer/Hud"]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 96.0
+offset_top = 24.0
+offset_right = -335.0
+offset_bottom = -288.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("5_3xj3m")
+
+[node name="HP" type="TextureProgressBar" parent="GameManager/Hud Layer/Hud/HP Frame"]
+show_behind_parent = true
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.094000004
+anchor_top = 0.17600001
+anchor_right = 0.998
+anchor_bottom = 0.771
+offset_left = -10.705069
+offset_top = 0.43552494
+offset_right = -9.761414
+offset_bottom = 7.888378
+grow_horizontal = 2
+grow_vertical = 2
+rotation = -0.034186285
+value = 100.0
+rounded = true
+nine_patch_stretch = true
+texture_under = SubResource("GradientTexture2D_2rd6h")
+texture_progress = SubResource("GradientTexture2D_r7sob")
+
+[node name="Portrait Frame" type="TextureRect" parent="GameManager/Hud Layer/Hud"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 24.0
+offset_top = 16.0
+offset_right = -536.0
+offset_bottom = -264.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("5_2rd6h")
+
+[node name="photo" type="TextureRect" parent="GameManager/Hud Layer/Hud/Portrait Frame"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.137
+anchor_top = 0.13700001
+anchor_right = 0.937
+anchor_bottom = 0.93700004
+offset_bottom = 0.039993286
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("6_y5y3l")
+expand_mode = 1
+
+[node name="Ability Frame 2" type="TextureRect" parent="GameManager/Hud Layer/Hud"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 96.0
+offset_top = 72.0
+offset_right = -498.0
+offset_bottom = -229.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("7_2rd6h")
+expand_mode = 1
+
+[node name="photo 2" type="TextureProgressBar" parent="GameManager/Hud Layer/Hud/Ability Frame 2"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 4.0
+offset_top = 8.0
+offset_right = -3.0
+offset_bottom = -11.0
+grow_horizontal = 2
+grow_vertical = 2
+texture_over = SubResource("GradientTexture2D_y5y3l")
+
+[node name="Ability Frame 1" type="TextureRect" parent="GameManager/Hud Layer/Hud"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 45.0
+offset_top = 96.0
+offset_right = -549.0
+offset_bottom = -205.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("7_2rd6h")
+expand_mode = 1
+
+[node name="photo 1" type="TextureProgressBar" parent="GameManager/Hud Layer/Hud/Ability Frame 1"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 4.0
+offset_top = 8.0
+offset_right = -3.0
+offset_bottom = -11.0
+grow_horizontal = 2
+grow_vertical = 2
+texture_over = SubResource("GradientTexture2D_y5y3l")
+
+[node name="Death Menu" type="TextureRect" parent="GameManager/Hud Layer"]
 visible = false
 modulate = Color(1, 1, 1, 0.574)
 anchors_preset = 15
@@ -270,12 +391,12 @@ size_flags_vertical = 3
 texture = SubResource("GradientTexture2D_q27tn")
 expand_mode = 2
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="GameManager/Hud/Death Menu"]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="GameManager/Hud Layer/Death Menu"]
 libraries = {
 &"": SubResource("AnimationLibrary_iqc6g")
 }
 
-[node name="give up button" type="Button" parent="GameManager/Hud/Death Menu"]
+[node name="give up button" type="Button" parent="GameManager/Hud Layer/Death Menu"]
 modulate = Color(18.892157, 18.892157, 18.892157, 1)
 self_modulate = Color(0, 0, 0, 1)
 layout_mode = 1
@@ -288,7 +409,7 @@ offset_top = -0.16000366
 offset_right = 1.2799835
 offset_bottom = 0.11997986
 
-[node name="RichTextLabel" type="RichTextLabel" parent="GameManager/Hud/Death Menu/give up button"]
+[node name="RichTextLabel" type="RichTextLabel" parent="GameManager/Hud Layer/Death Menu/give up button"]
 layout_mode = 1
 anchors_preset = -1
 anchor_right = 0.99600005
@@ -307,7 +428,7 @@ justification_flags = 0
 deselect_on_focus_loss_enabled = false
 drag_and_drop_selection_enabled = false
 
-[node name="refuse button" type="Button" parent="GameManager/Hud/Death Menu"]
+[node name="refuse button" type="Button" parent="GameManager/Hud Layer/Death Menu"]
 modulate = Color(18.892157, 18.892157, 18.892157, 1)
 self_modulate = Color(0, 0, 0, 1)
 layout_mode = 1
@@ -321,7 +442,7 @@ offset_bottom = 0.11997986
 button_mask = 7
 keep_pressed_outside = true
 
-[node name="RichTextLabel" type="RichTextLabel" parent="GameManager/Hud/Death Menu/refuse button"]
+[node name="RichTextLabel" type="RichTextLabel" parent="GameManager/Hud Layer/Death Menu/refuse button"]
 layout_mode = 1
 anchors_preset = -1
 anchor_right = 0.99600005
@@ -341,6 +462,31 @@ horizontal_alignment = 1
 justification_flags = 0
 deselect_on_focus_loss_enabled = false
 drag_and_drop_selection_enabled = false
+
+[node name="SceneManager" type="CanvasLayer" parent="GameManager" node_paths=PackedStringArray("currentLevel", "vignette")]
+offset = Vector2(1, 1)
+transform = Transform2D(1, 0, 0, 1, 1, 1)
+script = ExtResource("2_g4kob")
+levels = Dictionary[String, String]({
+"Level_1": "res://scenes/Level_1.tscn"
+})
+currentLevel = NodePath("../../Level")
+vignette = NodePath("GhostLaugh")
+
+[node name="GhostLaugh" type="TextureRect" parent="GameManager/SceneManager"]
+visible = false
+modulate = Color(0.012920001, 0.012920001, 0.012920001, 1)
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(320, 280)
+size_flags_horizontal = 3
+size_flags_vertical = 3
+texture = ExtResource("3_qy1jj")
+script = ExtResource("4_3xj3m")
+sizeMax = 8.0
 
 [node name="EffectPool" type="Node" parent="GameManager"]
 script = ExtResource("8_qy1jj")

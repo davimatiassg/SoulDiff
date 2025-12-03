@@ -14,19 +14,18 @@ public partial class MagicBolt : DamageEffect
         durationTween.TweenInterval(duration);
         durationTween.TweenCallback(Callable.From(Dispawn));
     }
-    
+
     public override void OnCollisionEnter(Rid bodyRid, Node2D body, long bodyShapeIndex, long localShapeIndex)
     {
         base.OnCollisionEnter(bodyRid, body, bodyShapeIndex, localShapeIndex);
 
-        if (body is Hitable hit)
+        if (body is Hitable hit && CheckHitability(hit))
         {
-            if (hit is AnyBody creature) { if (creature.isPlayer) return; }
-
-            hit.TakeDamage(damage, velocity * 0.05f);
+            hit.TakeDamage(damage, Vector2.Zero);
+            Dispawn();
         }
-
-        Dispawn();
+        
+        
     }
 
     public override void _Process(double delta)

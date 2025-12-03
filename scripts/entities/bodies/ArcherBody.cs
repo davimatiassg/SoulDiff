@@ -70,6 +70,7 @@ public partial class ArcherBody : AnyBody
         _atkTween.TweenInterval(arrowCooldown);
         _atkTween.TweenCallback(Callable.From(() => canShoot = true));
 
+        if(isPlayer) HudManager.TriggerCooldown(1,arrowCooldown);
 
         float spd = speed;
         float a = acel;
@@ -77,7 +78,7 @@ public partial class ArcherBody : AnyBody
 
 
         Tween dashCD = CreateTween();
-        dashCD.TweenInterval(dashCooldown);
+        dashCD.TweenInterval(0.2f);
         dashCD.TweenCallback(Callable.From(() => canDash = true));
 
         Tween dashMaker = CreateTween();
@@ -86,6 +87,7 @@ public partial class ArcherBody : AnyBody
             speed = spd * f;
             acel = a * f;
         }), 0f, 1f, 0.2f);
+
     }
 
 
@@ -103,6 +105,8 @@ public partial class ArcherBody : AnyBody
         dashCD.TweenInterval(dashCooldown);
         dashCD.TweenCallback(Callable.From(() => canDash = true));
 
+        if(isPlayer) HudManager.TriggerCooldown(2,dashCooldown);
+
         Tween dashMaker = CreateTween();
         dashMaker.TweenMethod(Callable.From((float f) =>
         {
@@ -113,8 +117,7 @@ public partial class ArcherBody : AnyBody
     }
 
     public override void Button3(bool pressed)
-    {
-    }
+    { }
 
 
     public void Shoot()

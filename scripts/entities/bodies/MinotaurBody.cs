@@ -13,7 +13,7 @@ public partial class MinotaurBody : EnemyBody
     [Export] public float baseMoveSpeed = 96.0f;
     [Export] public int attackDamage = 10;
     [Export] public float attackPushForce = 320f;
-    [Export] public float attackCooldown = 1f;
+    [Export] public float attackCooldown = 0.5f;
     [Export] public float attackMoveSpeed = 0f;
     [Export] public int stunResistance = 2;
 
@@ -21,7 +21,7 @@ public partial class MinotaurBody : EnemyBody
     [ExportGroup("Balance Variables/Rage")]
 
     [Export] public float rageAttackPushForce = 640f;
-    [Export] public float rageAttackCooldown = 0.5f;
+    [Export] public float rageAttackCooldown = 0.25f;
     [Export] public float rageCooldown = 6f;
     [Export] public float rageDuration = 3f;
     [Export] public float rageMoveSpeed = 0f;
@@ -115,6 +115,8 @@ public partial class MinotaurBody : EnemyBody
         speed = baseMoveSpeed;
         moving = false;
 
+        if(isPlayer) HudManager.TriggerCooldown(1, Raging ? rageAttackCooldown : attackCooldown);
+
         attackTween = CreateTween();
         attackTween.TweenInterval(Raging ? rageAttackCooldown : attackCooldown);
         attackTween.TweenCallback(Callable.From(() => { canAttack = true; }));
@@ -128,6 +130,8 @@ public partial class MinotaurBody : EnemyBody
 
         speed = rageMoveSpeed;
         Raging = true;
+
+        if(isPlayer) HudManager.TriggerCooldown(2,rageDuration + rageCooldown);
 
         rageTracker = CreateTween();
         rageTracker.TweenInterval(rageDuration);

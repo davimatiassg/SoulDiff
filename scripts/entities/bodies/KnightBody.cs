@@ -67,6 +67,9 @@ public partial class KnightBody : EnemyBody
         speed = attackMoveSpeed;
 
         canAttack = false;
+
+        if(isPlayer) HudManager.TriggerCooldown(1, attackCooldown);
+
         attackTween = CreateTween();
         attackTween.TweenInterval(attackCooldown);
         attackTween.TweenCallback(Callable.From(() => { canAttack = true; }));
@@ -78,8 +81,8 @@ public partial class KnightBody : EnemyBody
             if (animName != "attack") { return; }
             anim.AnimationFinished -= stopAtkAction;
             attacking = false;
+            moving = false;
             anim.Play("RESET");
-
             speed = baseMoveSpeed;
 
         };
@@ -109,6 +112,7 @@ public partial class KnightBody : EnemyBody
         if (dead || attacking || stunned || !canShield) return;
         if (pressed) Shield();
         else Unshield();
+
     }
     Tween shieldTween;
     private void Shield()
@@ -145,6 +149,8 @@ public partial class KnightBody : EnemyBody
             wave.knockback = knockback.Length();
             wave.damage = damage;
 
+
+            if(isPlayer) HudManager.TriggerCooldown(2, shieldCooldown);
 
             canShield = false;
             shieldTween = CreateTween();

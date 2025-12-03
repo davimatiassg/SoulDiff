@@ -42,15 +42,11 @@ public partial class Fireball : DamageEffect
     {
         base.OnCollisionEnter(bodyRid, body, bodyShapeIndex, localShapeIndex);
 
-        if (body is Hitable hit)
+        if (body is Hitable hit && CheckHitability(hit))
         {
-            if (hit is AnyBody creature) { if (creature.isPlayer) return; }
-
-            hit.TakeDamage(damage, velocity);
+            hit.TakeDamage(damage, Vector2.Zero);
         }
-
         Blast();
-        
     }
 
     public void Blast()

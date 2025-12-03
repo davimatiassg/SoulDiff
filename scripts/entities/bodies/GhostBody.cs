@@ -51,7 +51,7 @@ public partial class GhostBody : AnyBody
 
     [Export]
     public bool disembodying = false;
-    
+
     public override void Button1(bool pressed)
     {
         if (disembodying) return;
@@ -84,7 +84,6 @@ public partial class GhostBody : AnyBody
             pebbleRotater.TweenProperty(curr_pebble, "rotation_degrees", 360, 0.5f);
             pebbleRotater.TweenProperty(curr_pebble, "rotation_degrees", 0, 0.0f);
             pebbleRotater.SetLoops();
-            return;
         }
 
         pebbleIncreaser.Kill();
@@ -99,34 +98,31 @@ public partial class GhostBody : AnyBody
     Tween dashMaker;
     public override void Button2(bool pressed)
     {
-        if (disembodying) return;
-        if (pressed && canDash)
+        if (disembodying || !pressed || !canDash) return;
+
+        canDash = false;
+        Tween _dashtween = CreateTween();
+        _dashtween.TweenInterval(dashCooldown + 0.2f);
+        _dashtween.TweenCallback(Callable.From(() => canDash = true));
+
+        float spd = speed;
+        float a = acel;
+        Vector2 dir = lastMoveDirection;
+
+        dashMaker = CreateTween();
+        dashMaker.TweenMethod(Callable.From((float f) =>
         {
-            canDash = false;
-            Tween _dashtween = CreateTween();
-            _dashtween.TweenInterval(dashCooldown + 0.2f);
-            _dashtween.TweenCallback(Callable.From(() => canDash = true));
-            
-            float spd = speed;
-            float a = acel;
-            Vector2 dir = lastMoveDirection;
-
-            dashMaker = CreateTween();
-            dashMaker.TweenMethod(Callable.From((float f) =>
-            {
-                speed = spd * f;
-                acel = a * f;
-                moveDirection = dir;
-            }), dashForce, 1f, 0.2f);
-        }
-
+            speed = spd * f;
+            acel = a * f;
+            moveDirection = dir;
+        }), dashForce, 1f, 0.2f);
+        
         
     }
 
     public override void Button3(bool pressed)
     {
-        if (disembodying) return;
-        if (!pressed) return;
+        if (disembodying || !pressed) return;
         var spaceState = GetWorld2D().DirectSpaceState;
         Godot.Collections.Array<Rid> exclusionArray = [GetRid()];
 
@@ -152,6 +148,7 @@ public partial class GhostBody : AnyBody
             query = PhysicsRayQueryParameters2D.Create(GlobalPosition, GlobalPosition + aimDirection * 128, CollisionMask, exclusionArray);
             result = spaceState.IntersectRay(query);
         }
+
     }
 
     public void EmitSpawnBlast()

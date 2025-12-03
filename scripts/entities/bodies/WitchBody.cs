@@ -44,9 +44,10 @@ public partial class WitchBody : EnemyBody
     Action attackAction = null;
     public override void Button1(bool pressed)
     {
-        
+
         if (pressed) { attackAction = CastBolt; }
-        else { attackAction = null;  }
+        else { attackAction = null; }
+
     }
 
     Tween _atkTween;
@@ -61,6 +62,8 @@ public partial class WitchBody : EnemyBody
         bolt.velocity = aimDirection*projectileSpeed;
         bolt.damage = attackDamage;
 
+        if(isPlayer) HudManager.TriggerCooldown(1, attackCooldown);
+
         canAttack = false;
         _atkTween = CreateTween();
         _atkTween.TweenInterval(attackCooldown);
@@ -73,7 +76,7 @@ public partial class WitchBody : EnemyBody
     bool canFireball = true;
     public override void Button2(bool pressed)
     {
-        if (stunned || !(pressed && canAttack && canFireball)) return;
+        if (stunned || !pressed || !canFireball ) return;
         
         canAttack = false;
         Tween _atktween = CreateTween();
@@ -85,21 +88,22 @@ public partial class WitchBody : EnemyBody
         _fireballtween.TweenInterval(fireballCharge + fireballCooldown);
         _fireballtween.TweenCallback(Callable.From(() => canFireball = true));
 
+        if(isPlayer) HudManager.TriggerCooldown(2, fireballCharge + fireballCooldown);
+
         curr_fireball = (Fireball)EffectPool.SpawnEffect(fireballPrefab, GetParent<Node2D>());
         curr_fireball.Position = Position;
         curr_fireball.playerEffect = isPlayer;
         curr_fireball.StartOrbit(this);
         curr_fireball.chargeTime = fireballCharge;
-
+        
 
         fireballCharger = CreateTween();
         fireballCharger.TweenInterval(fireballCharge);
         fireballCharger.TweenCallback(Callable.From(() =>
         {
             curr_fireball.Fling(aimDirection);
+            
         }));
-
-        
     }
 
 
