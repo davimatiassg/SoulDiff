@@ -174,6 +174,8 @@ public partial class MinotaurBody : EnemyBody
     {
 
         base.TakeDamage(damage, knockback);
+
+        if (dead && attacking) EndAttack();
     }
 
 
@@ -202,7 +204,8 @@ public partial class MinotaurBody : EnemyBody
     public override void PossessStart(PlayerController cntrl)
     {
         base.PossessStart(cntrl);
-        anim.SpeedScale = 1.5f;
+        anim.SpeedScale = 2f;
+        
     }
 
 }  

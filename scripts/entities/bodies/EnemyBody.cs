@@ -48,8 +48,9 @@ public abstract partial class EnemyBody : AnyBody
     public override void PossessStart(PlayerController cntrl)
     {
         base.PossessStart(cntrl);
-
+        anim.Play("RESET");
         CollisionLayer = 2;
+        CollisionMask = 44;
     }
 
     public override void Die()
@@ -57,6 +58,7 @@ public abstract partial class EnemyBody : AnyBody
         dead = true;
 
         CollisionLayer = 1;
+        CollisionMask = 1;
 
         if (isPlayer)
         {

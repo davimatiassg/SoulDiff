@@ -37,6 +37,7 @@ public partial class WitchBody : EnemyBody
 
     public override void Move(Vector2 direction)
     {
+        if (stunned) return;
         base.Move(direction);
         broom.LookAt(broom.GlobalPosition + direction);
 
@@ -52,6 +53,7 @@ public partial class WitchBody : EnemyBody
 
     public override void Button1(bool pressed)
     {
+        
         if (pressed) { attackAction = CastBolt; }
         else { attackAction = null;  }
     }
@@ -84,7 +86,7 @@ public partial class WitchBody : EnemyBody
 
     public override void Button2(bool pressed)
     {
-        if (!(pressed && canAttack && canFireball)) return;
+        if (stunned || !(pressed && canAttack && canFireball)) return;
         
         canAttack = false;
         Tween _atktween = CreateTween();
@@ -98,6 +100,7 @@ public partial class WitchBody : EnemyBody
 
         curr_fireball = (Fireball)EffectPool.SpawnEffect(fireballPrefab, GetParent<Node2D>());
         curr_fireball.Position = Position;
+        curr_fireball.playerEffect = isPlayer;
         curr_fireball.StartOrbit(this);
         curr_fireball.chargeTime = fireballCharge;
 
@@ -110,6 +113,21 @@ public partial class WitchBody : EnemyBody
         }));
 
         
+    }
+
+     public override void HitstunApply(float damage)
+    {
+        if (dead) return;
+        base.HitstunApply(damage );
+        anim.Play("RESET");
+        anim.Play("hurt");
+    }
+
+    public override void HitstunCleanse()
+    {
+        if (dead) return;
+        base.HitstunCleanse();
+        anim.Play("RESET");
     }
 
 
