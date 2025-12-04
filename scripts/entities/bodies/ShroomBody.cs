@@ -87,6 +87,6 @@ public partial class ShroomBody : EnemyBody
 
     public override void Button2(bool pressed)
     {
-        if (stunned || !pressed || !canFireball ) return;
+        if (stunned || !pressed ) return;
     }
 }
