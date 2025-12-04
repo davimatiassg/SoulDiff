@@ -1,3 +1,21 @@
-[gd_scene format=3 uid="uid://cfwnx4ujgsf21"]
+[gd_scene load_steps=4 format=3 uid="uid://cfwnx4ujgsf21"]
 
-[node name="Punch" type="Node2D"]
+[ext_resource type="Script" uid="uid://dcxok8pjblt2q" path="res://scripts/effects/Punch.cs" id="1_cu6yh"]
+[ext_resource type="Texture2D" uid="uid://b8r0tulvb14ql" path="res://sprites/entities/shroom-glove.png" id="1_yrfiq"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_cu6yh"]
+radius = 5.0990195
+
+[node name="Punch" type="Node2D" node_paths=PackedStringArray("collider")]
+script = ExtResource("1_cu6yh")
+collider = NodePath("Node2D/Area2D")
+
+[node name="Node2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_yrfiq")
+
+[node name="Area2D" type="Area2D" parent="Node2D"]
+collision_layer = 8
+collision_mask = 6
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D/Area2D"]
+shape = SubResource("CircleShape2D_cu6yh")

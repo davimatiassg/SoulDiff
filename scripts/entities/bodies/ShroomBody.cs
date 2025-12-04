@@ -17,12 +17,12 @@ public partial class ShroomBody : EnemyBody
     [ExportGroup("Balance Variables")]
 
     [Export] public float baseMoveSpeed = 128f;
-    [Export] public int attackDamage = 3;
-    [Export] public float attackPushForce = 32f;
-    [Export] public float attackCooldown = 0.4f;
+    [Export] public int attackDamage = 1;
+    [Export] public float attackPushForce = 320f;
+    [Export] public float attackCooldown = 12f;
 
-    // [Export] public float shieldCooldown = 4f;
-    // [Export] public float shieldMoveSpeed = 0f;
+    [Export] public float deployCooldown = 4f;
+    [Export] public float deployDuration = 20f; 
     private bool attacking;
     private bool moving;
 
@@ -31,7 +31,7 @@ public partial class ShroomBody : EnemyBody
         if (dead || stunned) return;
         base.Move(direction);
 
-        bool movingToggled = direction.LengthSquared() != 0 != moving;
+        bool movingToggled = direction.IsZeroApprox() == moving;
         if (movingToggled) moving = !moving;
 
         if (attacking || stunned) return;
@@ -48,45 +48,65 @@ public partial class ShroomBody : EnemyBody
     {
         if (dead || stunned) return;
         base.Aim(direction);
+
+        Glove_0.LookAt(Glove_0.GlobalPosition + direction);
+        Glove_1.LookAt(Glove_1.GlobalPosition + direction);
     }
 
     Tween attackTween;
     private bool canAttack = true;
-    private bool lastHandRight = false;
     public override void Button1(bool pressed)
     {
-        if (dead || !canAttack || attacking || stunned) return;
+        if (!pressed || dead || stunned) return;
 
-        anim.Play("RESET");
-        anim.Play("attack");
-        attacking = true;
+        var Glove = Glove_0.Visible ? Glove_0 : (Glove_1.Visible ? Glove_1 : null);
 
-        canAttack = false;
+        if (Glove == null) return;
 
-        if (isPlayer) HudManager.TriggerCooldown(1, attackCooldown);
+        Glove.Visible = false;
 
-        attackTween = CreateTween();
-        attackTween.TweenInterval(attackCooldown);
-        attackTween.TweenCallback(Callable.From(() => { canAttack = true; }));
+        var punch = (Punch)EffectPool.SpawnEffect(PunchPrefab, this);
+        
+        punch.Position      = Glove.Position;
+        punch.playerEffect  = isPlayer;
+        punch.damage        = attackDamage;
+        punch.knockback     = attackPushForce;
+        punch.direction     = aimDirection;
+        punch.punchDuration = attackCooldown;
 
-        AnimationMixer.AnimationFinishedEventHandler stopAtkAction = (StringName animName) => { };
+        punch.LaunchPunch();
 
-        stopAtkAction = (StringName animName) =>
-        {
-            if (animName != "attack") { return; }
-            anim.AnimationFinished -= stopAtkAction;
-            attacking = false;
-            moving = false;
-            anim.Play("RESET");
-            speed = baseMoveSpeed;
+        var tween = Glove.CreateTween();
+        tween.TweenInterval(attackCooldown);
+        tween.TweenCallback(Callable.From(() => Glove.Visible = true));
 
-        };
-
-        anim.AnimationFinished += stopAtkAction;
+        
     }
-
+    
+    bool canDeploy = true;
     public override void Button2(bool pressed)
     {
-        if (stunned || !pressed ) return;
+        if (stunned || !pressed || !canDeploy ) return;
+        
+        canDeploy = false;
+        Tween _fireballtween = CreateTween();
+        _fireballtween.TweenInterval(deployCooldown);
+        _fireballtween.TweenCallback(Callable.From(() => canDeploy = true));
+
+        if(isPlayer) HudManager.TriggerCooldown(2, deployCooldown);
+
+        var curr_fireball = (Fireball)EffectPool.SpawnEffect(BombShroomPrefab, GetParent<Node2D>());
+        curr_fireball.GlobalPosition = GlobalPosition;
+        curr_fireball.playerEffect = isPlayer;
+        
+
+        var fireballCharger = CreateTween();
+        fireballCharger.TweenInterval(deployDuration);
+        fireballCharger.TweenCallback(Callable.From(() =>
+        {
+            curr_fireball?.Dispawn();
+            
+        }));
     }
+
 }

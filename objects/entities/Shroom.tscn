@@ -1,7 +1,8 @@
-[gd_scene load_steps=28 format=3 uid="uid://utpq2smkpa7m"]
+[gd_scene load_steps=29 format=3 uid="uid://utpq2smkpa7m"]
 
 [ext_resource type="Script" uid="uid://conyp11j0yrxr" path="res://scripts/entities/bodies/ShroomBody.cs" id="1_lyeao"]
 [ext_resource type="PackedScene" uid="uid://bwptecaxymblm" path="res://objects/effects/BombShroom.tscn" id="2_6hwho"]
+[ext_resource type="PackedScene" uid="uid://cfwnx4ujgsf21" path="res://objects/effects/Punch.tscn" id="2_hq2dg"]
 [ext_resource type="Shader" uid="uid://bcwyj2yow674w" path="res://materials/Highlight.gdshader" id="4_gvf68"]
 [ext_resource type="Texture2D" uid="uid://cake640ejch07" path="res://sprites/entities/shroom.png" id="5_hq2dg"]
 [ext_resource type="Texture2D" uid="uid://b8r0tulvb14ql" path="res://sprites/entities/shroom-glove.png" id="6_2ufix"]
@@ -123,6 +124,9 @@ tracks/0/keys = {
 "values": [4]
 }
 
+[sub_resource type="Animation" id="Animation_gvf68"]
+resource_name = "dead"
+
 [sub_resource type="Animation" id="Animation_hq2dg"]
 resource_name = "hurt"
 tracks/0/type = "value"
@@ -170,9 +174,6 @@ tracks/0/keys = {
 "values": [0, 3]
 }
 
-[sub_resource type="Animation" id="Animation_gvf68"]
-resource_name = "dead"
-
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_hq2dg"]
 _data = {
 &"RESET": SubResource("Animation_6hwho"),
@@ -182,19 +183,22 @@ _data = {
 &"walk": SubResource("Animation_2ufix")
 }
 
-[node name="Shroom" type="CharacterBody2D" node_paths=PackedStringArray("Glove_0", "Glove_1", "anim", "deathParticles")]
+[node name="Shroom" type="CharacterBody2D" node_paths=PackedStringArray("Glove_0", "Glove_1", "anim", "deathParticles", "sprite", "collision")]
 texture_filter = 1
 collision_layer = 2
 collision_mask = 54
 script = ExtResource("1_lyeao")
 Glove_0 = NodePath("sprite/hand_0")
 Glove_1 = NodePath("sprite/hand_1")
+PunchPrefab = ExtResource("2_hq2dg")
 BombShroomPrefab = ExtResource("2_6hwho")
-attackDamage = 2
-attackPushForce = 320.0
-attackCooldown = 0.3
+attackPushForce = 1080.0
+attackCooldown = 0.8
 anim = NodePath("AnimationPlayer")
 deathParticles = NodePath("DeathSmoke")
+StartWithDefaultController = true
+sprite = NodePath("sprite")
+collision = NodePath("CollisionShape2D")
 
 [node name="sprite" type="AnimatedSprite2D" parent="."]
 texture_filter = 1

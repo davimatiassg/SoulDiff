@@ -99,7 +99,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_md5ma")
 }],
-"loop": true,
+"loop": false,
 "name": &"orb",
 "speed": 5.0
 }]
@@ -115,9 +115,8 @@ collider = NodePath("Area2D")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 texture_filter = 1
 sprite_frames = SubResource("SpriteFrames_layg6")
-animation = &"blast"
-frame = 11
-frame_progress = 1.0
+animation = &"orb"
+autoplay = "orb"
 
 [node name="Area2D" type="Area2D" parent="."]
 texture_filter = 1
