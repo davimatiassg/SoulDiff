@@ -1,5 +1,6 @@
-[gd_scene load_steps=9 format=3 uid="uid://trooaratn7mp"]
+[gd_scene load_steps=10 format=3 uid="uid://trooaratn7mp"]
 
+[ext_resource type="Script" uid="uid://c2dy80b3dq7dp" path="res://scripts/game/LevelManager.cs" id="1_5nnc3"]
 [ext_resource type="PackedScene" uid="uid://divu6gwngrkvy" path="res://objects/entities/Minotaur.tscn" id="6_2v4gc"]
 [ext_resource type="PackedScene" uid="uid://c2uv7ojcq7hr" path="res://objects/entities/Witch.tscn" id="7_wueff"]
 [ext_resource type="PackedScene" uid="uid://70ceu615i4b" path="res://objects/Camera.tscn" id="8_fc4ab"]
@@ -11,6 +12,7 @@
 
 [node name="TestLevel" type="Node2D"]
 texture_filter = 1
+script = ExtResource("1_5nnc3")
 
 [node name="Camera" parent="." instance=ExtResource("8_fc4ab")]
 zoom = Vector2(1, 1)

@@ -36,7 +36,7 @@ public partial class Punch : DamageEffect
     {
         LookAt(direction);
         Tween tween = CreateTween();
-        tween.TweenProperty(this, "position", direction * distance, punchDuration / 3f);
+        tween.TweenProperty(this, "position", direction * distance, punchDuration / 3f).SetTrans(Tween.TransitionType.Expo);
         tween.TweenProperty(this, "position", Vector2.Zero, punchDuration * 2f / 3f);
         tween.TweenCallback(Callable.From(QueueFree));
     }

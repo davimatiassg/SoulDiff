@@ -1,4 +1,4 @@
-[gd_scene load_steps=28 format=3 uid="uid://bqa8vwqpy2rvs"]
+[gd_scene load_steps=30 format=3 uid="uid://bqa8vwqpy2rvs"]
 
 [ext_resource type="PackedScene" uid="uid://w7scrx2p6vkw" path="res://objects/GameManager.tscn" id="1_400sg"]
 [ext_resource type="Script" uid="uid://crppldnbwltdf" path="res://scripts/game/SceneManager.cs" id="2_g4kob"]
@@ -15,6 +15,8 @@
 [ext_resource type="Script" uid="uid://b2kkca2pbctmx" path="res://scripts/game/EffectPool.cs" id="8_qy1jj"]
 [ext_resource type="PackedScene" uid="uid://trooaratn7mp" path="res://scenes/Test-Level.tscn" id="8_r7sob"]
 [ext_resource type="PackedScene" uid="uid://oaxil6vm2ft1" path="res://objects/effects/Hit.tscn" id="9_3xj3m"]
+[ext_resource type="Script" uid="uid://c2dfgalunfbwe" path="res://scripts/game/AudioPlayer.cs" id="15_y5y3l"]
+[ext_resource type="AudioStream" uid="uid://cscetum05kta5" path="res://audio/music/crowned jester wrapped.wav" id="16_vjgi4"]
 
 [sub_resource type="Gradient" id="Gradient_mcffj"]
 offsets = PackedFloat32Array(0)
@@ -474,7 +476,7 @@ offset = Vector2(1, 1)
 transform = Transform2D(1, 0, 0, 1, 1, 1)
 script = ExtResource("2_g4kob")
 levels = Dictionary[String, String]({
-"Level_1": "res://scenes/Level_1.tscn"
+"Level_1": "res://scenes/Test-Level.tscn"
 })
 currentLevel = NodePath("../../Level")
 vignette = NodePath("GhostLaugh")
@@ -500,6 +502,12 @@ objects = Dictionary[String, PackedScene]({
 "Hit": ExtResource("9_3xj3m")
 })
 metadata/_custom_type_script = "uid://b2kkca2pbctmx"
+
+[node name="AudioPlayer" type="Node" parent="GameManager"]
+script = ExtResource("15_y5y3l")
+sounds = {
+"Level 1": ExtResource("16_vjgi4")
+}
 
 [node name="Level" type="Node2D" parent="."]
 
