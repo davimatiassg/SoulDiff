@@ -33,13 +33,18 @@ public abstract partial class AnyBody : CharacterBody2D, Hitable
     /// Controlling
 
     [Export] public AnyController controller;
-
+    
 
     [Export] public Vector2 moveDirection = Vector2.Zero;
     protected Vector2 lastMoveDirection = Vector2.Right;
 
     [Export] public Vector2 aimDirection = Vector2.Zero;
     protected int lastAimDirectionX = 0;
+
+    [ExportGroup("Hud Data")]
+    [Export] public Texture2D portrait;
+    [Export] public Texture2D ability1;
+    [Export] public Texture2D ability2;
 
     public abstract void Button1(bool pressed);
     public abstract void Button2(bool pressed);

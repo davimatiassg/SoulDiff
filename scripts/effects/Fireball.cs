@@ -45,8 +45,10 @@ public partial class Fireball : DamageEffect
         if (body is Hitable hit && CheckHitability(hit))
         {
             hit.TakeDamage(damage, Vector2.Zero);
+            Blast();
         }
-        Blast();
+        else if (body is not Hitable) { Blast(); }
+        
     }
 
     public void Blast()

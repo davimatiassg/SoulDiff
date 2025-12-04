@@ -1,5 +1,6 @@
 using Godot;
 using System;
+using System.Diagnostics;
 
 public partial class HudManager : Control
 {
@@ -15,6 +16,14 @@ public partial class HudManager : Control
     public static void TriggerCooldown(int abilityBar, float cd)
     {
         GD.Print($"cd da abilidade {abilityBar} = {cd}");
+
+        TextureProgressBar bar = abilityBar == 1 ? Instance.AbilityBar1 : abilityBar == 2 ? Instance.AbilityBar2 : null;
+        Debug.Assert(bar != null);
+
+        bar.Value = cd;
+        bar.MaxValue = cd;
+        Tween tween = bar.CreateTween();
+        tween.TweenProperty(bar, "value", 0, cd);
     }
 
     public static void ResetHPBar(int maxHP)

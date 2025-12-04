@@ -35,7 +35,7 @@ width = 256
 
 [sub_resource type="Gradient" id="Gradient_r7sob"]
 offsets = PackedFloat32Array(0.49873418)
-colors = PackedColorArray(0, 0, 0, 0.29803923)
+colors = PackedColorArray(0, 0, 0, 0.6784314)
 
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_y5y3l"]
 gradient = SubResource("Gradient_r7sob")
@@ -349,7 +349,10 @@ offset_right = -3.0
 offset_bottom = -11.0
 grow_horizontal = 2
 grow_vertical = 2
-texture_over = SubResource("GradientTexture2D_y5y3l")
+step = 0.1
+value = 50.0
+fill_mode = 4
+texture_progress = SubResource("GradientTexture2D_y5y3l")
 
 [node name="Ability Frame 1" type="TextureRect" parent="GameManager/Hud Layer/Hud"]
 layout_mode = 1
@@ -376,7 +379,10 @@ offset_right = -3.0
 offset_bottom = -11.0
 grow_horizontal = 2
 grow_vertical = 2
-texture_over = SubResource("GradientTexture2D_y5y3l")
+step = 0.1
+value = 50.0
+fill_mode = 4
+texture_progress = SubResource("GradientTexture2D_y5y3l")
 
 [node name="Death Menu" type="TextureRect" parent="GameManager/Hud Layer"]
 visible = false
