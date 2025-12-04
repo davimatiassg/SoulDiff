@@ -4,6 +4,7 @@ using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using Godot;
 
+[GlobalClass]
 public abstract partial class EnemyBody : AnyBody
 {
     public const float DEAD_TIME = 5f;
@@ -106,7 +107,7 @@ public abstract partial class EnemyBody : AnyBody
         base.HitstunCleanse();
         anim.Play("RESET");
     }
-    
+
 
     public override void _Ready()
     {

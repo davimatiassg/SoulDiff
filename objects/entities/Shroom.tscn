@@ -1,0 +1,234 @@
+[gd_scene load_steps=28 format=3 uid="uid://utpq2smkpa7m"]
+
+[ext_resource type="Script" uid="uid://conyp11j0yrxr" path="res://scripts/entities/bodies/ShroomBody.cs" id="1_lyeao"]
+[ext_resource type="PackedScene" uid="uid://bwptecaxymblm" path="res://objects/effects/BombShroom.tscn" id="2_6hwho"]
+[ext_resource type="Shader" uid="uid://bcwyj2yow674w" path="res://materials/Highlight.gdshader" id="4_gvf68"]
+[ext_resource type="Texture2D" uid="uid://cake640ejch07" path="res://sprites/entities/shroom.png" id="5_hq2dg"]
+[ext_resource type="Texture2D" uid="uid://b8r0tulvb14ql" path="res://sprites/entities/shroom-glove.png" id="6_2ufix"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_xg55p"]
+shader = ExtResource("4_gvf68")
+shader_parameter/outline_color = Color(1, 1, 1, 0)
+shader_parameter/thickness = 1
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gvf68"]
+atlas = ExtResource("5_hq2dg")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dl7qg"]
+atlas = ExtResource("5_hq2dg")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_biw5c"]
+atlas = ExtResource("5_hq2dg")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vrqf5"]
+atlas = ExtResource("5_hq2dg")
+region = Rect2(96, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_01lbe"]
+atlas = ExtResource("5_hq2dg")
+region = Rect2(128, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6hwho"]
+atlas = ExtResource("5_hq2dg")
+region = Rect2(160, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_4b5ir"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gvf68")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dl7qg")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_biw5c")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vrqf5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_01lbe")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6hwho")
+}],
+"loop": false,
+"name": &"default",
+"speed": 10.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_6hwho"]
+
+[sub_resource type="Curve" id="Curve_xg55p"]
+_data = [Vector2(0, 0.99652964), 0.0, 0.0, 0, 0, Vector2(1, 0), -3.356043, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_xg55p"]
+curve = SubResource("Curve_xg55p")
+
+[sub_resource type="Curve" id="Curve_thh36"]
+_data = [Vector2(0.034285717, 1), 0.0, -0.03937038, 0, 0, Vector2(1, 0), -3.6954138, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_5ckdi"]
+curve = SubResource("Curve_thh36")
+
+[sub_resource type="Curve" id="Curve_hmnxn"]
+_limits = [0.0, 180.0, 0.0, 1.0]
+_data = [Vector2(0, 180), 0.0, 135.4794, 0, 0, Vector2(1, 0), -559.05566, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_thh36"]
+curve = SubResource("Curve_hmnxn")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_wjnvf"]
+lifetime_randomness = 0.6
+particle_flag_disable_z = true
+emission_shape = 1
+emission_sphere_radius = 8.0
+angle_min = -170.7
+angle_max = -170.7
+direction = Vector3(0, -1, 0)
+flatness = 1.0
+initial_velocity_min = 99.65
+initial_velocity_max = 140.08
+angular_velocity_min = -177.45001
+angular_velocity_max = 157.42998
+angular_velocity_curve = SubResource("CurveTexture_5ckdi")
+velocity_limit_curve = SubResource("CurveTexture_thh36")
+gravity = Vector3(0, 0, 0)
+scale_max = 5.0
+color = Color(0, 0, 0, 0.43137255)
+alpha_curve = SubResource("CurveTexture_xg55p")
+turbulence_enabled = true
+turbulence_noise_strength = 3.24
+turbulence_influence_max = 0.104
+
+[sub_resource type="Animation" id="Animation_6hwho"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [4]
+}
+
+[sub_resource type="Animation" id="Animation_hq2dg"]
+resource_name = "hurt"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [4]
+}
+
+[sub_resource type="Animation" id="Animation_lyeao"]
+resource_name = "idle"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_2ufix"]
+resource_name = "walk"
+length = 0.40000334
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.4),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0, 3]
+}
+
+[sub_resource type="Animation" id="Animation_gvf68"]
+resource_name = "dead"
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_hq2dg"]
+_data = {
+&"RESET": SubResource("Animation_6hwho"),
+&"dead": SubResource("Animation_gvf68"),
+&"hurt": SubResource("Animation_hq2dg"),
+&"idle": SubResource("Animation_lyeao"),
+&"walk": SubResource("Animation_2ufix")
+}
+
+[node name="Shroom" type="CharacterBody2D" node_paths=PackedStringArray("Glove_0", "Glove_1", "anim", "deathParticles")]
+texture_filter = 1
+collision_layer = 2
+collision_mask = 54
+script = ExtResource("1_lyeao")
+Glove_0 = NodePath("sprite/hand_0")
+Glove_1 = NodePath("sprite/hand_1")
+BombShroomPrefab = ExtResource("2_6hwho")
+attackDamage = 2
+attackPushForce = 320.0
+attackCooldown = 0.3
+anim = NodePath("AnimationPlayer")
+deathParticles = NodePath("DeathSmoke")
+
+[node name="sprite" type="AnimatedSprite2D" parent="."]
+texture_filter = 1
+material = SubResource("ShaderMaterial_xg55p")
+position = Vector2(0, -2)
+sprite_frames = SubResource("SpriteFrames_4b5ir")
+frame = 4
+
+[node name="hand_0" type="Sprite2D" parent="sprite"]
+show_behind_parent = true
+use_parent_material = true
+position = Vector2(10, 4)
+texture = ExtResource("6_2ufix")
+
+[node name="hand_1" type="Sprite2D" parent="sprite"]
+use_parent_material = true
+position = Vector2(-11, 6)
+texture = ExtResource("6_2ufix")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_6hwho")
+
+[node name="DeathSmoke" type="GPUParticles2D" parent="."]
+position = Vector2(0, 12)
+emitting = false
+amount = 100
+amount_ratio = 0.95
+lifetime = 2.0
+one_shot = true
+explosiveness = 0.93
+randomness = 1.0
+process_material = SubResource("ParticleProcessMaterial_wjnvf")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_hq2dg")
+}
