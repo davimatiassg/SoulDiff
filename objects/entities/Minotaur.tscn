@@ -1,8 +1,9 @@
-[gd_scene load_steps=49 format=3 uid="uid://divu6gwngrkvy"]
+[gd_scene load_steps=50 format=3 uid="uid://divu6gwngrkvy"]
 
 [ext_resource type="Script" uid="uid://b6gjo73hdaiul" path="res://scripts/entities/bodies/MinotaurBody.cs" id="1_owogu"]
 [ext_resource type="Shader" uid="uid://d08l0x7d512wq" path="res://materials/Minotaur.gdshader" id="1_x66bs"]
 [ext_resource type="PackedScene" uid="uid://yus25gb6r0f1" path="res://objects/effects/AxeSlash.tscn" id="2_owogu"]
+[ext_resource type="Texture2D" uid="uid://bth4hd6jo382i" path="res://sprites/hud/icons/minotaur.png" id="3_x66bs"]
 [ext_resource type="Texture2D" uid="uid://dgfpudh332uk7" path="res://sprites/entities/minotaur.png" id="5_x66bs"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_xg55p"]
@@ -561,6 +562,7 @@ hitStunTime = 0.15000000000873115
 MaxHP = 60
 sprite = NodePath("sprite")
 collision = NodePath("CollisionShape2D")
+portrait = ExtResource("3_x66bs")
 
 [node name="sprite" type="AnimatedSprite2D" parent="."]
 texture_filter = 1

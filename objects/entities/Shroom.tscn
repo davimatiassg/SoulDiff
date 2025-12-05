@@ -1,8 +1,9 @@
-[gd_scene load_steps=29 format=3 uid="uid://utpq2smkpa7m"]
+[gd_scene load_steps=30 format=3 uid="uid://utpq2smkpa7m"]
 
 [ext_resource type="Script" uid="uid://conyp11j0yrxr" path="res://scripts/entities/bodies/ShroomBody.cs" id="1_lyeao"]
 [ext_resource type="PackedScene" uid="uid://bwptecaxymblm" path="res://objects/effects/BombShroom.tscn" id="2_6hwho"]
 [ext_resource type="PackedScene" uid="uid://cfwnx4ujgsf21" path="res://objects/effects/Punch.tscn" id="2_hq2dg"]
+[ext_resource type="Texture2D" uid="uid://b1vftvq4epm01" path="res://sprites/hud/icons/mushroom.png" id="4_2ufix"]
 [ext_resource type="Shader" uid="uid://bcwyj2yow674w" path="res://materials/Highlight.gdshader" id="4_gvf68"]
 [ext_resource type="Texture2D" uid="uid://cake640ejch07" path="res://sprites/entities/shroom.png" id="5_hq2dg"]
 [ext_resource type="Texture2D" uid="uid://b8r0tulvb14ql" path="res://sprites/entities/shroom-glove.png" id="6_2ufix"]
@@ -212,6 +213,7 @@ deathParticles = NodePath("DeathSmoke")
 StartWithDefaultController = true
 sprite = NodePath("sprite")
 collision = NodePath("CollisionShape2D")
+portrait = ExtResource("4_2ufix")
 
 [node name="sprite" type="AnimatedSprite2D" parent="."]
 texture_filter = 1

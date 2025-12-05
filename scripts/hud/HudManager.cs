@@ -7,17 +7,22 @@ public partial class HudManager : Control
 
     public static HudManager Instance;
     [Export] public TextureProgressBar hpBar;
-    [Export] public TextureProgressBar AbilityBar1;
-    [Export] public TextureProgressBar AbilityBar2;
+    [Export] public TextureRect bodyPortrait;
+    [Export] public TextureProgressBar abilityBar1;
+    [Export] public TextureProgressBar abilityBar2;
 
 
 
+    public static void SetBodyPortrait(Texture2D image)
+    {
+        Instance.bodyPortrait.Texture = image;
+    }
 
     public static void TriggerCooldown(int abilityBar, float cd)
     {
         GD.Print($"cd da abilidade {abilityBar} = {cd}");
 
-        TextureProgressBar bar = abilityBar == 1 ? Instance.AbilityBar1 : abilityBar == 2 ? Instance.AbilityBar2 : null;
+        TextureProgressBar bar = abilityBar == 1 ? Instance.abilityBar1 : abilityBar == 2 ? Instance.abilityBar2 : null;
         Debug.Assert(bar != null);
 
         bar.Value = cd;

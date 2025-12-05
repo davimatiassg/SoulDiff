@@ -254,7 +254,7 @@ anim = NodePath("Death Menu/AnimationPlayer")
 refuseButton = NodePath("Death Menu/refuse button")
 giveupButton = NodePath("Death Menu/give up button")
 
-[node name="Hud" type="Control" parent="GameManager/Hud Layer" node_paths=PackedStringArray("hpBar", "AbilityBar1", "AbilityBar2")]
+[node name="Hud" type="Control" parent="GameManager/Hud Layer" node_paths=PackedStringArray("hpBar", "bodyPortrait", "abilityBar1", "abilityBar2")]
 layout_mode = 3
 anchors_preset = 0
 offset_right = 640.0
@@ -263,8 +263,9 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 script = ExtResource("4_r7sob")
 hpBar = NodePath("HP Frame/HP")
-AbilityBar1 = NodePath("Ability Frame 1/photo 1")
-AbilityBar2 = NodePath("Ability Frame 2/photo 2")
+bodyPortrait = NodePath("Portrait Frame/photo")
+abilityBar1 = NodePath("Ability Frame 1/photo 1")
+abilityBar2 = NodePath("Ability Frame 2/photo 2")
 
 [node name="HP Frame" type="TextureRect" parent="GameManager/Hud Layer/Hud"]
 layout_mode = 1

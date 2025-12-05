@@ -20,6 +20,8 @@ public partial class PlayerController : AnyController
         if (ghostParent != null) ghostParent.RemoveChild(Instance.ghost);
         if (body.controller != null) body.controller.Disconnect(body);
 
+        HudManager.SetBodyPortrait(body.portrait);
+
         Instance.Connect(body);
         body.PossessStart(Instance);
     }
@@ -30,6 +32,9 @@ public partial class PlayerController : AnyController
         if (body != null) body.PossessEnd();
         Instance.Disconnect(body);
         Instance.Connect(Instance.ghost);
+
+        HudManager.SetBodyPortrait(Instance.ghost.portrait);
+
         Instance.GetParent().CallDeferred("add_child", Instance.ghost);
         Instance.ghost.PossessStart(Instance);
         Instance.ghost.GlobalPosition = body.GlobalPosition;
@@ -39,6 +44,9 @@ public partial class PlayerController : AnyController
 	{
         Instance.Connect(Instance.ghost);
         Instance.GetParent().CallDeferred("add_child", Instance.ghost);
+
+        HudManager.SetBodyPortrait(Instance.ghost.portrait);
+
         Instance.ghost.PossessStart(Instance);
         Instance.ghost.GlobalPosition = Vector2.Zero;
 	}
