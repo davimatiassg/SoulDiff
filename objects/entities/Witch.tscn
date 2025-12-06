@@ -1,4 +1,4 @@
-[gd_scene load_steps=33 format=3 uid="uid://c2uv7ojcq7hr"]
+[gd_scene load_steps=35 format=3 uid="uid://c2uv7ojcq7hr"]
 
 [ext_resource type="Script" uid="uid://cfe4ajk1pvnmo" path="res://scripts/entities/bodies/WitchBody.cs" id="1_pxqsn"]
 [ext_resource type="PackedScene" uid="uid://cpg2si6ckb27h" path="res://objects/effects/MagicBolt.tscn" id="2_wfgpb"]
@@ -6,8 +6,10 @@
 [ext_resource type="Shader" uid="uid://bcwyj2yow674w" path="res://materials/Highlight.gdshader" id="4_7osfo"]
 [ext_resource type="Texture2D" uid="uid://dn5nmif3l2m7s" path="res://sprites/entities/witch-broom.png" id="4_82ipo"]
 [ext_resource type="Texture2D" uid="uid://bri7t4eyr1o01" path="res://sprites/hud/icons/witch.png" id="4_hqnyo"]
+[ext_resource type="Texture2D" uid="uid://cuaw0x8x48g77" path="res://sprites/hud/icons/Skills4.png" id="5_uwocx"]
 [ext_resource type="Texture2D" uid="uid://dpi276n85t7os" path="res://sprites/entities/witch.png" id="5_wfgpb"]
 [ext_resource type="Texture2D" uid="uid://dnp4j0v4p7xp8" path="res://sprites/entities/witch-wand.png" id="6_82ipo"]
+[ext_resource type="Texture2D" uid="uid://d0b2qq42itmrg" path="res://sprites/hud/icons/Skills5.png" id="6_uqdu0"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_xg55p"]
 shader = ExtResource("4_7osfo")
@@ -259,6 +261,8 @@ hitStunTime = 0.5
 sprite = NodePath("sprite")
 collision = NodePath("CollisionShape2D")
 portrait = ExtResource("4_hqnyo")
+ability1 = ExtResource("5_uwocx")
+ability2 = ExtResource("6_uqdu0")
 
 [node name="sprite" type="AnimatedSprite2D" parent="."]
 texture_filter = 1

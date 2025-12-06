@@ -13,9 +13,13 @@ public partial class HudManager : Control
 
 
 
-    public static void SetBodyPortrait(Texture2D image)
+    public static void SetBodyPortrait(AnyBody body)
     {
-        Instance.bodyPortrait.Texture = image;
+        Instance.bodyPortrait.Texture = body.portrait;
+        Instance.abilityBar1.TextureUnder = body.ability1;
+        Instance.abilityBar2.TextureUnder = body.ability2;
+        Instance.abilityBar1.Value = 0;
+        Instance.abilityBar2.Value = 0;
     }
 
     public static void TriggerCooldown(int abilityBar, float cd)

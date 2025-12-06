@@ -353,9 +353,11 @@ offset_right = -3.0
 offset_bottom = -11.0
 grow_horizontal = 2
 grow_vertical = 2
+pivot_offset = Vector2(20, 20)
 step = 0.1
 value = 50.0
 fill_mode = 4
+nine_patch_stretch = true
 texture_progress = SubResource("GradientTexture2D_y5y3l")
 
 [node name="Ability Frame 1" type="TextureRect" parent="Hud Layer/Hud"]
@@ -386,6 +388,7 @@ grow_vertical = 2
 step = 0.1
 value = 50.0
 fill_mode = 4
+nine_patch_stretch = true
 texture_progress = SubResource("GradientTexture2D_y5y3l")
 
 [node name="Death Menu" type="TextureRect" parent="Hud Layer"]

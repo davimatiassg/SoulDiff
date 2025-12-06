@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://xocapyxwwkug"
-path="res://.godot/imported/shroom.png-7ed78eff7352fadecb233d0156650254.ctex"
+uid="uid://bcu8ai8c858xn"
+path="res://.godot/imported/Skills9.png-08a05bfa4c2c251985ace8c579c5af51.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://sprites/home/matias/Projects/SoulDiff/sprites/entities/shroom.png"
-dest_files=["res://.godot/imported/shroom.png-7ed78eff7352fadecb233d0156650254.ctex"]
+source_file="res://sprites/hud/icons/Skills9.png"
+dest_files=["res://.godot/imported/Skills9.png-08a05bfa4c2c251985ace8c579c5af51.ctex"]
 
 [params]
 

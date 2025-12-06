@@ -1,10 +1,12 @@
-[gd_scene load_steps=37 format=3 uid="uid://b4j7hdg38dqio"]
+[gd_scene load_steps=39 format=3 uid="uid://b4j7hdg38dqio"]
 
 [ext_resource type="Texture2D" uid="uid://ddnuflopnblue" path="res://sprites/entities/knight.png" id="1_80j5y"]
 [ext_resource type="Script" uid="uid://ig2ltxdhbhqb" path="res://scripts/entities/bodies/KnightBody.cs" id="1_netpo"]
 [ext_resource type="PackedScene" uid="uid://cp4ikqfe2wqft" path="res://objects/effects/SwordSlash.tscn" id="2_ipplv"]
 [ext_resource type="Shader" uid="uid://bcwyj2yow674w" path="res://materials/Highlight.gdshader" id="3_qo31y"]
 [ext_resource type="PackedScene" uid="uid://220wdbe24ojc" path="res://objects/effects/Shockwave.tscn" id="3_xg55p"]
+[ext_resource type="Texture2D" uid="uid://bkqmkkbiio2mh" path="res://sprites/hud/icons/Skills6.png" id="4_thh36"]
+[ext_resource type="Texture2D" uid="uid://cjmposeaq87bq" path="res://sprites/hud/icons/Skills7.png" id="5_0mmp3"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_xg55p"]
 shader = ExtResource("3_qo31y")
@@ -464,6 +466,8 @@ invincibilityTime = 0.0
 hitStunTime = 0.15000000000873115
 sprite = NodePath("sprite")
 collision = NodePath("CollisionShape2D")
+ability1 = ExtResource("4_thh36")
+ability2 = ExtResource("5_0mmp3")
 
 [node name="sprite" type="AnimatedSprite2D" parent="."]
 texture_filter = 1
