@@ -54,7 +54,7 @@ public partial class GhostBody : AnyBody
 
     public override void Button1(bool pressed)
     {
-        if (disembodying) return;
+        if (disembodying || dead) return;
 
         if (pressed && canAttack)
         {
@@ -214,6 +214,7 @@ public partial class GhostBody : AnyBody
         if (disembodying) return;
         dead = true;
         SequenceManager.OnPlayerDie();
+        CreateTween().TweenProperty(this, "modulate", Colors.Transparent, 3);
     }
 
 
