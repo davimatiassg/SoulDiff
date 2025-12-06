@@ -21,6 +21,7 @@ public partial class HudManager : Control
         Instance.abilityBar1.Value = 0;
         Instance.abilityBar2.Value = 0;
     }
+    
 
     public static void TriggerCooldown(int abilityBar, float cd)
     {

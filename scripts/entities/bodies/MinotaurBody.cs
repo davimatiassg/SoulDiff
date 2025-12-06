@@ -56,8 +56,9 @@ public partial class MinotaurBody : EnemyBody
 
     //# Controlling
 
-    private bool attacking = false;
-    private bool moving;
+    
+    [Export] private bool attacking = false;
+    [Export] private bool moving;
     public override void Move(Vector2 direction)
     {
         if (attacking || dead || stunned) return;
@@ -79,7 +80,7 @@ public partial class MinotaurBody : EnemyBody
     //# Skills
 
     Tween attackTween;
-    private bool canAttack = true;
+    [Export] private bool canAttack = true;
 
     public override void Button1(bool pressed)
     {
@@ -165,8 +166,11 @@ public partial class MinotaurBody : EnemyBody
         {
             base.HitstunApply(damage);
             if (attacking) EndAttack();
+            moving = false;
         }
         else HitstunCleanse();
+        
+        
     }
 
     public override void HitstunCleanse()

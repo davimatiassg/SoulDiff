@@ -105,7 +105,7 @@ public abstract partial class EnemyBody : AnyBody
     {
         if (dead) return;
         base.HitstunCleanse();
-        anim.Play("RESET");
+        
     }
 
 
