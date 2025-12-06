@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="SoulDiff"
-run/main_scene="uid://ctqkcae54sv7m"
+run/main_scene="uid://bqa8vwqpy2rvs"
 config/features=PackedStringArray("4.5", "C#")
 config/icon="res://icon.svg"
 

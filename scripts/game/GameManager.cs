@@ -33,14 +33,14 @@ public partial class GameManager : Node
 		OnPlayerRefuseToDie = () =>
 		{
 			GhostSpawn();
-			//TODO! - Reacelerar a música
+			AudioPlayer.PlayMusic("mus_The_Hexsmith");
 			//TODO! - Remover gradualmente zoom na câmera
 
 			OnPlayerRefuseToDie = () => SceneManager.ChangeLevel("Level_1");
 		};
 
-		
-		//TODO! - Desacelerar a música
+
+		Instance.CreateTween().TweenProperty(AudioPlayer.Instance.musicPlayer, "pitch_scale", 0.5, 1f);
 		//TODO! - Zoom na câmera
 		MenuManager.PlayDeathMenu();
 	

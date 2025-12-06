@@ -1,4 +1,4 @@
-[gd_scene load_steps=30 format=3 uid="uid://bqa8vwqpy2rvs"]
+[gd_scene load_steps=31 format=3 uid="uid://bqa8vwqpy2rvs"]
 
 [ext_resource type="PackedScene" uid="uid://w7scrx2p6vkw" path="res://objects/GameManager.tscn" id="1_400sg"]
 [ext_resource type="Script" uid="uid://crppldnbwltdf" path="res://scripts/game/SceneManager.cs" id="2_g4kob"]
@@ -16,7 +16,8 @@
 [ext_resource type="PackedScene" uid="uid://trooaratn7mp" path="res://scenes/Test-Level.tscn" id="8_r7sob"]
 [ext_resource type="PackedScene" uid="uid://oaxil6vm2ft1" path="res://objects/effects/Hit.tscn" id="9_3xj3m"]
 [ext_resource type="Script" uid="uid://c2dfgalunfbwe" path="res://scripts/game/AudioPlayer.cs" id="15_y5y3l"]
-[ext_resource type="AudioStream" uid="uid://cscetum05kta5" path="res://audio/music/crowned jester wrapped.wav" id="16_vjgi4"]
+[ext_resource type="AudioStream" uid="uid://8veehjjbqpws" path="res://audio/music/Hexes of.wav" id="16_kyk2p"]
+[ext_resource type="AudioStream" uid="uid://dtje2rebjjdq7" path="res://audio/music/The Hexsmith.wav" id="17_45i86"]
 
 [sub_resource type="Gradient" id="Gradient_mcffj"]
 offsets = PackedFloat32Array(0)
@@ -248,13 +249,13 @@ texture_filter = 1
 
 [node name="GameManager" parent="." instance=ExtResource("1_400sg")]
 
-[node name="Hud Layer" type="CanvasLayer" parent="GameManager" node_paths=PackedStringArray("anim", "refuseButton", "giveupButton")]
+[node name="Hud Layer" type="CanvasLayer" parent="." node_paths=PackedStringArray("anim", "refuseButton", "giveupButton")]
 script = ExtResource("5_mcffj")
 anim = NodePath("Death Menu/AnimationPlayer")
 refuseButton = NodePath("Death Menu/refuse button")
 giveupButton = NodePath("Death Menu/give up button")
 
-[node name="Hud" type="Control" parent="GameManager/Hud Layer" node_paths=PackedStringArray("hpBar", "bodyPortrait", "abilityBar1", "abilityBar2")]
+[node name="Hud" type="Control" parent="Hud Layer" node_paths=PackedStringArray("hpBar", "bodyPortrait", "abilityBar1", "abilityBar2")]
 layout_mode = 3
 anchors_preset = 0
 offset_right = 640.0
@@ -267,7 +268,7 @@ bodyPortrait = NodePath("Portrait Frame/photo")
 abilityBar1 = NodePath("Ability Frame 1/photo 1")
 abilityBar2 = NodePath("Ability Frame 2/photo 2")
 
-[node name="HP Frame" type="TextureRect" parent="GameManager/Hud Layer/Hud"]
+[node name="HP Frame" type="TextureRect" parent="Hud Layer/Hud"]
 layout_mode = 1
 anchors_preset = -1
 anchor_right = 1.0
@@ -280,7 +281,7 @@ grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("5_3xj3m")
 
-[node name="HP" type="TextureProgressBar" parent="GameManager/Hud Layer/Hud/HP Frame"]
+[node name="HP" type="TextureProgressBar" parent="Hud Layer/Hud/HP Frame"]
 show_behind_parent = true
 layout_mode = 1
 anchors_preset = -1
@@ -301,7 +302,7 @@ nine_patch_stretch = true
 texture_under = SubResource("GradientTexture2D_2rd6h")
 texture_progress = SubResource("GradientTexture2D_r7sob")
 
-[node name="Portrait Frame" type="TextureRect" parent="GameManager/Hud Layer/Hud"]
+[node name="Portrait Frame" type="TextureRect" parent="Hud Layer/Hud"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -314,7 +315,7 @@ grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("5_2rd6h")
 
-[node name="photo" type="TextureRect" parent="GameManager/Hud Layer/Hud/Portrait Frame"]
+[node name="photo" type="TextureRect" parent="Hud Layer/Hud/Portrait Frame"]
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.137
@@ -327,7 +328,7 @@ grow_vertical = 2
 texture = ExtResource("6_y5y3l")
 expand_mode = 1
 
-[node name="Ability Frame 2" type="TextureRect" parent="GameManager/Hud Layer/Hud"]
+[node name="Ability Frame 2" type="TextureRect" parent="Hud Layer/Hud"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -341,7 +342,7 @@ grow_vertical = 2
 texture = ExtResource("7_2rd6h")
 expand_mode = 1
 
-[node name="photo 2" type="TextureProgressBar" parent="GameManager/Hud Layer/Hud/Ability Frame 2"]
+[node name="photo 2" type="TextureProgressBar" parent="Hud Layer/Hud/Ability Frame 2"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -357,7 +358,7 @@ value = 50.0
 fill_mode = 4
 texture_progress = SubResource("GradientTexture2D_y5y3l")
 
-[node name="Ability Frame 1" type="TextureRect" parent="GameManager/Hud Layer/Hud"]
+[node name="Ability Frame 1" type="TextureRect" parent="Hud Layer/Hud"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -371,7 +372,7 @@ grow_vertical = 2
 texture = ExtResource("7_2rd6h")
 expand_mode = 1
 
-[node name="photo 1" type="TextureProgressBar" parent="GameManager/Hud Layer/Hud/Ability Frame 1"]
+[node name="photo 1" type="TextureProgressBar" parent="Hud Layer/Hud/Ability Frame 1"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -387,7 +388,7 @@ value = 50.0
 fill_mode = 4
 texture_progress = SubResource("GradientTexture2D_y5y3l")
 
-[node name="Death Menu" type="TextureRect" parent="GameManager/Hud Layer"]
+[node name="Death Menu" type="TextureRect" parent="Hud Layer"]
 visible = false
 modulate = Color(1, 1, 1, 0.574)
 anchors_preset = 15
@@ -400,12 +401,12 @@ size_flags_vertical = 3
 texture = SubResource("GradientTexture2D_q27tn")
 expand_mode = 2
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="GameManager/Hud Layer/Death Menu"]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Hud Layer/Death Menu"]
 libraries = {
 &"": SubResource("AnimationLibrary_iqc6g")
 }
 
-[node name="give up button" type="Button" parent="GameManager/Hud Layer/Death Menu"]
+[node name="give up button" type="Button" parent="Hud Layer/Death Menu"]
 modulate = Color(18.892157, 18.892157, 18.892157, 1)
 self_modulate = Color(0, 0, 0, 1)
 layout_mode = 1
@@ -418,7 +419,7 @@ offset_top = -0.16000366
 offset_right = 1.2799835
 offset_bottom = 0.11997986
 
-[node name="RichTextLabel" type="RichTextLabel" parent="GameManager/Hud Layer/Death Menu/give up button"]
+[node name="RichTextLabel" type="RichTextLabel" parent="Hud Layer/Death Menu/give up button"]
 layout_mode = 1
 anchors_preset = -1
 anchor_right = 0.99600005
@@ -427,17 +428,18 @@ offset_right = 0.7679901
 mouse_filter = 2
 theme_override_fonts/normal_font = ExtResource("6_2rd6h")
 theme_override_fonts/bold_font = ExtResource("7_7ua8r")
-theme_override_font_sizes/normal_font_size = 24
+theme_override_font_sizes/normal_font_size = 64
 bbcode_enabled = true
 text = "give up..."
 fit_content = true
 scroll_active = false
 horizontal_alignment = 1
+vertical_alignment = 1
 justification_flags = 0
 deselect_on_focus_loss_enabled = false
 drag_and_drop_selection_enabled = false
 
-[node name="refuse button" type="Button" parent="GameManager/Hud Layer/Death Menu"]
+[node name="refuse button" type="Button" parent="Hud Layer/Death Menu"]
 modulate = Color(18.892157, 18.892157, 18.892157, 1)
 self_modulate = Color(0, 0, 0, 1)
 layout_mode = 1
@@ -451,7 +453,7 @@ offset_bottom = 0.11997986
 button_mask = 7
 keep_pressed_outside = true
 
-[node name="RichTextLabel" type="RichTextLabel" parent="GameManager/Hud Layer/Death Menu/refuse button"]
+[node name="RichTextLabel" type="RichTextLabel" parent="Hud Layer/Death Menu/refuse button"]
 layout_mode = 1
 anchors_preset = -1
 anchor_right = 0.99600005
@@ -460,29 +462,28 @@ offset_right = -0.03201294
 offset_bottom = -1.0
 mouse_filter = 2
 theme_override_fonts/normal_font = ExtResource("6_2rd6h")
-theme_override_fonts/bold_font = ExtResource("7_7ua8r")
-theme_override_font_sizes/normal_font_size = 28
+theme_override_font_sizes/normal_font_size = 64
 bbcode_enabled = true
 text = "[color=red][shake rate=80.0 level=15 connected=1]REFUSE[/shake][/color]
 "
-fit_content = true
 scroll_active = false
 horizontal_alignment = 1
+vertical_alignment = 1
 justification_flags = 0
 deselect_on_focus_loss_enabled = false
 drag_and_drop_selection_enabled = false
 
-[node name="SceneManager" type="CanvasLayer" parent="GameManager" node_paths=PackedStringArray("currentLevel", "vignette")]
+[node name="SceneManager" type="CanvasLayer" parent="." node_paths=PackedStringArray("currentLevel", "vignette")]
 offset = Vector2(1, 1)
 transform = Transform2D(1, 0, 0, 1, 1, 1)
 script = ExtResource("2_g4kob")
 levels = Dictionary[String, String]({
 "Level_1": "res://scenes/Test-Level.tscn"
 })
-currentLevel = NodePath("../../Level")
+currentLevel = NodePath("../Level")
 vignette = NodePath("GhostLaugh")
 
-[node name="GhostLaugh" type="TextureRect" parent="GameManager/SceneManager"]
+[node name="GhostLaugh" type="TextureRect" parent="SceneManager"]
 visible = false
 modulate = Color(0.012920001, 0.012920001, 0.012920001, 1)
 anchors_preset = 15
@@ -497,17 +498,18 @@ texture = ExtResource("3_qy1jj")
 script = ExtResource("4_3xj3m")
 sizeMax = 8.0
 
-[node name="EffectPool" type="Node" parent="GameManager"]
+[node name="EffectPool" type="Node" parent="."]
 script = ExtResource("8_qy1jj")
 objects = Dictionary[String, PackedScene]({
 "Hit": ExtResource("9_3xj3m")
 })
 metadata/_custom_type_script = "uid://b2kkca2pbctmx"
 
-[node name="AudioPlayer" type="Node" parent="GameManager"]
+[node name="AudioPlayer" type="Node" parent="."]
 script = ExtResource("15_y5y3l")
 sounds = {
-"Level 1": ExtResource("16_vjgi4")
+"mus_Hexes_of": ExtResource("16_kyk2p"),
+"mus_The_Hexsmith": ExtResource("17_45i86")
 }
 
 [node name="Level" type="Node2D" parent="."]
