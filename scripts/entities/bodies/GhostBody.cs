@@ -167,7 +167,7 @@ public partial class GhostBody : AnyBody
 
         anim.Play("spawn");
 
-        vulnerable = false;
+        isVulnerable = false;
         stunned = true;
         float spd = speed;
         float a = acel;
@@ -178,7 +178,7 @@ public partial class GhostBody : AnyBody
             acel = a * f;
         }), dashForce, 1f, 0.5f);
         spawnTween.TweenInterval(1);
-        spawnTween.TweenCallback(Callable.From(() => vulnerable = true));
+        spawnTween.TweenCallback(Callable.From(() => isVulnerable = true));
         spawnTween.TweenCallback(Callable.From(() => stunned = false));
         spawnTween.TweenCallback(Callable.From(() => anim.Play("idle")));
     }

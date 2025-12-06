@@ -6,40 +6,41 @@ using Godot;
 [GlobalClass]
 public abstract partial class AnyBody : CharacterBody2D, Hitable
 {
-    [Export] protected bool vulnerable = true;
-    [Export] public bool hasDamageFrames = false;
-
-
+    [ExportGroup("Base Stats")]
+    [Export] public int MaxHP = 10;
+    [Export] public int HP = 0;
     [Export] public float speed = 128.0f;
+    [Export] protected bool isVulnerable = true;
+    [Export] public bool hasDamageFrames = false;
     [Export] public double invincibilityTime = 1.0;
-
     [Export] public bool isHitStunnable = true;
-
     [Export] public double hitStunTime = 1;
+
+
+
+
+    [ExportGroup("Current State")]
+
     [Export] protected bool stunned = false;
     [Export] public bool dead = false;
 
-    /// Stats
-    [Export] public int MaxHP = 10;
-    [Export] public int HP = 0;
-
-    [Export] public bool isPlayer = false;
-
-    /// Components
-
-    [Export] public AnimatedSprite2D sprite;
-    [Export] public CollisionShape2D collision;
-
-    /// Controlling
-
-    [Export] public AnyController controller;
-    
 
     [Export] public Vector2 moveDirection = Vector2.Zero;
     protected Vector2 lastMoveDirection = Vector2.Right;
 
     [Export] public Vector2 aimDirection = Vector2.Zero;
     protected int lastAimDirectionX = 0;
+
+    [Export] public bool isPlayer = false;
+
+    /// Components
+
+    [ExportGroup("Connections")]
+
+    [Export] public AnimatedSprite2D sprite;
+    [Export] public CollisionShape2D collision;
+    [Export] public AnyController controller;
+
 
     [ExportGroup("Hud Data")]
     [Export] public Texture2D portrait;
@@ -53,7 +54,8 @@ public abstract partial class AnyBody : CharacterBody2D, Hitable
     /// 
     Tween tweenOutlineColor;
     protected ShaderMaterial shaderMat;
-    [Export] protected Color OutlineColor
+    [Export]
+    protected Color OutlineColor
     {
         get
         {
@@ -87,23 +89,6 @@ public abstract partial class AnyBody : CharacterBody2D, Hitable
 
 
 
-    
-
-    public override void _EnterTree()
-    {
-        base._EnterTree();
-
-    }
-
-    public override void _Ready()
-    {
-        base._Ready();
-
-        shaderMat = (ShaderMaterial)sprite.Material.Duplicate();
-        sprite.Material = shaderMat;
-
-        HP = MaxHP;
-    }
 
 
     /// Methods
@@ -130,7 +115,7 @@ public abstract partial class AnyBody : CharacterBody2D, Hitable
     {
         isPlayer = false;
         OutlineColor = Colors.Transparent;
-        tweenOutlineColor.Kill(); 
+        tweenOutlineColor.Kill();
     }
 
     Tween hitstunControl;
@@ -141,7 +126,7 @@ public abstract partial class AnyBody : CharacterBody2D, Hitable
         var fx = EffectPool.SpawnEffect("Hit", GlobalPosition);
         fx.SetExitTime(0.2);
 
-        if (!vulnerable)
+        if (!isVulnerable)
         {
             return;
         }
@@ -153,12 +138,12 @@ public abstract partial class AnyBody : CharacterBody2D, Hitable
         HitstunApply(damage);
         KnockbackApply(knockback);
         DamageFrameApply();
-        if(isPlayer) HudManager.UpdateHPBar(HP);
+        if (isPlayer) HudManager.UpdateHPBar(HP);
 
 
         if (HP <= 0) Die();
 
-        if(isPlayer) MainCamera.CameraShake(damage, 0.1f);
+        if (isPlayer) MainCamera.CameraShake(damage, 0.1f);
 
     }
     public virtual void HitstunApply(float damage)
@@ -182,7 +167,7 @@ public abstract partial class AnyBody : CharacterBody2D, Hitable
 
         if (hasDamageFrames)
         {
-            vulnerable = false;
+            isVulnerable = false;
             damageBoostControl = CreateTween();
             damageBoostControl.TweenInterval(invincibilityTime);
             damageBoostControl.TweenCallback(Callable.From(DamageFrameCleanse));
@@ -191,7 +176,7 @@ public abstract partial class AnyBody : CharacterBody2D, Hitable
 
     public virtual void DamageFrameCleanse()
     {
-        vulnerable = true;
+        isVulnerable = true;
     }
 
     public virtual void KnockbackApply(Vector2 force)
@@ -211,7 +196,7 @@ public abstract partial class AnyBody : CharacterBody2D, Hitable
         Velocity *= 0.85f;
 
 
-        
+
         KinematicCollision2D collision = MoveAndCollide(Velocity * (float)delta);
         if (collision != null)
         {
@@ -221,13 +206,32 @@ public abstract partial class AnyBody : CharacterBody2D, Hitable
         }
 
         if (dead || stunned) return;
-        
+
         var curr_vel = Velocity;
 
         curr_vel = moveDirection * speed;
 
         Velocity = curr_vel;
-        
-        
+
+
     }
+    
+        
+
+    public override void _EnterTree()
+    {
+        base._EnterTree();
+
+    }
+
+    public override void _Ready()
+    {
+        base._Ready();
+
+        shaderMat = (ShaderMaterial)sprite.Material.Duplicate();
+        sprite.Material = shaderMat;
+
+        HP = MaxHP;
+    }
+
 }
