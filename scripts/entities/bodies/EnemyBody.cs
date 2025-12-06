@@ -101,13 +101,6 @@ public abstract partial class EnemyBody : AnyBody
         anim.Play("hurt");
     }
 
-    public override void HitstunCleanse()
-    {
-        if (dead) return;
-        base.HitstunCleanse();
-        
-    }
-
 
     public override void _Ready()
     {

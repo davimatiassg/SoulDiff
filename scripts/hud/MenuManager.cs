@@ -31,7 +31,7 @@ public partial class MenuManager : CanvasLayer
         if (Instance == null) Instance = this;
         else if (Instance != this) { QueueFree(); return; }
 
-        Instance.refuseButton.Pressed += () => GameManager.OnPlayerRefuseToDie();
+        Instance.refuseButton.Pressed += () => SequenceManager.OnPlayerRefuseToDie();
         Instance.refuseButton.Pressed += () => Instance.anim.Play("outro");
     }
 }

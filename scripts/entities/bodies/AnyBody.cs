@@ -50,8 +50,8 @@ public abstract partial class AnyBody : CharacterBody2D, Hitable
     public abstract void Button1(bool pressed);
     public abstract void Button2(bool pressed);
     public abstract void Button3(bool pressed);
-    /// Inner Visuals
-    /// 
+
+
     Tween tweenOutlineColor;
     protected ShaderMaterial shaderMat;
     [Export]
@@ -87,15 +87,12 @@ public abstract partial class AnyBody : CharacterBody2D, Hitable
         }
     }
 
-
-
-
-
-    /// Methods
+    
     public virtual void PossessStart(PlayerController cntrl)
     {
         HP = MaxHP;
 
+        
         isPlayer = true;
         dead = false;
         stunned = false;
@@ -138,12 +135,27 @@ public abstract partial class AnyBody : CharacterBody2D, Hitable
         HitstunApply(damage);
         KnockbackApply(knockback);
         DamageFrameApply();
-        if (isPlayer) HudManager.UpdateHPBar(HP);
-
+        
 
         if (HP <= 0) Die();
 
+        if (isPlayer) HudManager.UpdateHPBar(HP);
         if (isPlayer) MainCamera.CameraShake(damage, 0.1f);
+
+    }
+
+    public virtual void TakePassiveDamage(int damage)
+    {
+        if (dead) return;
+
+        HP -= damage;
+
+        if (HP <= 0) Die();
+
+        GD.Print($"passive damage: {damage}");
+        
+        if (isPlayer) HudManager.UpdateHPBar(HP);
+        if (isPlayer) MainCamera.CameraShake(damage / 5, 0.2f);
 
     }
     public virtual void HitstunApply(float damage)
@@ -160,6 +172,7 @@ public abstract partial class AnyBody : CharacterBody2D, Hitable
 
     public virtual void HitstunCleanse()
     {
+        if (dead) return;
         stunned = false;
     }
     public virtual void DamageFrameApply()

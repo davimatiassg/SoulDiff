@@ -7,11 +7,11 @@ using System.Linq;
 using System;
 
 
-public partial class GameManager : Node
+public partial class SequenceManager : Node
 {
 
 
-	public static GameManager Instance;
+	public static SequenceManager Instance;
 
 
     public static Action OnPlayerDie;

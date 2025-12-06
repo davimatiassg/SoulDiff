@@ -213,7 +213,7 @@ public partial class GhostBody : AnyBody
     {
         if (disembodying) return;
         dead = true;
-        GameManager.OnPlayerDie();
+        SequenceManager.OnPlayerDie();
     }
 
 

@@ -155,7 +155,7 @@ public partial class ArcherBody : AnyBody
 
         if (!isPlayer) return;
         
-        GameManager.OnPlayerDie();
+        SequenceManager.OnPlayerDie();
         MainCamera.CameraShake(5, 0.5f);
         
     }

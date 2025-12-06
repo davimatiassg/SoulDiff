@@ -11,6 +11,8 @@ public partial class HudManager : Control
     [Export] public TextureProgressBar abilityBar1;
     [Export] public TextureProgressBar abilityBar2;
 
+    [Export] public TextureProgressBar autodamageCountdown;
+
 
 
     public static void SetBodyPortrait(AnyBody body)
@@ -21,11 +23,16 @@ public partial class HudManager : Control
         Instance.abilityBar1.Value = 0;
         Instance.abilityBar2.Value = 0;
     }
-    
+
+    public static void SetAutodamageCountdownValue(float value)
+    {
+        Instance.autodamageCountdown.Value = value;
+    }
+
 
     public static void TriggerCooldown(int abilityBar, float cd)
     {
-        GD.Print($"cd da abilidade {abilityBar} = {cd}");
+
 
         TextureProgressBar bar = abilityBar == 1 ? Instance.abilityBar1 : abilityBar == 2 ? Instance.abilityBar2 : null;
         Debug.Assert(bar != null);

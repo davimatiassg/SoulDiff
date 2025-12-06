@@ -1,6 +1,6 @@
-[gd_scene load_steps=31 format=3 uid="uid://bqa8vwqpy2rvs"]
+[gd_scene load_steps=32 format=3 uid="uid://bqa8vwqpy2rvs"]
 
-[ext_resource type="PackedScene" uid="uid://w7scrx2p6vkw" path="res://objects/GameManager.tscn" id="1_400sg"]
+[ext_resource type="PackedScene" uid="uid://w7scrx2p6vkw" path="res://objects/SequenceManager.tscn" id="1_400sg"]
 [ext_resource type="Script" uid="uid://crppldnbwltdf" path="res://scripts/game/SceneManager.cs" id="2_g4kob"]
 [ext_resource type="Texture2D" uid="uid://gu3h1rvge2b" path="res://sprites/hud/Ghost laugh.png" id="3_qy1jj"]
 [ext_resource type="Script" uid="uid://bmq8357rjdwuq" path="res://scripts/hud/TransitionVignette.cs" id="4_3xj3m"]
@@ -9,6 +9,7 @@
 [ext_resource type="Texture2D" uid="uid://cgbkqkxjh5d7l" path="res://sprites/hud/hp_bar.png" id="5_3xj3m"]
 [ext_resource type="Script" uid="uid://dncath0cnhb34" path="res://scripts/hud/MenuManager.cs" id="5_mcffj"]
 [ext_resource type="FontFile" uid="uid://5qyau3olj3s4" path="res://fonts/hf-free-complete/compass-pro-v1.1/CompassPro.otf" id="6_2rd6h"]
+[ext_resource type="Texture2D" uid="uid://c2wvilv3rtq0u" path="res://sprites/hud/damageCountdown.png" id="6_45i86"]
 [ext_resource type="Texture2D" uid="uid://m0pp5ccryq3g" path="res://icon.svg" id="6_y5y3l"]
 [ext_resource type="Texture2D" uid="uid://bf4s6t4gwk3mb" path="res://sprites/hud/slot.png" id="7_2rd6h"]
 [ext_resource type="FontFile" uid="uid://bvsdwijfhhd7t" path="res://fonts/hf-free-complete/expression-pro-v1.1/ExpressionPro.ttf" id="7_7ua8r"]
@@ -247,7 +248,7 @@ _data = {
 [node name="Game" type="Node2D"]
 texture_filter = 1
 
-[node name="GameManager" parent="." instance=ExtResource("1_400sg")]
+[node name="SequenceManager" parent="." instance=ExtResource("1_400sg")]
 
 [node name="Hud Layer" type="CanvasLayer" parent="." node_paths=PackedStringArray("anim", "refuseButton", "giveupButton")]
 script = ExtResource("5_mcffj")
@@ -255,7 +256,7 @@ anim = NodePath("Death Menu/AnimationPlayer")
 refuseButton = NodePath("Death Menu/refuse button")
 giveupButton = NodePath("Death Menu/give up button")
 
-[node name="Hud" type="Control" parent="Hud Layer" node_paths=PackedStringArray("hpBar", "bodyPortrait", "abilityBar1", "abilityBar2")]
+[node name="Hud" type="Control" parent="Hud Layer" node_paths=PackedStringArray("hpBar", "bodyPortrait", "abilityBar1", "abilityBar2", "autodamageCountdown")]
 layout_mode = 3
 anchors_preset = 0
 offset_right = 640.0
@@ -267,6 +268,7 @@ hpBar = NodePath("HP Frame/HP")
 bodyPortrait = NodePath("Portrait Frame/photo")
 abilityBar1 = NodePath("Ability Frame 1/photo 1")
 abilityBar2 = NodePath("Ability Frame 2/photo 2")
+autodamageCountdown = NodePath("Portrait Frame/autodamage countdown")
 
 [node name="HP Frame" type="TextureRect" parent="Hud Layer/Hud"]
 layout_mode = 1
@@ -314,6 +316,24 @@ offset_bottom = -264.0
 grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("5_2rd6h")
+
+[node name="autodamage countdown" type="TextureProgressBar" parent="Hud Layer/Hud/Portrait Frame"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = -14.0
+offset_bottom = -9.0
+grow_horizontal = 2
+grow_vertical = 2
+rotation = 6.2831855
+pivot_offset = Vector2(38, 32)
+step = 0.1
+fill_mode = 4
+radial_initial_angle = 205.0
+radial_fill_degrees = 222.0
+nine_patch_stretch = true
+texture_progress = ExtResource("6_45i86")
 
 [node name="photo" type="TextureRect" parent="Hud Layer/Hud/Portrait Frame"]
 layout_mode = 1

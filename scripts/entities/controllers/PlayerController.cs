@@ -9,7 +9,20 @@ public partial class PlayerController : AnyController
     public GhostBody ghost;
     [Export] PackedScene ghostPrefab;
 
-    
+    Tween autoDamageCountdown;
+    private static void StartCountDown()
+    {
+        if (Instance.autoDamageCountdown != null)
+        {
+            Instance.autoDamageCountdown.Kill();
+        }
+
+        Instance.autoDamageCountdown = Instance.CreateTween();
+        Instance.autoDamageCountdown.TweenMethod(Callable.From((float value) => HudManager.SetAutodamageCountdownValue(value)), 0, 100, 3);
+        Instance.autoDamageCountdown.TweenCallback(Callable.From(() =>
+            Instance.currentBody.TakePassiveDamage((int)(Instance.currentBody.MaxHP / 10f))));
+        Instance.autoDamageCountdown.SetLoops();
+    }
 
     public static void Embody(AnyBody body)
     {
@@ -25,9 +38,9 @@ public partial class PlayerController : AnyController
         Instance.Connect(body);
         body.PossessStart(Instance);
     }
-    
 
-	public static void Disembody(AnyBody body)
+
+    public static void Disembody(AnyBody body)
     {
         if (body != null) body.PossessEnd();
         Instance.Disconnect(body);
@@ -38,6 +51,9 @@ public partial class PlayerController : AnyController
         Instance.GetParent().CallDeferred("add_child", Instance.ghost);
         Instance.ghost.PossessStart(Instance);
         Instance.ghost.GlobalPosition = body.GlobalPosition;
+
+        StartCountDown();
+
     }
 
     public static void Disembody()
