@@ -7,6 +7,5 @@ public partial class LevelManager : Node2D
     {
         base._Ready();
 
-        AudioPlayer.PlayMusic("mus_Hexes_of");
     }
 }

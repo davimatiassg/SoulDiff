@@ -36,7 +36,11 @@ public partial class GameManager : Node
 			AudioPlayer.PlayMusic("mus_The_Hexsmith");
 			//TODO! - Remover gradualmente zoom na câmera
 
-			OnPlayerRefuseToDie = () => SceneManager.ChangeLevel("Level_1");
+			OnPlayerRefuseToDie = () =>
+			{
+				SceneManager.ChangeLevel("Level_1");
+				Instance.CreateTween().TweenProperty(AudioPlayer.Instance.musicPlayer, "pitch_scale", 1, 0.5f);
+			};
 		};
 
 
@@ -51,7 +55,7 @@ public partial class GameManager : Node
 		if (PlayerController.Instance.currentBody is ArcherBody)
 		{ GhostSpawn(); return; }
 		deathCount++;
-		//TODO! - Desacelerar a música
+		Instance.CreateTween().TweenProperty(AudioPlayer.Instance.musicPlayer, "pitch_scale", 0.5, 1f);
 		//TODO! - Zoom na câmera
 		MenuManager.PlayDeathMenu();
 	}
@@ -62,11 +66,12 @@ public partial class GameManager : Node
 		Debug.Assert(body != null);
 
 		PlayerController.Disembody(body);
-
-		OnPlayerRefuseToDie = () => SceneManager.ChangeLevel("Level_1");
 	}
 
-
+	private void PlayInitialMusic()
+	{
+		AudioPlayer.PlayMusic("mus_Hexes_of");
+	 }
 
 	public override void _Ready()
 	{
@@ -75,5 +80,6 @@ public partial class GameManager : Node
 		else if (Instance != this) { QueueFree(); return; }
 
 		OnPlayerDie += PlayerFirstDeath;
+		CallDeferred(MethodName.PlayInitialMusic);
 	}
 }
