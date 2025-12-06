@@ -1,17 +1,22 @@
-[gd_scene load_steps=4 format=3 uid="uid://ctqkcae54sv7m"]
+[gd_scene load_steps=6 format=3 uid="uid://0wrxuud1gg2h"]
 
 [ext_resource type="Script" uid="uid://byibnxnqfqlq1" path="res://scripts/hud/MainMenu.cs" id="1_d1rr7"]
-[ext_resource type="Texture2D" uid="uid://m0pp5ccryq3g" path="res://icon.svg" id="1_u5440"]
+[ext_resource type="Texture2D" uid="uid://du35l62e22hww" path="res://sprites/hud/background.png" id="2_d1rr7"]
+[ext_resource type="Texture2D" uid="uid://bgcssh3qhphdu" path="res://sprites/hud/RageText.png" id="3_qtdab"]
+[ext_resource type="FontFile" uid="uid://bvsdwijfhhd7t" path="res://fonts/hf-free-complete/expression-pro-v1.1/ExpressionPro.ttf" id="4_610dt"]
 
 [sub_resource type="CanvasTexture" id="CanvasTexture_d1rr7"]
 
 [node name="MainMenu" type="TextureRect"]
 self_modulate = Color(1, 1, 1, 0.2901961)
+custom_minimum_size = Vector2(640, 360)
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
 texture = SubResource("CanvasTexture_d1rr7")
 script = ExtResource("1_d1rr7")
 
@@ -33,10 +38,6 @@ layout_mode = 2
 theme_override_constants/separation = 8
 alignment = 1
 
-[node name="TitleLabel" type="Label" parent="MainHBoxContainer/InnerLeftHBoxContainer/ButtonsVBoxContainer"]
-layout_mode = 2
-text = "SoulDiff"
-
 [node name="PlayButton" type="Button" parent="MainHBoxContainer/InnerLeftHBoxContainer/ButtonsVBoxContainer"]
 layout_mode = 2
 text = "Jogar"
@@ -48,22 +49,37 @@ text = "Sair"
 [node name="MainGameArt" type="TextureRect" parent="MainHBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
-texture = ExtResource("1_u5440")
+texture = ExtResource("2_d1rr7")
+expand_mode = 5
 stretch_mode = 6
+
+[node name="Title" type="TextureRect" parent="MainHBoxContainer/MainGameArt"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 280.0
+offset_top = 258.0
+offset_right = -276.0
+offset_bottom = -102.0
+scale = Vector2(2, 2)
+pivot_offset = Vector2(320, 180)
+size_flags_horizontal = 3
+texture = ExtResource("3_qtdab")
 
 [node name="CreditsLabel" type="Label" parent="MainHBoxContainer/MainGameArt"]
 layout_mode = 1
-anchors_preset = 7
-anchor_left = 0.5
-anchor_top = 1.0
-anchor_right = 0.5
+anchors_preset = -1
+anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -109.0
-offset_top = -23.0
-offset_right = 109.0
+offset_left = 145.0
+offset_top = 623.0
+offset_right = -142.0
+offset_bottom = -70.0
 grow_horizontal = 2
 grow_vertical = 0
-theme_override_font_sizes/font_size = 6
+theme_override_fonts/font = ExtResource("4_610dt")
+theme_override_font_sizes/font_size = 30
 text = "Desenvolvido por: Davi Matias, Gilberto Rodrigues, Kirin e Vitor Cavacante"
 horizontal_alignment = 1
 

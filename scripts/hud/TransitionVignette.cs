@@ -19,7 +19,7 @@ public partial class TransitionVignette : TextureRect
         tween.TweenCallback(Callable.From(() => isTransitioning = false));
         tween.TweenCallback(Callable.From(() => Visible = false));
         Tween tween2 = CreateTween();
-        tween2.TweenProperty(this, "pivot_offset", new Vector2(320, 180), 0.8).SetTrans(Tween.TransitionType.Expo);
+        tween2.TweenProperty(this, "pivot_offset", new Vector2(640, 360), 0.8).SetTrans(Tween.TransitionType.Expo);
         tween2.SetParallel();
     }
 
@@ -32,7 +32,7 @@ public partial class TransitionVignette : TextureRect
         tween.TweenProperty(this, "scale", Vector2.One * sizeMax, 0.8).SetTrans(Tween.TransitionType.Expo);
         tween.TweenCallback(Callable.From(() => isTransitioning = false));
         Tween tween2 = CreateTween();
-        tween2.TweenProperty(this, "pivot_offset", new Vector2(320, 280), 0.8).SetTrans(Tween.TransitionType.Expo);
+        tween2.TweenProperty(this, "pivot_offset", new Vector2(640, 560), 0.8).SetTrans(Tween.TransitionType.Expo);
 
     }
 

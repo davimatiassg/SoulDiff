@@ -34,7 +34,6 @@ tile_set = ExtResource("9_5nnc3")
 
 [node name="Camera" parent="." instance=ExtResource("8_fc4ab")]
 position = Vector2(160, -42)
-zoom = Vector2(1, 1)
 
 [node name="Player" parent="." node_paths=PackedStringArray("currentBody") instance=ExtResource("9_8x0ck")]
 position = Vector2(160, -42)
