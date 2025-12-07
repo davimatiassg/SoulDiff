@@ -13,23 +13,27 @@ scale = Vector2(3, 3)
 [node name="PointLight2D" type="PointLight2D" parent="Marker2D"]
 position = Vector2(0, 8)
 energy = 0.29
+range_item_cull_mask = 3
 shadow_enabled = true
 texture = ExtResource("2_urhuj")
 
 [node name="PointLight2D2" type="PointLight2D" parent="Marker2D"]
 position = Vector2(8, 0)
 energy = 0.29
+range_item_cull_mask = 3
 shadow_enabled = true
 texture = ExtResource("2_urhuj")
 
 [node name="PointLight2D3" type="PointLight2D" parent="Marker2D"]
 position = Vector2(-8, 0)
 energy = 0.29
+range_item_cull_mask = 3
 shadow_enabled = true
 texture = ExtResource("2_urhuj")
 
 [node name="PointLight2D4" type="PointLight2D" parent="Marker2D"]
 position = Vector2(0, -8)
 energy = 0.29
+range_item_cull_mask = 3
 shadow_enabled = true
 texture = ExtResource("2_urhuj")
