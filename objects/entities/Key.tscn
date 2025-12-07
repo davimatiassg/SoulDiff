@@ -1,0 +1,20 @@
+[gd_scene load_steps=4 format=3 uid="uid://cm5fpr4fdkhqk"]
+
+[ext_resource type="Script" uid="uid://bywu3gfiaca5o" path="res://scripts/entities/collectables/DoorKey.cs" id="1_jwuek"]
+[ext_resource type="Texture2D" uid="uid://dcsgqyftnnrkl" path="res://sprites/entities/key.png" id="2_0ht2f"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_ixu62"]
+
+[node name="Node2D" type="Node2D" node_paths=PackedStringArray("collider")]
+script = ExtResource("1_jwuek")
+collider = NodePath("Area2D")
+
+[node name="Area2D" type="Area2D" parent="."]
+collision_layer = 16
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("CircleShape2D_ixu62")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_0ht2f")

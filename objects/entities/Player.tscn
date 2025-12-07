@@ -5,9 +5,31 @@
 
 [node name="Player" type="Node2D" node_paths=PackedStringArray("light")]
 script = ExtResource("1_merdl")
-light = NodePath("PointLight2D")
+light = NodePath("Marker2D")
 
-[node name="PointLight2D" type="PointLight2D" parent="."]
+[node name="Marker2D" type="Marker2D" parent="."]
 scale = Vector2(3, 3)
+
+[node name="PointLight2D" type="PointLight2D" parent="Marker2D"]
+position = Vector2(0, 8)
+energy = 0.29
+shadow_enabled = true
+texture = ExtResource("2_urhuj")
+
+[node name="PointLight2D2" type="PointLight2D" parent="Marker2D"]
+position = Vector2(8, 0)
+energy = 0.29
+shadow_enabled = true
+texture = ExtResource("2_urhuj")
+
+[node name="PointLight2D3" type="PointLight2D" parent="Marker2D"]
+position = Vector2(-8, 0)
+energy = 0.29
+shadow_enabled = true
+texture = ExtResource("2_urhuj")
+
+[node name="PointLight2D4" type="PointLight2D" parent="Marker2D"]
+position = Vector2(0, -8)
+energy = 0.29
 shadow_enabled = true
 texture = ExtResource("2_urhuj")
