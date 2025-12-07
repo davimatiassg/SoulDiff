@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://c3wvj0fxgbp35"]
+
+[node name="GameOver" type="Control"]
+texture_filter = 1
+layout_mode = 3
+anchors_preset = 0

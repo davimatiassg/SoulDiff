@@ -17,6 +17,8 @@ public partial class Fireball : DamageEffect
             velocity += ((target.GlobalPosition + target.aimDirection * 32f) - GlobalPosition) * delta * 150f;
         };
 
+        collider.GetNode<CollisionShape2D>("CollisionShape2D").Disabled = true;
+
         animation.Scale = 0.1f * Vector2.One;
 
         Tween tween = CreateTween();
@@ -35,6 +37,8 @@ public partial class Fireball : DamageEffect
         animation.Play("fling");
 
         SetExitTime(5.0);
+
+        collider.GetNode<CollisionShape2D>("CollisionShape2D").Disabled = false;
     }
 
 
@@ -47,7 +51,7 @@ public partial class Fireball : DamageEffect
             hit.TakeDamage(damage, Vector2.Zero);
             Blast();
         }
-        else if (body is Hitable && body is not AnyBody) { Blast(); }
+        else if (body is not AnyBody) { Blast(); }
         
     }
 

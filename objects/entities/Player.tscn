@@ -1,6 +1,13 @@
-[gd_scene load_steps=2 format=3 uid="uid://dk2iakv4iqyo8"]
+[gd_scene load_steps=3 format=3 uid="uid://dk2iakv4iqyo8"]
 
 [ext_resource type="Script" uid="uid://dp40cmq11biqj" path="res://scripts/entities/controllers/PlayerController.cs" id="1_merdl"]
+[ext_resource type="Texture2D" uid="uid://knn1vqjng05f" path="res://sprites/light_2d_Texture.tres" id="2_urhuj"]
 
-[node name="Player" type="Node2D"]
+[node name="Player" type="Node2D" node_paths=PackedStringArray("light")]
 script = ExtResource("1_merdl")
+light = NodePath("PointLight2D")
+
+[node name="PointLight2D" type="PointLight2D" parent="."]
+scale = Vector2(3, 3)
+shadow_enabled = true
+texture = ExtResource("2_urhuj")

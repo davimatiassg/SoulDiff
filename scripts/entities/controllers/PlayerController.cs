@@ -1,11 +1,14 @@
 using System;
 using System.Diagnostics;
+using System.Runtime.CompilerServices;
 using Godot;
 
 public partial class PlayerController : AnyController
 {
     public static PlayerController Instance;
-    
+
+
+    [Export] public Light2D light;
     public GhostBody ghost;
     [Export] PackedScene ghostPrefab;
 
@@ -35,6 +38,9 @@ public partial class PlayerController : AnyController
 
         HudManager.SetBodyPortrait(body);
 
+        Instance.light.GetParent().RemoveChild(Instance.light);
+        body.AddChild(Instance.light);
+
         Instance.Connect(body);
         body.PossessStart(Instance);
     }
@@ -48,6 +54,9 @@ public partial class PlayerController : AnyController
 
         HudManager.SetBodyPortrait(Instance.ghost);
 
+        Instance.light.GetParent().RemoveChild(Instance.light);
+        Instance.ghost.AddChild(Instance.light);
+
         Instance.GetParent().CallDeferred("add_child", Instance.ghost);
         Instance.ghost.PossessStart(Instance);
         Instance.ghost.GlobalPosition = body.GlobalPosition;
@@ -59,15 +68,16 @@ public partial class PlayerController : AnyController
     public static void Disembody()
 	{
         Instance.Connect(Instance.ghost);
-        Instance.GetParent().CallDeferred("add_child", Instance.ghost);
+        Instance.light.GetParent().RemoveChild(Instance.light);
+        Instance.ghost.AddChild(Instance.light);
 
+        Instance.GetParent().CallDeferred("add_child", Instance.ghost);
+        
         HudManager.SetBodyPortrait(Instance.ghost);
 
         Instance.ghost.PossessStart(Instance);
         Instance.ghost.GlobalPosition = Vector2.Zero;
 	}
-
-
 
   
     public override void _Process(double delta)

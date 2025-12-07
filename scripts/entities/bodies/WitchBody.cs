@@ -77,6 +77,8 @@ public partial class WitchBody : EnemyBody
     public override void Button2(bool pressed)
     {
         if (stunned || !pressed || !canFireball ) return;
+
+        attackAction = null;
         
         canAttack = false;
         Tween _atktween = CreateTween();
@@ -109,6 +111,11 @@ public partial class WitchBody : EnemyBody
 
     //# Inherited Methods
 
+    public override void Die()
+    {
+        base.Die();
+        attackAction = null;
+    }
 
     //# Processes
     public override void _PhysicsProcess(double delta)
