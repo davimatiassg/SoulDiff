@@ -77,8 +77,15 @@ public partial class SequenceManager : Node
 	public override void _Ready()
 	{
 		base._Ready();
-		if (Instance == null) { Instance = this; }
-		else if (Instance != this) { QueueFree(); return; }
+		if (Instance == null) Instance = this;
+        else if (Instance != this)
+        {
+            try
+            {
+                Instance.QueueFree();
+            } catch (ObjectDisposedException e) {}
+            Instance = this;
+        }
 
 		OnPlayerDie += PlayerFirstDeath;
 		CallDeferred(MethodName.PostReady);

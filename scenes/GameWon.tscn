@@ -1,6 +1,7 @@
-[gd_scene load_steps=6 format=3 uid="uid://cn86psack5f51"]
+[gd_scene load_steps=7 format=3 uid="uid://cn86psack5f51"]
 
 [ext_resource type="FontFile" uid="uid://bvsdwijfhhd7t" path="res://fonts/hf-free-complete/expression-pro-v1.1/ExpressionPro.ttf" id="1_7btj6"]
+[ext_resource type="Script" uid="uid://byyhl2r01xdt" path="res://scripts/hud/GameEndMenu.cs" id="1_msnca"]
 [ext_resource type="Script" uid="uid://dfud4mo8462cj" path="res://scripts/hud/Timer.cs" id="2_fj3gx"]
 [ext_resource type="Script" uid="uid://crppldnbwltdf" path="res://scripts/game/SceneManager.cs" id="2_iyci0"]
 [ext_resource type="Texture2D" uid="uid://gu3h1rvge2b" path="res://sprites/hud/Ghost laugh.png" id="3_fj3gx"]
@@ -14,6 +15,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("1_msnca")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 
@@ -70,6 +72,7 @@ levels = Dictionary[String, String]({
 vignette = NodePath("GhostLaugh")
 
 [node name="GhostLaugh" type="TextureRect" parent="SceneManager"]
+visible = false
 modulate = Color(0.012920001, 0.012920001, 0.012920001, 1)
 anchors_preset = 15
 anchor_right = 1.0

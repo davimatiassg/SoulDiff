@@ -58,6 +58,13 @@ public partial class HudManager : Control
     {
         base._Ready();
         if (Instance == null) Instance = this;
-        else if (Instance != this) { Instance.QueueFree(); Instance = this; }
+        else if (Instance != this)
+        {
+            try
+            {
+                Instance.QueueFree();
+            } catch (ObjectDisposedException e) {}
+            Instance = this;
+        }
     }
 }

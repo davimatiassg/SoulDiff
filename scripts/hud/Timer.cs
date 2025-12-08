@@ -43,7 +43,7 @@ public partial class Timer : RichTextLabel
         if (Instance == null) Instance = this;
         else if (Instance != this) { try { Instance.QueueFree(); } catch (ObjectDisposedException e) { } Instance = this; }
 
-        GetFormattedTime();
+        Text = GetFormattedTime();
     }
     public override void _Process(double delta)
     {

@@ -87,7 +87,14 @@ public partial class EffectPool : Node
 	{
 		base._Ready();
 		if (Instance == null) Instance = this;
-		else if (Instance != this) { Instance.QueueFree(); Instance = this; return; }
+        else if (Instance != this)
+        {
+            try
+            {
+                Instance.QueueFree();
+            } catch (ObjectDisposedException e) {}
+            Instance = this;
+        }
 	}
 
 }

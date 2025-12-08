@@ -1,6 +1,7 @@
-[gd_scene load_steps=5 format=3 uid="uid://c3wvj0fxgbp35"]
+[gd_scene load_steps=6 format=3 uid="uid://c3wvj0fxgbp35"]
 
 [ext_resource type="FontFile" uid="uid://bvsdwijfhhd7t" path="res://fonts/hf-free-complete/expression-pro-v1.1/ExpressionPro.ttf" id="1_6bcno"]
+[ext_resource type="Script" uid="uid://byyhl2r01xdt" path="res://scripts/hud/GameEndMenu.cs" id="1_gijjb"]
 [ext_resource type="Script" uid="uid://crppldnbwltdf" path="res://scripts/game/SceneManager.cs" id="2_4noiy"]
 [ext_resource type="Texture2D" uid="uid://gu3h1rvge2b" path="res://sprites/hud/Ghost laugh.png" id="3_gijjb"]
 [ext_resource type="Script" uid="uid://bmq8357rjdwuq" path="res://scripts/hud/TransitionVignette.cs" id="4_88ekj"]
@@ -13,6 +14,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("1_gijjb")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 
@@ -49,14 +51,13 @@ horizontal_alignment = 1
 deselect_on_focus_loss_enabled = false
 drag_and_drop_selection_enabled = false
 
-[node name="SceneManager" type="CanvasLayer" parent="." node_paths=PackedStringArray("currentLevel", "vignette")]
+[node name="SceneManager" type="CanvasLayer" parent="." node_paths=PackedStringArray("vignette")]
 offset = Vector2(1, 1)
 transform = Transform2D(1, 0, 0, 1, 1, 1)
 script = ExtResource("2_4noiy")
 levels = Dictionary[String, String]({
 "Level_1": "res://scenes/Test-Level.tscn"
 })
-currentLevel = NodePath("")
 vignette = NodePath("GhostLaugh")
 
 [node name="GhostLaugh" type="TextureRect" parent="SceneManager"]

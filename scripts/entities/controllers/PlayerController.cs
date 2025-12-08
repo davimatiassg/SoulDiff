@@ -109,7 +109,10 @@ public partial class PlayerController : AnyController
         if (Instance == null) Instance = this;
         else if (Instance != this)
         {
-            Instance.QueueFree();
+            try
+            {
+                Instance.QueueFree();
+            } catch (ObjectDisposedException _) {}
             Instance = this;
         }
 

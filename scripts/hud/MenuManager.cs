@@ -29,7 +29,14 @@ public partial class MenuManager : CanvasLayer
     {
         base._Ready();
         if (Instance == null) Instance = this;
-        else if (Instance != this) { QueueFree(); return; }
+        else if (Instance != this)
+        {
+            try
+            {
+                Instance.QueueFree();
+            } catch (ObjectDisposedException e) {}
+            Instance = this;
+        }
 
         Instance.refuseButton.Pressed += () => SequenceManager.OnPlayerRefuseToDie();
         Instance.refuseButton.Pressed += () => Instance.anim.Play("outro");

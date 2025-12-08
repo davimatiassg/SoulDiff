@@ -57,7 +57,14 @@ public partial class MainCamera : Camera2D
     {
         base._Ready();
         if (Instance == null) Instance = this;
-        else if (Instance != this) { Instance.QueueFree(); Instance = this; }
+        else if (Instance != this)
+        {
+            try
+            {
+                Instance.QueueFree();
+            } catch (ObjectDisposedException e) {}
+            Instance = this;
+        }
 
         CameraMoveAction = ChasePlayer;
     }
