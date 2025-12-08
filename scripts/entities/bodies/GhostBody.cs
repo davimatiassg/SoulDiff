@@ -25,40 +25,33 @@ public partial class GhostBody : AnyBody
 
     private bool canDash = true;
 
-    [ExportGroup("Extras & Cosmetics")]
+    [Export]
+    public bool disembodying = false;
+
+    [ExportGroup("Connections")]
 
     [Export] private PackedScene ghostBlastPrefab;
     [Export] private PackedScene ghostPebblePrefab;
 
-    /// Cosmetic Tools
+    [Export] private Sprite2D possessLabel;
     [Export] public AnimationPlayer anim;
-    [Export] public AnimatedSprite2D skullGlow;
-
-
-    [Export] public Line2D ghostTrail;
-
-   
-    [Export] private float trailAcel;
-
-    [ExportGroup("")]
-     private const int TRAIL_LEN = 20;
-    private Vector2[] trailLastPoints = new Vector2[TRAIL_LEN];
-
-
-    GhostPebble curr_pebble;
-    Tween pebbleIncreaser;
-    Tween pebbleRotater;
-
-    [Export]
-    public bool disembodying = false;
 
     [Export]
     public EnemyBody targetedCorpse = null;
+
+    private void PlaceLabel(Vector2 position, bool visible)
+    {
+        possessLabel.Visible = visible;
+        if (!visible) return;
+        possessLabel.GlobalPosition = position;
+    }
+
 
     public override void Aim(Vector2 direction)
     {
         base.Aim(direction);
 
+        targetedCorpse = null;
 
         var spaceState = GetWorld2D().DirectSpaceState;
         Godot.Collections.Array<Rid> exclusionArray = [GetRid()];
@@ -74,15 +67,17 @@ public partial class GhostBody : AnyBody
                 if (enemy.dead)
                 {
                     targetedCorpse = enemy;
+                    PlaceLabel(enemy.GlobalPosition + Vector2.Up * 24, true);
                     break;
                 }
 
             }
 
             exclusionArray.Add((Rid)result["rid"]);
-            query = PhysicsRayQueryParameters2D.Create(GlobalPosition, GlobalPosition + aimDirection * 128, CollisionMask, exclusionArray);
+            query = PhysicsRayQueryParameters2D.Create(GlobalPosition, GlobalPosition + aimDirection * 128, 1 << 0, exclusionArray);
             result = spaceState.IntersectRay(query);
         }
+        if(targetedCorpse == null) PlaceLabel(Vector2.Zero, false);
     }
 
     public override void Button1(bool pressed)
@@ -97,7 +92,7 @@ public partial class GhostBody : AnyBody
             if (isPlayer) HudManager.TriggerCooldown(1, flingCooldown);
             _atktween.TweenCallback(Callable.From(() => canAttack = true));
 
-            curr_pebble = (GhostPebble)EffectPool.SpawnEffect(ghostPebblePrefab, GetParent<Node2D>());
+            var curr_pebble = (GhostPebble)EffectPool.SpawnEffect(ghostPebblePrefab, GetParent<Node2D>());
             curr_pebble.Position = Position;
             curr_pebble.StartOrbit(this);
             curr_pebble.Fling(aimDirection);
@@ -213,17 +208,6 @@ public partial class GhostBody : AnyBody
     public override void _Ready()
     {
         base._Ready();
-        for (int i = 0; i < TRAIL_LEN; i++)
-        {
-            trailLastPoints[i] = Vector2.Zero;
-        }
-
-        Tween tweenGlowColor = CreateTween();
-        tweenGlowColor.TweenProperty(skullGlow, "modulate", new Color(0, 1, 1), .5);
-        tweenGlowColor.TweenProperty(skullGlow, "modulate", new Color(1, 1, 1), .5);
-        tweenGlowColor.TweenProperty(skullGlow, "modulate", new Color(0, 1, 1), .5);
-        tweenGlowColor.TweenProperty(skullGlow, "modulate", new Color(0, 0, 1), 1);
-        tweenGlowColor.SetLoops();
     }
 
     public override void _PhysicsProcess(double delta)
@@ -252,31 +236,4 @@ public partial class GhostBody : AnyBody
         // MoveAndCollide();
     }
 
-    
-
-    private void CalculateTrail(float delta)
-    {
-        ghostTrail.Position = -Position;
-
-        for (int i = 0; i < ghostTrail.Points.Length; i++)
-        {
-            Vector2 p = ghostTrail.GetPointPosition(i);
-            ghostTrail.SetPointPosition(i, trailLastPoints[i] + Vector2.Down * delta * trailAcel );
-            trailLastPoints[i] = p;
-        }
-
-        ghostTrail.AddPoint(Position);
-
-        while (ghostTrail.Points.Length > TRAIL_LEN) ghostTrail.RemovePoint(0);  
-    }
-
-
-
-
-    public override void _Process(double delta)
-    {
-        base._Process(delta);
-        CalculateTrail((float)delta);
-
-    }
 }

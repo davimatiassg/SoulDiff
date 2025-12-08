@@ -1,21 +1,14 @@
-[gd_scene load_steps=43 format=3 uid="uid://b4283bflripuo"]
+[gd_scene load_steps=40 format=3 uid="uid://b4283bflripuo"]
 
 [ext_resource type="Script" uid="uid://cvekhgl6c16nj" path="res://scripts/entities/bodies/GhostBody.cs" id="1_4ml3q"]
 [ext_resource type="Shader" uid="uid://bcwyj2yow674w" path="res://materials/Highlight.gdshader" id="1_qx6pd"]
-[ext_resource type="Texture2D" uid="uid://dqw4seerv2wn5" path="res://sprites/entities/ghost-face.png" id="2_85uya"]
 [ext_resource type="PackedScene" uid="uid://220wdbe24ojc" path="res://objects/effects/Shockwave.tscn" id="2_j4k2g"]
 [ext_resource type="PackedScene" uid="uid://jr5oflib071h" path="res://objects/effects/GhostPebble.tscn" id="2_ycwto"]
 [ext_resource type="Texture2D" uid="uid://bqknncqu1ro4q" path="res://sprites/hud/icons/ghost.png" id="4_piif3"]
 [ext_resource type="Texture2D" uid="uid://ud4ysrgr5loy" path="res://sprites/entities/ghostbring.png" id="5_5i6j2"]
 [ext_resource type="Texture2D" uid="uid://baf66mpa4mleb" path="res://sprites/entities/ghost.png" id="5_m70px"]
-
-[sub_resource type="Curve" id="Curve_85uya"]
-_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.99999994, 1), -4.8456316, 0.0, 0, 0]
-point_count = 2
-
-[sub_resource type="Gradient" id="Gradient_7erno"]
-offsets = PackedFloat32Array(0.84810126, 1)
-colors = PackedColorArray(1, 1, 1, 0, 1, 1, 1, 1)
+[ext_resource type="FontFile" uid="uid://5qyau3olj3s4" path="res://fonts/hf-free-complete/compass-pro-v1.1/CompassPro.otf" id="9_4t1uk"]
+[ext_resource type="FontFile" uid="uid://dfwrm0cvqrp6p" path="res://fonts/hf-free-complete/futile-pro-v1/FutilePro.otf" id="10_qxt3k"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_qx6pd"]
 shader = ExtResource("1_qx6pd")
@@ -259,33 +252,6 @@ animations = [{
 "speed": 15.0
 }]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_lcsgn"]
-atlas = ExtResource("2_85uya")
-region = Rect2(96, 0, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_fa32n"]
-atlas = ExtResource("2_85uya")
-region = Rect2(64, 0, 32, 32)
-
-[sub_resource type="SpriteFrames" id="SpriteFrames_xje4w"]
-animations = [{
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_lcsgn")
-}],
-"loop": true,
-"name": &"damage",
-"speed": 5.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_fa32n")
-}],
-"loop": true,
-"name": &"idle",
-"speed": 5.0
-}]
-
 [sub_resource type="CircleShape2D" id="CircleShape2D_8ni2t"]
 radius = 5.0990195
 
@@ -427,7 +393,10 @@ _data = {
 &"spawn": SubResource("Animation_piif3")
 }
 
-[node name="Ghost" type="CharacterBody2D" node_paths=PackedStringArray("anim", "skullGlow", "ghostTrail", "sprite", "collision")]
+[sub_resource type="ViewportTexture" id="ViewportTexture_4t1uk"]
+viewport_path = NodePath("SubViewport")
+
+[node name="Ghost" type="CharacterBody2D" node_paths=PackedStringArray("possessLabel", "anim", "sprite", "collision")]
 collision_layer = 2
 collision_mask = 50
 motion_mode = 1
@@ -439,25 +408,12 @@ dashForce = 5.0
 dashCooldown = 0.8500000000058208
 ghostBlastPrefab = ExtResource("2_j4k2g")
 ghostPebblePrefab = ExtResource("2_ycwto")
+possessLabel = NodePath("label")
 anim = NodePath("AnimationPlayer")
-skullGlow = NodePath("skull/backglow")
-ghostTrail = NodePath("Line2D")
-trailAcel = 200.0
 sprite = NodePath("skull")
 collision = NodePath("CollisionShape2D")
 portrait = ExtResource("4_piif3")
 OutlineColor = Color(1, 1, 1, 0)
-
-[node name="Line2D" type="Line2D" parent="."]
-visible = false
-show_behind_parent = true
-points = PackedVector2Array(0, 0)
-width_curve = SubResource("Curve_85uya")
-gradient = SubResource("Gradient_7erno")
-texture_mode = 1
-joint_mode = 2
-begin_cap_mode = 2
-end_cap_mode = 2
 
 [node name="skull" type="AnimatedSprite2D" parent="."]
 texture_filter = 1
@@ -465,14 +421,6 @@ texture_repeat = 1
 material = SubResource("ShaderMaterial_qx6pd")
 sprite_frames = SubResource("SpriteFrames_lcsgn")
 animation = &"damaged"
-
-[node name="backglow" type="AnimatedSprite2D" parent="skull"]
-visible = false
-modulate = Color(0, 0.5019608, 0.7529412, 1)
-position = Vector2(1, -1)
-scale = Vector2(1.5, 1.5)
-sprite_frames = SubResource("SpriteFrames_xje4w")
-animation = &"damage"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, 4)
@@ -482,3 +430,37 @@ shape = SubResource("CircleShape2D_8ni2t")
 libraries = {
 &"": SubResource("AnimationLibrary_4t1uk")
 }
+
+[node name="label" type="Sprite2D" parent="."]
+z_index = 10
+position = Vector2(0, -24)
+scale = Vector2(0.4, 0.4)
+texture = SubResource("ViewportTexture_4t1uk")
+
+[node name="SubViewport" type="SubViewport" parent="."]
+size = Vector2i(128, 32)
+
+[node name="RichTextLabel" type="RichTextLabel" parent="SubViewport"]
+offset_right = 128.0
+offset_bottom = 32.0
+pivot_offset = Vector2(64, 16)
+theme_override_fonts/normal_font = ExtResource("9_4t1uk")
+theme_override_fonts/bold_font = ExtResource("10_qxt3k")
+theme_override_font_sizes/normal_font_size = 16
+bbcode_enabled = true
+text = "[color=cyan][shake rate=15 level=10]POSSESSION[/shake][/color]
+(Press [wave amp=10 freq=15][b][u]Space[/u][/b][/wave])"
+scroll_active = false
+shortcut_keys_enabled = false
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Panel" type="Panel" parent="SubViewport/RichTextLabel"]
+modulate = Color(0.13, 0.13, 0.13, 1)
+show_behind_parent = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2

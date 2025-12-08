@@ -11,6 +11,7 @@ public partial class DoorKey : Node2D
     public override void _Ready()
     {
         base._Ready();
+        OnCollectKey = null;
         collider.BodyShapeEntered += OnCollisionEnter;
     }
 

@@ -94,6 +94,7 @@ public partial class SequenceManager : Node
 	private void PostReady()
 	{
 		AudioPlayer.PlayMusic("mus_Hexes_of");
+		Timer.Reset();
 		Timer.Start();
 	}
 }

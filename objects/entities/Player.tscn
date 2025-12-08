@@ -1,8 +1,7 @@
-[gd_scene load_steps=4 format=3 uid="uid://dk2iakv4iqyo8"]
+[gd_scene load_steps=3 format=3 uid="uid://dk2iakv4iqyo8"]
 
 [ext_resource type="Script" uid="uid://dp40cmq11biqj" path="res://scripts/entities/controllers/PlayerController.cs" id="1_merdl"]
 [ext_resource type="Texture2D" uid="uid://knn1vqjng05f" path="res://sprites/light_2d_Texture.tres" id="2_urhuj"]
-[ext_resource type="FontFile" uid="uid://bvsdwijfhhd7t" path="res://fonts/hf-free-complete/expression-pro-v1.1/ExpressionPro.ttf" id="3_qrk16"]
 
 [node name="Player" type="Node2D" node_paths=PackedStringArray("light")]
 script = ExtResource("1_merdl")
@@ -38,11 +37,3 @@ energy = 0.29
 range_item_cull_mask = 3
 shadow_enabled = true
 texture = ExtResource("2_urhuj")
-
-[node name="RichTextLabel" type="RichTextLabel" parent="."]
-offset_right = 178.0
-offset_bottom = 40.0
-theme_override_fonts/normal_font = ExtResource("3_qrk16")
-text = "Press Space to Possess"
-fit_content = true
-scroll_active = false
