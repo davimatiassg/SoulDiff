@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=4 uid="uid://trooaratn7mp"]
+[gd_scene load_steps=11 format=4 uid="uid://trooaratn7mp"]
 
 [ext_resource type="Script" uid="uid://c2dy80b3dq7dp" path="res://scripts/game/LevelManager.cs" id="1_hss08"]
 [ext_resource type="Script" uid="uid://b8keieviqktt5" path="res://scripts/scenary/OverlayerFader.cs" id="3_wdi7k"]
@@ -7,6 +7,7 @@
 [ext_resource type="TileSet" uid="uid://cvpjejvaiorqf" path="res://sprites/background/tileset_1/Tileset.tres" id="9_5nnc3"]
 [ext_resource type="PackedScene" uid="uid://dk2iakv4iqyo8" path="res://objects/entities/Player.tscn" id="9_8x0ck"]
 [ext_resource type="PackedScene" uid="uid://b4283bflripuo" path="res://objects/entities/Ghost.tscn" id="10_6oglv"]
+[ext_resource type="PackedScene" uid="uid://utpq2smkpa7m" path="res://objects/entities/Shroom.tscn" id="10_hss08"]
 [ext_resource type="PackedScene" uid="uid://c2rkhx1kyi633" path="res://objects/entities/Archer.tscn" id="11_5i0tk"]
 [ext_resource type="PackedScene" uid="uid://bhlsm82x25sdi" path="res://objects/FinalDoor.tscn" id="12_add2t"]
 
@@ -84,3 +85,6 @@ position = Vector2(705, -350)
 position = Vector2(800, -443)
 scale = Vector2(2, 2)
 remainingKeys = 3
+
+[node name="Shroom" parent="." instance=ExtResource("10_hss08")]
+position = Vector2(558, -351)

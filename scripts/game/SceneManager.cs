@@ -18,6 +18,35 @@ public partial class SceneManager : Node
 
 
     public async static void ChangeScene(string scenePath)
+    {   
+        Instance.vignette.FadeOut();
+
+        ResourceLoader.LoadThreadedRequest(scenePath);
+
+        ResourceLoader.ThreadLoadStatus status = ResourceLoader.ThreadLoadStatus.InProgress;
+
+        while (status == ResourceLoader.ThreadLoadStatus.InProgress)
+        {
+            status = ResourceLoader.LoadThreadedGetStatus(scenePath);
+
+            await Instance.ToSignal(Instance.GetTree(), SceneTree.SignalName.ProcessFrame);
+        }
+
+        while (Instance.vignette.isTransitioning)
+        {
+            await Task.Delay(1000);
+        }
+
+        if (status == ResourceLoader.ThreadLoadStatus.Loaded)
+        {
+            var scene = ResourceLoader.LoadThreadedGet(scenePath) as PackedScene;
+
+            Instance.GetTree().ChangeSceneToPacked(scene);
+        }
+    }
+    
+
+    public async static void ChangeLevelScene(string scenePath)
     {
 
         ResourceLoader.LoadThreadedRequest(scenePath);
@@ -53,7 +82,7 @@ public partial class SceneManager : Node
         {
             await Task.Delay(1000);
         }
-        ChangeScene(Instance.levels[sceneName]);
+        ChangeLevelScene(Instance.levels[sceneName]);
         Instance.vignette.FadeIn();
     }
     
@@ -62,7 +91,21 @@ public partial class SceneManager : Node
         base._Ready();
         base._EnterTree();
         if (Instance == null) { Instance = this; return; }
-        else if (Instance != this) { QueueFree(); return; }
+        else if (Instance != this)
+        {
+            try
+            {
+                if (!Instance.IsInsideTree())
+                {
+                    GetParent().AddChild(Instance);
+                }
+                QueueFree();
+                return;
+
+            } catch (ObjectDisposedException e) { Instance = this; }
+
+            
+        }
 
 
     }

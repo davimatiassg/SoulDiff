@@ -33,5 +33,10 @@ public partial class MenuManager : CanvasLayer
 
         Instance.refuseButton.Pressed += () => SequenceManager.OnPlayerRefuseToDie();
         Instance.refuseButton.Pressed += () => Instance.anim.Play("outro");
+
+        Instance.giveupButton.Pressed += () => SceneManager.ChangeScene("res://scenes/GameOver.tscn");
+        Instance.giveupButton.Pressed += () => Instance.anim.Play("outro");
+
+        
     }
 }

@@ -1,3 +1,4 @@
+using System.Threading.Tasks;
 using Godot;
 
 // O 'partial' é usado porque o Godot Mono (C#) gera código para a classe
@@ -35,9 +36,7 @@ public partial class MainMenu : Control
 
     private void OnPlayButtonPressed()
     {
-        GD.Print("Iniciando Jogo...");
-        
-        GetTree().ChangeSceneToFile(MainScenePath);
+        SceneManager.ChangeScene("res://scenes/Game.tscn");
     }
 
     private void OnQuitButtonPressed()

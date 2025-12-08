@@ -4,7 +4,7 @@ using System;
 public partial class Timer : RichTextLabel
 {
     public static Timer Instance;
-    private double elapsed;
+    private static double elapsed;
     private bool isRunning;
 
     // Inicia ou retoma o timer
@@ -22,18 +22,18 @@ public partial class Timer : RichTextLabel
     // Zera o timer
     public static void Reset ()
     {
-        Instance.elapsed = 0;
+        elapsed = 0;
     }
 
     public static double GetTime()
     {
-        return Instance.elapsed;
+        return elapsed;
     }
 
     // Retorna o tempo formatado: mm:ss:ms
     public static string GetFormattedTime()
     {
-        TimeSpan time = TimeSpan.FromSeconds(Instance.elapsed);
+        TimeSpan time = TimeSpan.FromSeconds(elapsed);
         return $"{time.Minutes:00}:{time.Seconds:00}:{time.Milliseconds:000}";
     }
 
@@ -41,7 +41,9 @@ public partial class Timer : RichTextLabel
     public override void _Ready()
     {
         if (Instance == null) Instance = this;
-        else if (Instance != this) { Instance.QueueFree();  Instance = this; }
+        else if (Instance != this) { try { Instance.QueueFree(); } catch (ObjectDisposedException e) { } Instance = this; }
+
+        GetFormattedTime();
     }
     public override void _Process(double delta)
     {

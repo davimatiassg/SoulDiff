@@ -1,9 +1,10 @@
-[gd_scene load_steps=5 format=3 uid="uid://c3wvj0fxgbp35"]
+[gd_scene load_steps=6 format=3 uid="uid://cn86psack5f51"]
 
-[ext_resource type="FontFile" uid="uid://bvsdwijfhhd7t" path="res://fonts/hf-free-complete/expression-pro-v1.1/ExpressionPro.ttf" id="1_6bcno"]
-[ext_resource type="Script" uid="uid://crppldnbwltdf" path="res://scripts/game/SceneManager.cs" id="2_4noiy"]
-[ext_resource type="Texture2D" uid="uid://gu3h1rvge2b" path="res://sprites/hud/Ghost laugh.png" id="3_gijjb"]
-[ext_resource type="Script" uid="uid://bmq8357rjdwuq" path="res://scripts/hud/TransitionVignette.cs" id="4_88ekj"]
+[ext_resource type="FontFile" uid="uid://bvsdwijfhhd7t" path="res://fonts/hf-free-complete/expression-pro-v1.1/ExpressionPro.ttf" id="1_7btj6"]
+[ext_resource type="Script" uid="uid://dfud4mo8462cj" path="res://scripts/hud/Timer.cs" id="2_fj3gx"]
+[ext_resource type="Script" uid="uid://crppldnbwltdf" path="res://scripts/game/SceneManager.cs" id="2_iyci0"]
+[ext_resource type="Texture2D" uid="uid://gu3h1rvge2b" path="res://sprites/hud/Ghost laugh.png" id="3_fj3gx"]
+[ext_resource type="Script" uid="uid://bmq8357rjdwuq" path="res://scripts/hud/TransitionVignette.cs" id="4_msnca"]
 
 [node name="GameOver" type="Control"]
 texture_filter = 1
@@ -27,19 +28,29 @@ alignment = 1
 
 [node name="RichTextLabel" type="RichTextLabel" parent="VBoxContainer"]
 layout_mode = 2
-theme_override_fonts/normal_font = ExtResource("1_6bcno")
+theme_override_fonts/normal_font = ExtResource("1_7btj6")
 theme_override_font_sizes/normal_font_size = 256
 bbcode_enabled = true
-text = "[color=white] Game Over [/color]"
+text = "[color=white] You Win! [/color]"
 fit_content = true
 scroll_active = false
 horizontal_alignment = 1
 deselect_on_focus_loss_enabled = false
 drag_and_drop_selection_enabled = false
 
+[node name="Timer" type="RichTextLabel" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_fonts/normal_font = ExtResource("1_7btj6")
+theme_override_font_sizes/normal_font_size = 64
+text = "00:00:00.00"
+fit_content = true
+scroll_active = false
+horizontal_alignment = 1
+script = ExtResource("2_fj3gx")
+
 [node name="RichTextLabel2" type="RichTextLabel" parent="VBoxContainer"]
 layout_mode = 2
-theme_override_fonts/normal_font = ExtResource("1_6bcno")
+theme_override_fonts/normal_font = ExtResource("1_7btj6")
 theme_override_font_sizes/normal_font_size = 64
 bbcode_enabled = true
 text = "Press any key to return"
@@ -49,14 +60,13 @@ horizontal_alignment = 1
 deselect_on_focus_loss_enabled = false
 drag_and_drop_selection_enabled = false
 
-[node name="SceneManager" type="CanvasLayer" parent="." node_paths=PackedStringArray("currentLevel", "vignette")]
+[node name="SceneManager" type="CanvasLayer" parent="." node_paths=PackedStringArray("vignette")]
 offset = Vector2(1, 1)
 transform = Transform2D(1, 0, 0, 1, 1, 1)
-script = ExtResource("2_4noiy")
+script = ExtResource("2_iyci0")
 levels = Dictionary[String, String]({
 "Level_1": "res://scenes/Test-Level.tscn"
 })
-currentLevel = NodePath("")
 vignette = NodePath("GhostLaugh")
 
 [node name="GhostLaugh" type="TextureRect" parent="SceneManager"]
@@ -69,6 +79,6 @@ grow_vertical = 2
 pivot_offset = Vector2(640, 580)
 size_flags_horizontal = 3
 size_flags_vertical = 3
-texture = ExtResource("3_gijjb")
-script = ExtResource("4_88ekj")
+texture = ExtResource("3_fj3gx")
+script = ExtResource("4_msnca")
 sizeMax = 8.0

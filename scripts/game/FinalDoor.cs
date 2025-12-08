@@ -26,9 +26,8 @@ public partial class FinalDoor : Node2D
             if (remainingKeys <= 0)
             {
                 anim.Play("open");
-                //TODO: open the door
-                //STUB:
-                GD.Print("door opened");
+                Timer.Pause();
+                SceneManager.ChangeScene("res://scenes/GameWon.tscn");
             }
             else
             {
