@@ -52,6 +52,39 @@ public partial class GhostBody : AnyBody
     [Export]
     public bool disembodying = false;
 
+    [Export]
+    public EnemyBody targetedCorpse = null;
+
+    public override void Aim(Vector2 direction)
+    {
+        base.Aim(direction);
+
+
+        var spaceState = GetWorld2D().DirectSpaceState;
+        Godot.Collections.Array<Rid> exclusionArray = [GetRid()];
+
+        var query = PhysicsRayQueryParameters2D.Create(GlobalPosition, GlobalPosition + aimDirection * 128, 1 << 0, exclusionArray);
+        var result = spaceState.IntersectRay(query);
+
+        while (result.Count > 0)
+        {
+            var collider = (Node2D)result["collider"];
+            if (collider is EnemyBody enemy)
+            {
+                if (enemy.dead)
+                {
+                    targetedCorpse = enemy;
+                    break;
+                }
+
+            }
+
+            exclusionArray.Add((Rid)result["rid"]);
+            query = PhysicsRayQueryParameters2D.Create(GlobalPosition, GlobalPosition + aimDirection * 128, CollisionMask, exclusionArray);
+            result = spaceState.IntersectRay(query);
+        }
+    }
+
     public override void Button1(bool pressed)
     {
         if (disembodying || dead) return;
@@ -61,36 +94,15 @@ public partial class GhostBody : AnyBody
             canAttack = false;
             Tween _atktween = CreateTween();
             _atktween.TweenInterval(flingCooldown);
+            if (isPlayer) HudManager.TriggerCooldown(1, flingCooldown);
             _atktween.TweenCallback(Callable.From(() => canAttack = true));
 
             curr_pebble = (GhostPebble)EffectPool.SpawnEffect(ghostPebblePrefab, GetParent<Node2D>());
             curr_pebble.Position = Position;
             curr_pebble.StartOrbit(this);
-
-            pebbleIncreaser = curr_pebble.CreateTween();
-            pebbleIncreaser.TweenMethod(
-                Callable.From((float f) =>
-                {
-                    curr_pebble.damage = Mathf.FloorToInt(f * flingDamage);
-                    curr_pebble.Scale = Vector2.One * f;
-                }),
-                1f, //grow from one (damage, size)
-                3f, //to three (scale, size)
-                4f //em 4 segundinhos
-            );
-
-            pebbleRotater = curr_pebble.CreateTween();
-            pebbleRotater.TweenProperty(curr_pebble, "rotation_degrees", 180, 0.5f);
-            pebbleRotater.TweenProperty(curr_pebble, "rotation_degrees", 360, 0.5f);
-            pebbleRotater.TweenProperty(curr_pebble, "rotation_degrees", 0, 0.0f);
-            pebbleRotater.SetLoops();
+            curr_pebble.Fling(aimDirection);
         }
 
-        pebbleIncreaser.Kill();
-        pebbleRotater.Kill();
-        if (curr_pebble == null) return;
-        curr_pebble.Fling(aimDirection);
-        curr_pebble = null;
 
     }
 
@@ -102,12 +114,14 @@ public partial class GhostBody : AnyBody
 
         canDash = false;
         Tween _dashtween = CreateTween();
-        _dashtween.TweenInterval(dashCooldown + 0.2f);
+        _dashtween.TweenInterval(dashCooldown);
         _dashtween.TweenCallback(Callable.From(() => canDash = true));
 
         float spd = speed;
         float a = acel;
         Vector2 dir = lastMoveDirection;
+        
+        if (isPlayer) HudManager.TriggerCooldown(2, dashCooldown);
 
         dashMaker = CreateTween();
         dashMaker.TweenMethod(Callable.From((float f) =>
@@ -122,32 +136,10 @@ public partial class GhostBody : AnyBody
 
     public override void Button3(bool pressed)
     {
-        if (disembodying || !pressed) return;
-        var spaceState = GetWorld2D().DirectSpaceState;
-        Godot.Collections.Array<Rid> exclusionArray = [GetRid()];
-
-        var query = PhysicsRayQueryParameters2D.Create(GlobalPosition, GlobalPosition + aimDirection * 128, 1 << 0, exclusionArray);
-        var result = spaceState.IntersectRay(query);
-
-        while (result.Count > 0)
-        {
-            var collider = (Node2D)result["collider"];
-            if (collider is EnemyBody enemy)
-            {
-                if (enemy.dead)
-                {
-                    GlobalPosition = enemy.GlobalPosition;
-                    PossessEnd();
-                    PlayerController.Embody(enemy);
-                    break;
-                }
-
-            }
-
-            exclusionArray.Add((Rid)result["rid"]);
-            query = PhysicsRayQueryParameters2D.Create(GlobalPosition, GlobalPosition + aimDirection * 128, CollisionMask, exclusionArray);
-            result = spaceState.IntersectRay(query);
-        }
+        if (disembodying || !pressed || targetedCorpse == null) return;
+        GlobalPosition = targetedCorpse.GlobalPosition;
+        PossessEnd();
+        PlayerController.Embody(targetedCorpse);
 
     }
 

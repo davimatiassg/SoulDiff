@@ -1,11 +1,12 @@
-[gd_scene load_steps=4 format=3 uid="uid://cm5fpr4fdkhqk"]
+[gd_scene load_steps=5 format=3 uid="uid://cm5fpr4fdkhqk"]
 
 [ext_resource type="Script" uid="uid://bywu3gfiaca5o" path="res://scripts/entities/collectables/DoorKey.cs" id="1_jwuek"]
 [ext_resource type="Texture2D" uid="uid://dcsgqyftnnrkl" path="res://sprites/entities/key.png" id="2_0ht2f"]
+[ext_resource type="Texture2D" uid="uid://knn1vqjng05f" path="res://sprites/light_2d_Texture.tres" id="3_0ht2f"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_ixu62"]
 
-[node name="Node2D" type="Node2D" node_paths=PackedStringArray("collider")]
+[node name="Key" type="Node2D" node_paths=PackedStringArray("collider")]
 script = ExtResource("1_jwuek")
 collider = NodePath("Area2D")
 
@@ -18,3 +19,8 @@ shape = SubResource("CircleShape2D_ixu62")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("2_0ht2f")
+
+[node name="PointLight2D" type="PointLight2D" parent="."]
+color = Color(0.86, 0.54466665, 0, 1)
+energy = 1.51
+texture = ExtResource("3_0ht2f")

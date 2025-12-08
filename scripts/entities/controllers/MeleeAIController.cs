@@ -6,11 +6,11 @@ public partial class MeleeAIController : AnyController
 {
     [Export] public NodePath PlayerPath;
     [Export] public float AttackRange = 64f;
-    [Export] public float VisionRange = 1000f;
+    [Export] public float VisionRange = 200f;
     [Export] public float AttackCooldown = 1.2f;
     [Export] public float AbilityCooldown = 5f;
 
-    [Export] public float WanderRadius = 200f;
+    [Export] public float WanderRadius = 192f;
     [Export] public float WanderDuration = 3f;
     [Export] public float IdleDuration = 2f;
 
@@ -39,7 +39,6 @@ public partial class MeleeAIController : AnyController
 
         Vector2 toPlayer = PlayerGlobalPosition - GlobalPosition;
         float distance = toPlayer.Length();
-
         Vector2 moveDir = Vector2.Zero;
         Vector2 lookDir = Vector2.Right;
 
@@ -84,14 +83,14 @@ public partial class MeleeAIController : AnyController
         }
 
         // --- Controles principais ---
-        LeftAxisAction.Invoke(moveDir / 2);
+        LeftAxisAction.Invoke(moveDir);
         RightAxisAction.Invoke(moveDir);
 
         // --- Ataque corpo a corpo ---
         if (distance <= AttackRange && _attackTimer <= 0f)
         {
             Button1Action.Invoke(true);
-            Button1Action.Invoke(false);
+            CreateTween().TweenMethod(Callable.From((int i) => { if (i == 1) Button1Action.Invoke(false); }), -1, 1, 1f);
             _attackTimer = AttackCooldown;
         }
 

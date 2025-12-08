@@ -23,7 +23,7 @@ public partial class ArcherBody : AnyBody
     [Export]
     public float dashCooldown = 3f;
 
-    private bool canDash;
+    private bool canDash = true;
 
     [Export] private PackedScene arrowPrefab;
     [Export] private Node2D bow;

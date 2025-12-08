@@ -111,6 +111,12 @@ public partial class WitchBody : EnemyBody
 
     //# Inherited Methods
 
+    public override void HitstunCleanse()
+    {
+        base.HitstunCleanse();
+        anim.Play("RESET");
+    }
+    
     public override void Die()
     {
         base.Die();

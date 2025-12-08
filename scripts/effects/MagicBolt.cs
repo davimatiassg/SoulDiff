@@ -23,7 +23,7 @@ public partial class MagicBolt : DamageEffect
         {
             hit.TakeDamage(damage, Vector2.Zero);
             Dispawn();
-        }
+        } else if (body is not AnyBody) { Dispawn(); }
         
         
     }

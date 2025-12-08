@@ -1,12 +1,16 @@
-[gd_resource type="TileSet" load_steps=41 format=3 uid="uid://cvpjejvaiorqf"]
+[gd_resource type="TileSet" load_steps=52 format=3 uid="uid://cvpjejvaiorqf"]
 
 [ext_resource type="Texture2D" uid="uid://cbcju0kbc51be" path="res://sprites/background/tileset_1/walls_floor.png" id="1_86404"]
 [ext_resource type="Texture2D" uid="uid://j6gauhtt36l1" path="res://sprites/background/tileset_1/decorative_cracks_walls.png" id="2_qvijx"]
 [ext_resource type="Texture2D" uid="uid://70a4fajwt5if" path="res://sprites/background/tileset_1/doors_lever_chest_animation.png" id="3_6a2ht"]
+[ext_resource type="Texture2D" uid="uid://bvr7pqp6etkt" path="res://sprites/background/tutorialSign2.png" id="3_u3wfu"]
+[ext_resource type="Texture2D" uid="uid://vqvv5etyun8n" path="res://sprites/background/tutorialSign3.png" id="4_e0dfh"]
 [ext_resource type="Texture2D" uid="uid://dwk6ew3aerqb" path="res://sprites/background/tileset_1/fire_animation2.png" id="4_fpevd"]
+[ext_resource type="Texture2D" uid="uid://b81d2djf1nakd" path="res://sprites/background/tileset_1/pyre.png" id="5_qvijx"]
 [ext_resource type="Texture2D" uid="uid://bnigyqp5t6pon" path="res://sprites/background/tileset_1/Objects.png" id="6_e0dfh"]
 [ext_resource type="Texture2D" uid="uid://c54gvm4cuxlco" path="res://sprites/background/tileset_1/trap_animation.png" id="7_multx"]
 [ext_resource type="Texture2D" uid="uid://cylj4m3mwb121" path="res://sprites/background/tileset_1/torch.png" id="8_863hr"]
+[ext_resource type="Texture2D" uid="uid://cg8sxf0r8kkjc" path="res://sprites/background/tutorialSign1.png" id="11_multx"]
 
 [sub_resource type="TileMapPattern" id="TileMapPattern_86404"]
 tile_data = PackedInt32Array(327680, 65536, 6, 393216, 786432, 22, 458752, 65536, 6, 524288, 786432, 22, 196609, 720896, 22, 262145, 720896, 22, 327681, 65536, 6, 393217, 720896, 22, 458753, 65536, 6, 524289, 65536, 6, 589825, 65536, 6, 655361, 786432, 22, 131074, 720896, 22, 196610, 720896, 22, 262146, 65536, 6, 327682, 720896, 21, 393218, 786432, 21, 458754, 786432, 22, 524290, 786432, 21, 589826, 65536, 6, 655362, 720896, 22, 720898, 786432, 21, 65539, 720896, 21, 131075, 65536, 6, 196611, 65536, 6, 262147, 720896, 21, 327683, 720896, 22, 393219, 720896, 22, 458755, 720896, 22, 524291, 65536, 6, 589827, 720896, 21, 655363, 720896, 22, 720899, 65536, 6, 786435, 65536, 6, 65540, 786432, 22, 131076, 786432, 22, 196612, 65536, 6, 262148, 65536, 6, 327684, 720896, 21, 393220, 65536, 6, 458756, 786432, 21, 524292, 786432, 22, 589828, 65536, 6, 655364, 786432, 21, 720900, 65536, 6, 786436, 786432, 21, 5, 786432, 22, 65541, 65536, 6, 131077, 720896, 21, 196613, 720896, 21, 262149, 720896, 21, 327685, 786432, 21, 393221, 720896, 22, 458757, 720896, 22, 524293, 786432, 21, 589829, 720896, 22, 655365, 786432, 21, 720901, 720896, 22, 786437, 65536, 6, 851973, 720896, 22, 6, 720896, 21, 65542, 720896, 21, 131078, 720896, 22, 196614, 786432, 21, 262150, 720896, 21, 327686, 65536, 6, 393222, 786432, 21, 458758, 720896, 21, 524294, 65536, 6, 589830, 65536, 6, 655366, 786432, 22, 720902, 720896, 21, 786438, 720896, 21, 851974, 65536, 6, 7, 65536, 6, 65543, 786432, 22, 131079, 786432, 22, 196615, 786432, 22, 262151, 720896, 22, 327687, 786432, 21, 393223, 786432, 22, 458759, 65536, 6, 524295, 720896, 22, 589831, 786432, 22, 655367, 65536, 6, 720903, 786432, 21, 786439, 65536, 6, 851975, 786432, 22, 8, 720896, 22, 65544, 720896, 22, 131080, 65536, 6, 196616, 720896, 21, 262152, 65536, 6, 327688, 65536, 6, 393224, 65536, 6, 458760, 65536, 6, 524296, 720896, 22, 589832, 786432, 21, 655368, 786432, 22, 720904, 786432, 22, 786440, 720896, 22, 851976, 720896, 21, 65545, 65536, 6, 131081, 65536, 6, 196617, 786432, 22, 262153, 65536, 6, 327689, 720896, 21, 393225, 720896, 22, 458761, 786432, 22, 524297, 720896, 22, 589833, 720896, 22, 655369, 786432, 21, 720905, 65536, 6, 786441, 65536, 6, 65546, 720896, 22, 131082, 720896, 21, 196618, 720896, 22, 262154, 720896, 22, 327690, 720896, 21, 393226, 720896, 21, 458762, 65536, 6, 524298, 720896, 21, 589834, 720896, 21, 655370, 720896, 21, 720906, 720896, 21, 786442, 65536, 6, 131083, 786432, 21, 196619, 786432, 22, 262155, 720896, 21, 327691, 65536, 6, 393227, 65536, 6, 458763, 786432, 21, 524299, 786432, 21, 589835, 786432, 21, 655371, 65536, 6, 720907, 786432, 22, 196620, 720896, 22, 262156, 720896, 22, 327692, 720896, 21, 393228, 65536, 6, 458764, 65536, 6, 524300, 786432, 22, 589836, 720896, 22, 655372, 786432, 21, 327693, 65536, 6, 393229, 786432, 21, 458765, 65536, 6, 524301, 65536, 6)
@@ -1058,6 +1062,24 @@ texture = ExtResource("2_qvijx")
 6:31/0 = 0
 7:31/0 = 0
 
+[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_7uwv2"]
+polygon = PackedVector2Array(1.5, 15.5, -2, 15.5, -2, 4.5, -14.5, 4.5, -14.5, -12.5, 15, -12.5, 14.5, 4.5, 1.5, 4.5)
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_3bdx3"]
+texture = ExtResource("3_u3wfu")
+texture_region_size = Vector2i(32, 32)
+0:0/0 = 0
+0:0/0/occlusion_layer_0/polygon_0/polygon = SubResource("OccluderPolygon2D_7uwv2")
+
+[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_t0kn0"]
+polygon = PackedVector2Array(1.5, 15.5, -2, 15.5, -2, 4.5, -14.5, 4.5, -14.5, -12.5, 15, -12.5, 14.5, 4.5, 1.5, 4.5)
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_xfbm4"]
+texture = ExtResource("4_e0dfh")
+texture_region_size = Vector2i(32, 32)
+0:0/0 = 0
+0:0/0/occlusion_layer_0/polygon_0/polygon = SubResource("OccluderPolygon2D_t0kn0")
+
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_20hyt"]
 texture = ExtResource("3_6a2ht")
 0:0/0 = 0
@@ -1240,6 +1262,18 @@ texture = ExtResource("4_fpevd")
 5:10/0 = 0
 4:11/0 = 0
 5:11/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_6a2ht"]
+texture = ExtResource("5_qvijx")
+texture_region_size = Vector2i(48, 48)
+0:0/animation_speed = 5.0
+0:0/animation_frame_0/duration = 1.0
+0:0/animation_frame_1/duration = 1.0
+0:0/animation_frame_2/duration = 1.0
+0:0/animation_frame_3/duration = 1.0
+0:0/animation_frame_4/duration = 1.0
+0:0/animation_frame_5/duration = 1.0
+0:0/0 = 0
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_ruigm"]
 texture = ExtResource("6_e0dfh")
@@ -1860,6 +1894,15 @@ texture_region_size = Vector2i(32, 48)
 0:0/animation_frame_5/duration = 0.1
 0:0/0 = 0
 
+[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_3bdx3"]
+polygon = PackedVector2Array(1.5, 15.5, -2, 15.5, -2, 4.5, -14.5, 4.5, -14.5, -12.5, 15, -12.5, 14.5, 4.5, 1.5, 4.5)
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_6cw2k"]
+texture = ExtResource("11_multx")
+texture_region_size = Vector2i(32, 32)
+0:0/0 = 0
+0:0/0/occlusion_layer_0/polygon_0/polygon = SubResource("OccluderPolygon2D_3bdx3")
+
 [resource]
 occlusion_layer_0/light_mask = 1
 physics_layer_0/collision_layer = 32
@@ -1879,6 +1922,10 @@ sources/5 = SubResource("TileSetAtlasSource_ruigm")
 sources/6 = SubResource("TileSetAtlasSource_jvxpo")
 sources/7 = SubResource("TileSetAtlasSource_ga2w7")
 sources/8 = SubResource("TileSetAtlasSource_438v5")
+sources/4 = SubResource("TileSetAtlasSource_6a2ht")
+sources/9 = SubResource("TileSetAtlasSource_6cw2k")
+sources/10 = SubResource("TileSetAtlasSource_3bdx3")
+sources/11 = SubResource("TileSetAtlasSource_xfbm4")
 pattern_0 = SubResource("TileMapPattern_86404")
 pattern_1 = SubResource("TileMapPattern_6g385")
 pattern_2 = SubResource("TileMapPattern_s1mn2")

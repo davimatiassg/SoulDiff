@@ -65,6 +65,7 @@ animations = [{
 }]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_6hwho"]
+radius = 6.0827627
 
 [sub_resource type="Curve" id="Curve_xg55p"]
 _data = [Vector2(0, 0.99652964), 0.0, 0.0, 0, 0, Vector2(1, 0), -3.356043, 0.0, 0, 0]
@@ -235,6 +236,7 @@ position = Vector2(-11, 6)
 texture = ExtResource("6_2ufix")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 5)
 shape = SubResource("CircleShape2D_6hwho")
 
 [node name="DeathSmoke" type="GPUParticles2D" parent="."]

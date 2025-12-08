@@ -7,7 +7,7 @@ public partial class PlayerController : AnyController
 {
     public static PlayerController Instance;
 
-
+    [Export] public Label possessLabel;
     [Export] public Node2D light;
     public GhostBody ghost;
     [Export] PackedScene ghostPrefab;

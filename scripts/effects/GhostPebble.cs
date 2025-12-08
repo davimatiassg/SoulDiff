@@ -37,6 +37,8 @@ public partial class GhostPebble : DamageEffect
         }
 
         Dispawn();
+
+        
     }
 
     public override void _Process(double delta)

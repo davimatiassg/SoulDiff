@@ -22,7 +22,7 @@ public partial class ShroomBody : EnemyBody
     [Export] public float attackCooldown = 12f;
 
     [Export] public float deployCooldown = 4f;
-    [Export] public float deployDuration = 20f; 
+    [Export] public float deployDuration = 20f;
     private bool attacking;
     private bool moving;
 
@@ -66,12 +66,12 @@ public partial class ShroomBody : EnemyBody
         Glove.Visible = false;
 
         var punch = (Punch)EffectPool.SpawnEffect(PunchPrefab, this);
-        
-        punch.Position      = Glove.Position;
-        punch.playerEffect  = isPlayer;
-        punch.damage        = attackDamage;
-        punch.knockback     = attackPushForce;
-        punch.direction     = aimDirection;
+
+        punch.Position = Glove.Position;
+        punch.playerEffect = isPlayer;
+        punch.damage = attackDamage;
+        punch.knockback = attackPushForce;
+        punch.direction = aimDirection;
         punch.punchDuration = attackCooldown;
 
         punch.LaunchPunch();
@@ -80,33 +80,40 @@ public partial class ShroomBody : EnemyBody
         tween.TweenInterval(attackCooldown);
         tween.TweenCallback(Callable.From(() => Glove.Visible = true));
 
-        
+
     }
-    
+
     bool canDeploy = true;
     public override void Button2(bool pressed)
     {
-        if (stunned || !pressed || !canDeploy ) return;
-        
+        if (stunned || !pressed || !canDeploy) return;
+
         canDeploy = false;
         Tween _fireballtween = CreateTween();
         _fireballtween.TweenInterval(deployCooldown);
         _fireballtween.TweenCallback(Callable.From(() => canDeploy = true));
 
-        if(isPlayer) HudManager.TriggerCooldown(2, deployCooldown);
+        if (isPlayer) HudManager.TriggerCooldown(2, deployCooldown);
 
         var curr_fireball = (Fireball)EffectPool.SpawnEffect(BombShroomPrefab, GetParent<Node2D>());
         curr_fireball.GlobalPosition = GlobalPosition;
         curr_fireball.playerEffect = isPlayer;
-        
+
 
         var fireballCharger = CreateTween();
         fireballCharger.TweenInterval(deployDuration);
         fireballCharger.TweenCallback(Callable.From(() =>
         {
             curr_fireball?.Dispawn();
-            
+
         }));
+    }
+    
+
+    public override void HitstunCleanse()
+    {
+        base.HitstunCleanse();
+        anim.Play("RESET");
     }
 
 }
