@@ -1,9 +1,10 @@
-[gd_scene load_steps=15 format=4 uid="uid://trooaratn7mp"]
+[gd_scene load_steps=16 format=4 uid="uid://trooaratn7mp"]
 
 [ext_resource type="Script" uid="uid://c2dy80b3dq7dp" path="res://scripts/game/LevelManager.cs" id="1_hss08"]
 [ext_resource type="Script" uid="uid://b8keieviqktt5" path="res://scripts/scenary/OverlayerFader.cs" id="3_wdi7k"]
 [ext_resource type="PackedScene" uid="uid://cm5fpr4fdkhqk" path="res://objects/entities/Key.tscn" id="4_nvcqb"]
 [ext_resource type="PackedScene" uid="uid://d388864plxwo0" path="res://objects/box.tscn" id="5_add2t"]
+[ext_resource type="PackedScene" uid="uid://c2uv7ojcq7hr" path="res://objects/entities/Witch.tscn" id="7_2lh8w"]
 [ext_resource type="PackedScene" uid="uid://70ceu615i4b" path="res://objects/Camera.tscn" id="8_fc4ab"]
 [ext_resource type="TileSet" uid="uid://cvpjejvaiorqf" path="res://sprites/background/tileset_1/Tileset.tres" id="9_5nnc3"]
 [ext_resource type="PackedScene" uid="uid://dk2iakv4iqyo8" path="res://objects/entities/Player.tscn" id="9_8x0ck"]
@@ -357,6 +358,120 @@ position = Vector2(-710, -679)
 
 [node name="CanvasModulate" type="CanvasModulate" parent="background"]
 color = Color(0.14767182, 0.14767179, 0.14767179, 1)
+
+[node name="Minotaur" parent="background" instance=ExtResource("13_8ab0h")]
+position = Vector2(-413, 250)
+
+[node name="Witch" parent="background" instance=ExtResource("7_2lh8w")]
+position = Vector2(338, -359)
+
+[node name="Witch2" parent="background" instance=ExtResource("7_2lh8w")]
+position = Vector2(281, -413)
+
+[node name="Witch3" parent="background" instance=ExtResource("7_2lh8w")]
+position = Vector2(363, -456)
+
+[node name="Shroom" parent="background" instance=ExtResource("10_hss08")]
+position = Vector2(-779, -256)
+
+[node name="Shroom2" parent="background" instance=ExtResource("10_hss08")]
+position = Vector2(-748, -204)
+
+[node name="Shroom3" parent="background" instance=ExtResource("10_hss08")]
+position = Vector2(-1173, -109)
+
+[node name="Shroom4" parent="background" instance=ExtResource("10_hss08")]
+position = Vector2(-1324, -142)
+
+[node name="Shroom5" parent="background" instance=ExtResource("10_hss08")]
+position = Vector2(-1342, -2)
+
+[node name="Knight" parent="background" instance=ExtResource("14_2lh8w")]
+position = Vector2(-1163, -33)
+
+[node name="Knight2" parent="background" instance=ExtResource("14_2lh8w")]
+position = Vector2(-775, -454)
+
+[node name="Knight3" parent="background" instance=ExtResource("14_2lh8w")]
+position = Vector2(-410, -348)
+
+[node name="Knight4" parent="background" instance=ExtResource("14_2lh8w")]
+position = Vector2(-408, -308)
+
+[node name="Knight5" parent="background" instance=ExtResource("14_2lh8w")]
+position = Vector2(7, -335)
+
+[node name="Knight6" parent="background" instance=ExtResource("14_2lh8w")]
+position = Vector2(-5, -393)
+
+[node name="Shroom6" parent="background" instance=ExtResource("10_hss08")]
+position = Vector2(-571, -470)
+
+[node name="Knight7" parent="background" instance=ExtResource("14_2lh8w")]
+position = Vector2(-826, -121)
+
+[node name="Knight8" parent="background" instance=ExtResource("14_2lh8w")]
+position = Vector2(-778, -88)
+
+[node name="Knight9" parent="background" instance=ExtResource("14_2lh8w")]
+position = Vector2(-735, -50)
+
+[node name="Knight10" parent="background" instance=ExtResource("14_2lh8w")]
+position = Vector2(-509, 320)
+
+[node name="Knight11" parent="background" instance=ExtResource("14_2lh8w")]
+position = Vector2(-488, 181)
+
+[node name="Knight12" parent="background" instance=ExtResource("14_2lh8w")]
+position = Vector2(-329, 305)
+
+[node name="Knight13" parent="background" instance=ExtResource("14_2lh8w")]
+position = Vector2(-332, 173)
+
+[node name="Minotaur2" parent="background" instance=ExtResource("13_8ab0h")]
+position = Vector2(-426, 402)
+
+[node name="Witch4" parent="background" instance=ExtResource("7_2lh8w")]
+position = Vector2(-500, 452)
+
+[node name="Witch5" parent="background" instance=ExtResource("7_2lh8w")]
+position = Vector2(-332, 455)
+
+[node name="Knight14" parent="background" instance=ExtResource("14_2lh8w")]
+position = Vector2(-25, 40)
+
+[node name="Knight15" parent="background" instance=ExtResource("14_2lh8w")]
+position = Vector2(39, 22)
+
+[node name="Knight16" parent="background" instance=ExtResource("14_2lh8w")]
+position = Vector2(273, -221)
+
+[node name="Knight17" parent="background" instance=ExtResource("14_2lh8w")]
+position = Vector2(439, -211)
+
+[node name="Knight18" parent="background" instance=ExtResource("14_2lh8w")]
+position = Vector2(344, -214)
+
+[node name="Minotaur3" parent="background" instance=ExtResource("13_8ab0h")]
+position = Vector2(365, -368)
+
+[node name="Shroom7" parent="background" instance=ExtResource("10_hss08")]
+position = Vector2(419, -273)
+
+[node name="Shroom8" parent="background" instance=ExtResource("10_hss08")]
+position = Vector2(268, -266)
+
+[node name="Shroom9" parent="background" instance=ExtResource("10_hss08")]
+position = Vector2(335, -270)
+
+[node name="Knight19" parent="background" instance=ExtResource("14_2lh8w")]
+position = Vector2(564, 151)
+
+[node name="Minotaur4" parent="background" instance=ExtResource("13_8ab0h")]
+position = Vector2(574, 411)
+
+[node name="Minotaur5" parent="background" instance=ExtResource("13_8ab0h")]
+position = Vector2(-45, 629)
 
 [node name="Node2D" parent="." instance=ExtResource("4_nvcqb")]
 position = Vector2(1, 629)
