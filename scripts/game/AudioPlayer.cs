@@ -18,30 +18,43 @@ public partial class AudioPlayer : Node
     public AudioStreamPlayer musicPlayer;
 
     [Export]
-    public Godot.Collections.Dictionary sounds = new();
+    public Godot.Collections.Dictionary<string, GodotObject> sounds = new();
 
-    public static AudioStreamPlayer PlaySound(string sound, bool loop = false, float pitch = 1)
+    public static AudioStreamPlayer2D PlaySound(string sound, Node parent, bool loop = false, float pitch = 1)
     {
         AudioStream soundStream = (AudioStream)Instance.sounds[sound];
-        var streamPlayer = new AudioStreamPlayer();
-        Instance.AddChild(streamPlayer);
+        var streamPlayer = new AudioStreamPlayer2D();
+        parent.AddChild(streamPlayer);
         streamPlayer.Stream = soundStream;
         streamPlayer.PitchScale = pitch;
         streamPlayer.VolumeLinear = Instance.sfxVolume;
         streamPlayer.Play();
 
         if (loop) streamPlayer.Finished += () => streamPlayer.Play();
-        else streamPlayer.Finished += () => streamPlayer.QueueFree();
+        else streamPlayer.Finished += streamPlayer.QueueFree;
 
         return streamPlayer;
     }
 
 
-    public static AudioStreamPlayer PlaySoundRandomPitch(string sound, bool loop = false, float pitch = 1, float variation = 0.4f)
+    public static AudioStreamPlayer2D PlaySoundRandomPitch(string sound, Node parent, bool loop = false, float pitch = 1, float variation = 0.4f)
     {
-        float newPitch = pitch + Random.GenerateFloat(1 - variation, 1 + variation);
-        return PlaySound(sound, loop, newPitch);
-        
+        float newPitch = pitch + Random.GenerateFloat(-variation, variation);
+        return PlaySound(sound, parent, loop, newPitch);   
+    }
+
+    public static Tween PlayRandomContinuousSound(string sound, Node parent, float pitch = 1, float variation = 0.4f, float interval = 0.25f)
+    {
+
+        Tween tween = Instance.CreateTween();
+        tween.TweenInterval(interval);
+        tween.TweenCallback(Callable.From(() =>
+        {
+            PlaySoundRandomPitch(sound, parent, false, pitch, variation);
+        }));
+        tween.SetLoops();
+
+        return tween;
     }
 
 
@@ -68,9 +81,9 @@ public partial class AudioPlayer : Node
         streamPlayer.Stream = newMusicStream;
         streamPlayer.VolumeLinear = Instance.musicVolume;
 
-        Instance.musicPlayer = streamPlayer; 
+        Instance.musicPlayer = streamPlayer;
         Instance.musicPlayer.Play();
-        
+
         streamPlayer.Finished += () => streamPlayer.Play();
 
         return;

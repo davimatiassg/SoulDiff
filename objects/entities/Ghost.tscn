@@ -1,4 +1,4 @@
-[gd_scene load_steps=40 format=3 uid="uid://b4283bflripuo"]
+[gd_scene load_steps=42 format=3 uid="uid://b4283bflripuo"]
 
 [ext_resource type="Script" uid="uid://cvekhgl6c16nj" path="res://scripts/entities/bodies/GhostBody.cs" id="1_4ml3q"]
 [ext_resource type="Shader" uid="uid://bcwyj2yow674w" path="res://materials/Highlight.gdshader" id="1_qx6pd"]
@@ -7,6 +7,8 @@
 [ext_resource type="Texture2D" uid="uid://bqknncqu1ro4q" path="res://sprites/hud/icons/ghost.png" id="4_piif3"]
 [ext_resource type="Texture2D" uid="uid://ud4ysrgr5loy" path="res://sprites/entities/ghostbring.png" id="5_5i6j2"]
 [ext_resource type="Texture2D" uid="uid://baf66mpa4mleb" path="res://sprites/entities/ghost.png" id="5_m70px"]
+[ext_resource type="Texture2D" uid="uid://d1yv8iv81mtrd" path="res://sprites/hud/icons/Skills10.png" id="5_qxt3k"]
+[ext_resource type="Texture2D" uid="uid://rxt7ihrrprn6" path="res://sprites/hud/icons/Skills11.png" id="6_ata4l"]
 [ext_resource type="FontFile" uid="uid://5qyau3olj3s4" path="res://fonts/hf-free-complete/compass-pro-v1.1/CompassPro.otf" id="9_4t1uk"]
 [ext_resource type="FontFile" uid="uid://dfwrm0cvqrp6p" path="res://fonts/hf-free-complete/futile-pro-v1/FutilePro.otf" id="10_qxt3k"]
 
@@ -413,6 +415,8 @@ anim = NodePath("AnimationPlayer")
 sprite = NodePath("skull")
 collision = NodePath("CollisionShape2D")
 portrait = ExtResource("4_piif3")
+ability1 = ExtResource("5_qxt3k")
+ability2 = ExtResource("6_ata4l")
 OutlineColor = Color(1, 1, 1, 0)
 
 [node name="skull" type="AnimatedSprite2D" parent="."]
@@ -433,8 +437,8 @@ libraries = {
 
 [node name="label" type="Sprite2D" parent="."]
 z_index = 10
-position = Vector2(0, -24)
-scale = Vector2(0.4, 0.4)
+position = Vector2(9.536743e-07, -27.000002)
+scale = Vector2(0.60625, 0.60625)
 texture = SubResource("ViewportTexture_4t1uk")
 
 [node name="SubViewport" type="SubViewport" parent="."]

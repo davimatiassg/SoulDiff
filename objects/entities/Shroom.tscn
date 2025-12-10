@@ -1,4 +1,4 @@
-[gd_scene load_steps=31 format=3 uid="uid://utpq2smkpa7m"]
+[gd_scene load_steps=32 format=3 uid="uid://utpq2smkpa7m"]
 
 [ext_resource type="Script" uid="uid://conyp11j0yrxr" path="res://scripts/entities/bodies/ShroomBody.cs" id="1_lyeao"]
 [ext_resource type="PackedScene" uid="uid://bwptecaxymblm" path="res://objects/effects/BombShroom.tscn" id="2_6hwho"]
@@ -8,6 +8,7 @@
 [ext_resource type="Texture2D" uid="uid://d1a8yolax41ea" path="res://sprites/hud/icons/Skills3.png" id="5_gvf68"]
 [ext_resource type="Texture2D" uid="uid://cake640ejch07" path="res://sprites/entities/shroom.png" id="5_hq2dg"]
 [ext_resource type="Texture2D" uid="uid://b8r0tulvb14ql" path="res://sprites/entities/shroom-glove.png" id="6_2ufix"]
+[ext_resource type="Texture2D" uid="uid://brcycvpw2wx5f" path="res://sprites/hud/icons/Skills13.png" id="6_dl7qg"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_xg55p"]
 shader = ExtResource("4_gvf68")
@@ -217,6 +218,7 @@ sprite = NodePath("sprite")
 collision = NodePath("CollisionShape2D")
 portrait = ExtResource("4_2ufix")
 ability1 = ExtResource("5_gvf68")
+ability2 = ExtResource("6_dl7qg")
 
 [node name="sprite" type="AnimatedSprite2D" parent="."]
 texture_filter = 1

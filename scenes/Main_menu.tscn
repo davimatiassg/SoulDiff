@@ -1,7 +1,10 @@
-[gd_scene load_steps=9 format=3 uid="uid://0wrxuud1gg2h"]
+[gd_scene load_steps=12 format=3 uid="uid://0wrxuud1gg2h"]
 
 [ext_resource type="Script" uid="uid://byibnxnqfqlq1" path="res://scripts/hud/MainMenu.cs" id="1_d1rr7"]
 [ext_resource type="Texture2D" uid="uid://du35l62e22hww" path="res://sprites/hud/background.png" id="2_d1rr7"]
+[ext_resource type="Texture2D" uid="uid://byd6jyer72ye1" path="res://sprites/hud/coluna lateral.png" id="2_m5x4w"]
+[ext_resource type="Texture2D" uid="uid://dt2xny0fxkkv" path="res://sprites/hud/button.png" id="2_q4q5n"]
+[ext_resource type="FontFile" uid="uid://5qyau3olj3s4" path="res://fonts/hf-free-complete/compass-pro-v1.1/CompassPro.otf" id="3_m5x4w"]
 [ext_resource type="Texture2D" uid="uid://bgcssh3qhphdu" path="res://sprites/hud/RageText.png" id="3_qtdab"]
 [ext_resource type="FontFile" uid="uid://bvsdwijfhhd7t" path="res://fonts/hf-free-complete/expression-pro-v1.1/ExpressionPro.ttf" id="4_610dt"]
 [ext_resource type="Script" uid="uid://crppldnbwltdf" path="res://scripts/game/SceneManager.cs" id="5_cvwki"]
@@ -10,7 +13,7 @@
 
 [sub_resource type="CanvasTexture" id="CanvasTexture_d1rr7"]
 
-[node name="MainMenu" type="TextureRect"]
+[node name="MainMenu" type="TextureRect" node_paths=PackedStringArray("playButton", "quitButton")]
 self_modulate = Color(1, 1, 1, 0.2901961)
 custom_minimum_size = Vector2(640, 360)
 anchors_preset = 15
@@ -22,6 +25,44 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 texture = SubResource("CanvasTexture_d1rr7")
 script = ExtResource("1_d1rr7")
+playButton = NodePath("MainHBoxContainer/InnerLeftHBoxContainer/ButtonsVBoxContainer/PlayButton")
+quitButton = NodePath("MainHBoxContainer/InnerLeftHBoxContainer/ButtonsVBoxContainer/QuitButton")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+layout_mode = 0
+offset_left = 1.0
+offset_top = 537.0
+offset_right = 94.0
+offset_bottom = 738.6895
+texture = ExtResource("2_m5x4w")
+
+[node name="TextureRect2" type="TextureRect" parent="."]
+layout_mode = 0
+offset_top = 374.0
+offset_right = 93.0
+offset_bottom = 575.6895
+texture = ExtResource("2_m5x4w")
+
+[node name="TextureRect3" type="TextureRect" parent="."]
+layout_mode = 0
+offset_top = 210.0
+offset_right = 93.0
+offset_bottom = 411.6895
+texture = ExtResource("2_m5x4w")
+
+[node name="TextureRect4" type="TextureRect" parent="."]
+layout_mode = 0
+offset_top = 44.0
+offset_right = 93.0
+offset_bottom = 245.68951
+texture = ExtResource("2_m5x4w")
+
+[node name="TextureRect5" type="TextureRect" parent="."]
+layout_mode = 0
+offset_top = -121.0
+offset_right = 93.0
+offset_bottom = 80.689514
+texture = ExtResource("2_m5x4w")
 
 [node name="MainHBoxContainer" type="HBoxContainer" parent="."]
 layout_mode = 1
@@ -41,13 +82,34 @@ layout_mode = 2
 theme_override_constants/separation = 8
 alignment = 1
 
-[node name="PlayButton" type="Button" parent="MainHBoxContainer/InnerLeftHBoxContainer/ButtonsVBoxContainer"]
+[node name="PlayButton" type="TextureButton" parent="MainHBoxContainer/InnerLeftHBoxContainer/ButtonsVBoxContainer"]
+texture_filter = 1
 layout_mode = 2
-text = "Jogar"
+texture_normal = ExtResource("2_q4q5n")
 
-[node name="QuitButton" type="Button" parent="MainHBoxContainer/InnerLeftHBoxContainer/ButtonsVBoxContainer"]
+[node name="RichTextLabel" type="RichTextLabel" parent="MainHBoxContainer/InnerLeftHBoxContainer/ButtonsVBoxContainer/PlayButton"]
+layout_mode = 0
+offset_right = 42.0
+offset_bottom = 27.0
+mouse_filter = 2
+theme_override_fonts/normal_font = ExtResource("3_m5x4w")
+text = "PLAY"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="QuitButton" type="TextureButton" parent="MainHBoxContainer/InnerLeftHBoxContainer/ButtonsVBoxContainer"]
 layout_mode = 2
-text = "Sair"
+texture_normal = ExtResource("2_q4q5n")
+
+[node name="RichTextLabel" type="RichTextLabel" parent="MainHBoxContainer/InnerLeftHBoxContainer/ButtonsVBoxContainer/QuitButton"]
+layout_mode = 0
+offset_right = 42.0
+offset_bottom = 27.0
+mouse_filter = 2
+theme_override_fonts/normal_font = ExtResource("3_m5x4w")
+text = "QUIT"
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="MainGameArt" type="TextureRect" parent="MainHBoxContainer"]
 layout_mode = 2
@@ -88,14 +150,13 @@ theme_override_font_sizes/font_size = 30
 text = "Desenvolvido por: Davi Matias, Gilberto Rodrigues, Kirin e Vitor Cavacante"
 horizontal_alignment = 1
 
-[node name="SceneManager" type="CanvasLayer" parent="." node_paths=PackedStringArray("currentLevel", "vignette")]
+[node name="SceneManager" type="CanvasLayer" parent="." node_paths=PackedStringArray("vignette")]
 offset = Vector2(1, 1)
 transform = Transform2D(1, 0, 0, 1, 1, 1)
 script = ExtResource("5_cvwki")
 levels = Dictionary[String, String]({
 "Level_1": "res://scenes/Test-Level.tscn"
 })
-currentLevel = NodePath("")
 vignette = NodePath("GhostLaugh")
 
 [node name="GhostLaugh" type="TextureRect" parent="SceneManager"]

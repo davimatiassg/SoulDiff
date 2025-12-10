@@ -1,4 +1,4 @@
-[gd_scene load_steps=33 format=3 uid="uid://bqa8vwqpy2rvs"]
+[gd_scene load_steps=38 format=3 uid="uid://bqa8vwqpy2rvs"]
 
 [ext_resource type="PackedScene" uid="uid://w7scrx2p6vkw" path="res://objects/SequenceManager.tscn" id="1_400sg"]
 [ext_resource type="Script" uid="uid://crppldnbwltdf" path="res://scripts/game/SceneManager.cs" id="2_g4kob"]
@@ -20,6 +20,11 @@
 [ext_resource type="Script" uid="uid://c2dfgalunfbwe" path="res://scripts/game/AudioPlayer.cs" id="15_y5y3l"]
 [ext_resource type="AudioStream" uid="uid://8veehjjbqpws" path="res://audio/music/Hexes of.wav" id="16_kyk2p"]
 [ext_resource type="AudioStream" uid="uid://dtje2rebjjdq7" path="res://audio/music/The Hexsmith.wav" id="17_45i86"]
+[ext_resource type="AudioStream" uid="uid://l3bkq0m820cn" path="res://audio/sfx/sfx_pickup_key.wav" id="20_a8wo8"]
+[ext_resource type="AudioStream" uid="uid://b862c17y2h7mv" path="res://audio/sfx/sfx_human_ouch.wav" id="21_attvq"]
+[ext_resource type="AudioStream" uid="uid://b1dandr7lfo40" path="res://audio/sfx/sfx_bow_pull.wav" id="22_ocgqw"]
+[ext_resource type="AudioStream" uid="uid://cyfi6vkubl4ox" path="res://audio/sfx/sfx_bow_shot.wav" id="23_jbgew"]
+[ext_resource type="AudioStream" uid="uid://dnb5pbnok3if2" path="res://audio/sfx/sfx_human_step.wav" id="24_jbgew"]
 
 [sub_resource type="Gradient" id="Gradient_mcffj"]
 offsets = PackedFloat32Array(0)
@@ -546,7 +551,12 @@ metadata/_custom_type_script = "uid://b2kkca2pbctmx"
 script = ExtResource("15_y5y3l")
 sounds = {
 "mus_Hexes_of": ExtResource("16_kyk2p"),
-"mus_The_Hexsmith": ExtResource("17_45i86")
+"mus_The_Hexsmith": ExtResource("17_45i86"),
+"sfx_bow_pull": ExtResource("22_ocgqw"),
+"sfx_bow_shot": ExtResource("23_jbgew"),
+"sfx_human_ouch": ExtResource("21_attvq"),
+"sfx_human_step": ExtResource("24_jbgew"),
+"sfx_pickup_key": ExtResource("20_a8wo8")
 }
 
 [node name="Level" type="Node2D" parent="."]

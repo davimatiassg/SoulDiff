@@ -21,6 +21,8 @@ public partial class DoorKey : Node2D
         
         if (!(body is AnyBody entityBody && entityBody.isPlayer)) return;
 
+        AudioPlayer.PlaySound("sfx_pickup_key", MainCamera.Instance);
+
         OnCollectKey?.Invoke();
         Vanish();
     }

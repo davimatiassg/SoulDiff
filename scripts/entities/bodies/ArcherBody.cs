@@ -33,6 +33,8 @@ public partial class ArcherBody : AnyBody
 
     private bool attacking = false;
     private bool moving;
+
+    Tween moveSoundTween;
     public override void Move(Vector2 direction)
     {
         if (stunned || dead) return;
@@ -46,6 +48,9 @@ public partial class ArcherBody : AnyBody
 
         if (movingToggled)
         {
+            if(moveSoundTween != null) moveSoundTween.Kill(); 
+            if (moving) moveSoundTween = AudioPlayer.PlayRandomContinuousSound("sfx_human_step", this); 
+            
             anim.Play("RESET");
             anim.Play(moving ? "walk" : "idle");
         }
@@ -76,7 +81,7 @@ public partial class ArcherBody : AnyBody
         float a = acel;
 
 
-
+        AudioPlayer.PlaySound("sfx_bow_pull", this, false, 2);
         Tween dashCD = CreateTween();
         dashCD.TweenInterval(0.2f);
         dashCD.TweenCallback(Callable.From(() => canDash = true));
@@ -122,7 +127,7 @@ public partial class ArcherBody : AnyBody
 
     public void Shoot()
     {
-        
+
 
         MagicBolt arrow = (MagicBolt)EffectPool.SpawnEffect(arrowPrefab, GetParent<Node2D>());
         arrow.GlobalPosition = bowTip.GlobalPosition;
@@ -133,6 +138,7 @@ public partial class ArcherBody : AnyBody
         attacking = false;
         moving = false;
         anim.Play("RESET");
+        AudioPlayer.PlaySoundRandomPitch("sfx_bow_shot", this);
     }
 
     public override void KnockbackApply(Vector2 knockbac)
@@ -149,6 +155,8 @@ public partial class ArcherBody : AnyBody
         anim.Play("hurt");
         stunned = true;
         dead = true;
+        moveSoundTween.Kill();
+
         CollisionLayer = 1 << 0;
         CollisionMask = CollisionLayer;
 
@@ -157,7 +165,7 @@ public partial class ArcherBody : AnyBody
         
         SequenceManager.OnPlayerDie();
         MainCamera.CameraShake(5, 0.5f);
-        
+        AudioPlayer.PlaySound("sfx_human_ouch", this);
     }
 
 }
